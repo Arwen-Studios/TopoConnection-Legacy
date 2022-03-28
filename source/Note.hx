@@ -170,8 +170,13 @@ class Note extends FlxSprite
 
 		if (isSustainNote && prevNote != null)
 		{
-			alpha = 0.6;
-			multAlpha = 0.6;
+			if(ClientPrefs.clipStyle == "FNF") {
+				alpha = 0.6;
+				multAlpha = 0.6;
+			} else {
+				alpha = 1;
+			}
+
 			hitsoundDisabled = true;
 			if(ClientPrefs.downScroll) flipY = true;
 

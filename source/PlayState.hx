@@ -1035,7 +1035,7 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
@@ -2327,11 +2327,11 @@ class PlayState extends MusicBeatState
 		scoreTxt.text += divider + 'Misses: ${songMisses}';
 
 		if (ratingName == '?') {
-			scoreTxt.text += divider + 'Accuracy: 0.00%';
-			scoreTxt.text += divider + 'Rating: ${ratingName} ${ratingFC}';
+			scoreTxt.text += divider + 'Accuracy: 0%';
+			scoreTxt.text += ' [${ratingName}${ratingFC}]';
 		} else {
 			scoreTxt.text += divider + 'Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%';
-			scoreTxt.text += divider + 'Rating: ${ratingName} [${ratingFC}]';
+			scoreTxt.text += ' [${ratingName}${ratingFC}]';
 		}
 
 		if(botplayTxt.visible) {
@@ -4474,11 +4474,14 @@ class PlayState extends MusicBeatState
 
 			// Rating FC
 			ratingFC = "";
-			if (sicks > 0) ratingFC = "SFC";
-			if (goods > 0) ratingFC = "GFC";
-			if (bads > 0 || shits > 0) ratingFC = "FC";
-			if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
-			else if (songMisses >= 10) ratingFC = "Clear";
+			if (sicks > 0)
+				ratingFC =  "- SFC";
+			if (goods > 0)
+				ratingFC = " - GFC";
+			if (bads > 0 || shits > 0)
+				ratingFC = " - FC";
+			if (songMisses > 0)
+				ratingFC = "";
 		}
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);

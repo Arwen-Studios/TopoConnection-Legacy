@@ -77,8 +77,8 @@ class VisualsUISubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
-		var option:Option = new Option('Health Bar Transparency',
-			'How much transparent should the health bar and icons be.',
+		var option:Option = new Option('Health Bar Opacity',
+			'How much opaque should the health bar and icons be.',
 			'healthBarAlpha',
 			'percent',
 			1);
@@ -107,6 +107,14 @@ class VisualsUISubState extends BaseOptionsMenu
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
+		
+		var option:Option = new Option('Clip Style:',
+			"Which clip style should the Sustain/Hold Notes use?",
+			'clipStyle',
+			'string',
+			'Stepmania',
+			['FNF', 'Stepmania']);
+		addOption(option);
 
 		super();
 	}
