@@ -118,6 +118,7 @@ class PlayState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
+	public var allowScoring:Bool = true;
 
 	public var vocals:FlxSound;
 
@@ -907,7 +908,7 @@ class PlayState extends MusicBeatState
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
 		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
-		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
+		timeBar.numDivisions = 400; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.alpha = 0;
 		timeBar.visible = showTime;
 		add(timeBar);
@@ -1832,6 +1833,24 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		if(ClientPrefs.getGameplaySetting("noHolds",false))allowScoring=false;
+
+		var transformation:Array<Int> = [
+			0,
+			1,
+			2,
+			3
+		];
+
+		if(ClientPrefs.getGameplaySetting("right",false)){
+			transformation = [
+				2,
+				0,
+				3,
+				1
+			];
+		}
+
 		for (section in noteData)
 		{
 			for (songNotes in section.sectionNotes)
@@ -1849,6 +1868,13 @@ class PlayState extends MusicBeatState
 				{
 					gottaHitNote = !section.mustHitSection;
 				}
+
+				daNoteData = transformation[daNoteData];
+				if(ClientPrefs.getGameplaySetting('shuffle', false))
+					daNoteData = FlxG.random.int(0, 3);
+
+				if(ClientPrefs.getGameplaySetting('mirror', false))
+					daNoteData = Math.floor(3 - daNoteData);
 
 				var oldNote:Note;
 				if (unspawnNotes.length > 0)
@@ -1869,6 +1895,11 @@ class PlayState extends MusicBeatState
 
 				susLength = susLength / Conductor.stepCrochet;
 				unspawnNotes.push(swagNote);
+
+				if(ClientPrefs.getGameplaySetting("noHolds", false)){
+					susLength=0;
+					swagNote.sustainLength = 0;
+				}
 
 				var floorSus:Int = Math.floor(susLength);
 				if(floorSus > 0) {
@@ -1938,6 +1969,102 @@ class PlayState extends MusicBeatState
 		// playerCounter += 1;
 
 		unspawnNotes.sort(sortByShit);
+
+		var removing:Array<Note> = [];
+		if(ClientPrefs.getGameplaySetting("noChords", false)){
+			var pastBFNotes:Array<Null<Note>> = [null,null,null,null];
+			var pastDadNotes:Array<Null<Note>> = [null,null,null,null];
+			for(note in unspawnNotes){
+				if(removing.contains(note))continue;
+				if(note.isSustainNote)continue;
+
+				var array = pastBFNotes;
+				if(!note.mustPress)array = pastDadNotes;
+
+				var remove:Bool=false;
+				for(otherNote in array){
+					if(otherNote!=null && note!=null){
+						if(Math.abs(otherNote.strumTime-note.strumTime) < 4){
+							removing.push(note);
+							allowScoring=false; // removed a jump, so no more scoring!!
+							trace("eradicate jump");
+							break;
+						}
+					}
+				}
+				if(!removing.contains(note))
+					array[note.noteData]=note;
+
+			}
+		}
+
+		if(ClientPrefs.getGameplaySetting("noJacks",false)){
+			var jackThreshold:Float = 16;
+			//["4th", "8th", "12th", "16th", "24th", "32nd", "48th", "64th", "192nd"]
+			switch(ClientPrefs.getGameplaySetting("jackThreshold","4th")){
+				case '4th':
+					jackThreshold /= 4;
+				case '8th':
+					jackThreshold /= 8;
+				case '12th':
+					jackThreshold /= 12;
+				case '16th':
+					jackThreshold /= 16;
+				case '24th':
+					jackThreshold /= 24;
+				case '32nd':
+					jackThreshold /= 32;
+				case '48th':
+					jackThreshold /= 48;
+				case '64th':
+					jackThreshold /= 64;
+				case '192nd':
+					jackThreshold /= 192;
+				default:
+					jackThreshold /= 16;
+			}
+			var pastBFNotes:Array<Null<Note>> = [null,null,null,null];
+			var pastDadNotes:Array<Null<Note>> = [null,null,null,null];
+			for(note in unspawnNotes){
+				if(removing.contains(note))continue;
+				if(note.isSustainNote)continue;
+				var array = pastBFNotes;
+				if(!note.mustPress)array = pastDadNotes;
+
+				var remove:Bool=false;
+				var prevNote = array[note.noteData];
+				if(prevNote!=null && note!=null){
+					if(Math.abs(prevNote.strumTime-note.strumTime) <= (Conductor.getCrochet(note.strumTime)/4) * jackThreshold){
+						removing.push(note);
+						allowScoring=false; // removed a jack, so no more scoring!
+						trace("eradicate jack");
+					}
+				}
+
+				if(!removing.contains(note)){
+					if(!note.mustPress)pastDadNotes[note.noteData]=note; else pastBFNotes[note.noteData]=note;
+				}
+
+			}
+		}
+
+		for(note in unspawnNotes){ // because eradicating jacks caused issues w/ holds!!
+			if(note.isSustainNote){
+				if(note.prevNote==null || removing.contains(note.prevNote) || !note.prevNote.alive){
+					removing.push(note);
+				}
+			}
+		}
+
+		for(note in removing){
+			unspawnNotes.remove(note);
+			note.kill();
+			note.destroy();
+			note.active = false;
+			note.visible = false;
+		}
+		unspawnNotes.sort(sortByShit);
+
 		if(eventNotes.length > 1) { //No need to sort if there's a single one or none at all
 			eventNotes.sort(sortByTime);
 		}
@@ -2659,34 +2786,46 @@ class PlayState extends MusicBeatState
 	function doDeathCheck(?skipHealthCheck:Bool = false) {
 		if (((skipHealthCheck && instakillOnMiss) || health <= 0) && !practiceMode && !isDead)
 		{
-			var ret:Dynamic = callOnLuas('onGameOver', []);
+			var ret:Dynamic = callOnLuas('onGameOver', [ClientPrefs.getGameplaySetting('noFail', false)]);
 			if(ret != FunkinLua.Function_Stop) {
-				boyfriend.stunned = true;
-				deathCounter++;
+				if(ClientPrefs.getGameplaySetting('noFail', false)){
+					deathCounter++;
+					allowScoring=false;
+					isDead=true; // I'M.. DEAAADDD..
+					FlxG.sound.play(Paths.sound(GameOverSubstate.deathSoundName));
+					healthBar.visible=false;
+					healthBar.alpha = 0;
+					iconP1.visible = false;
+					iconP2.visible = false;
+					return false; // yea you DID die but the game should keep going n shit so like
+				}else{
+					boyfriend.stunned = true;
+					deathCounter++;
 
-				paused = true;
+					paused = true;
 
-				vocals.stop();
-				FlxG.sound.music.stop();
+					vocals.stop();
+					FlxG.sound.music.stop();
 
-				persistentUpdate = false;
-				persistentDraw = false;
-				for (tween in modchartTweens) {
-					tween.active = true;
-				}
-				for (timer in modchartTimers) {
-					timer.active = true;
-				}
+					persistentUpdate = false;
+					persistentDraw = false;
+					for (tween in modchartTweens) {
+						tween.active = true;
+					}
+					for (timer in modchartTimers) {
+						timer.active = true;
+					}
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
-				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 				
+
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
 				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
 				isDead = true;
 				return true;
+				}
 			}
 		}
 		return false;
@@ -3217,7 +3356,7 @@ class PlayState extends MusicBeatState
 		#end
 
 		if(ret != FunkinLua.Function_Stop && !transitioning) {
-			if (SONG.validScore)
+			if (SONG.validScore && allowScoring)
 			{
 				#if !switch
 				var percent:Float = ratingPercent;
@@ -3253,7 +3392,7 @@ class PlayState extends MusicBeatState
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
 						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
-						if (SONG.validScore)
+						if (SONG.validScore && allowScoring)
 						{
 							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 						}
@@ -3712,7 +3851,7 @@ class PlayState extends MusicBeatState
 			notes.forEachAlive(function(daNote:Note)
 			{
 				// hold note functions
-				if (daNote.isSustainNote && controlHoldArray[daNote.noteData] && daNote.canBeHit 
+				if (daNote.isSustainNote && controlHoldArray[daNote.noteData] && daNote.canBeHit
 				&& daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit) {
 					goodNoteHit(daNote);
 				}
@@ -3952,7 +4091,8 @@ class PlayState extends MusicBeatState
 				popUpScore(note);
 				if(combo > 9999) combo = 9999;
 			}
-			health += note.hitHealth * healthGain;
+			if(!isDead)
+				health += note.hitHealth * healthGain;
 
 			if(!note.noAnimation) {
 				var daAlt = '';
@@ -4474,14 +4614,11 @@ class PlayState extends MusicBeatState
 
 			// Rating FC
 			ratingFC = "";
-			if (sicks > 0)
-				ratingFC =  "- SFC";
-			if (goods > 0)
-				ratingFC = " - GFC";
-			if (bads > 0 || shits > 0)
-				ratingFC = " - FC";
-			if (songMisses > 0)
-				ratingFC = "";
+			if (sicks > 0) ratingFC =  "- ☆☆☆"; //Triple Star Grade
+			if (goods > 0) ratingFC = " - ☆☆"; //Double Star Grade
+			if (bads > 0 ) ratingFC = " - ☆"; //Single Star Grade
+			if (shits > 0) ratingFC = " - FC"; //Full Combo
+			if (songMisses > 0) ratingFC = "";
 		}
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);

@@ -20,7 +20,7 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Options', 'Exit to menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
@@ -32,6 +32,7 @@ class PauseSubState extends MusicBeatSubstate
 	//var botplayText:FlxText;
 
 	public static var songName:String = '';
+	public static var playStateToOp:Bool = false;
 
 	public function new(x:Float, y:Float)
 	{
@@ -201,6 +202,7 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.sound.music.volume = 0;
 					PlayState.changedDifficulty = true;
 					PlayState.chartingMode = false;
+					FlxG.mouse.visible = false;
 					return;
 				}
 
@@ -211,6 +213,7 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Resume":
+					FlxG.mouse.visible = false;
 					close();
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
@@ -220,7 +223,11 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.changedDifficulty = true;
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
-					restartSong();
+					FlxG.mouse.visible = true;
+					openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){restartSong();}, null, false));
+				case "Options":
+                    FlxG.mouse.visible = true;
+					openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){goToOptions();}, null, false));
 				case "Leave Charting Mode":
 					restartSong();
 					PlayState.chartingMode = false;
@@ -278,6 +285,7 @@ class PauseSubState extends MusicBeatSubstate
 		{
 			MusicBeatState.resetState();
 		}
+		FlxG.mouse.visible = false;
 	}
 
 	override function destroy()
@@ -366,4 +374,16 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		skipTimeText.text = FlxStringUtil.formatTime(Math.max(0, Math.floor(curTime / 1000)), false) + ' / ' + FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
 	}
+
+	function goToOptions()
+    {
+        PlayState.deathCounter = 0;
+        PlayState.seenCutscene = false;
+        MusicBeatState.switchState(new options.OptionsState());
+        FlxG.mouse.visible = false;
+        playStateToOp = true;
+        FlxG.sound.playMusic(Paths.music('freakyMenu'));
+        PlayState.changedDifficulty = false;
+        PlayState.chartingMode = false;
+    }
 }

@@ -33,7 +33,7 @@ class ClientPrefs {
 	public static var clipStyle:String = 'Stepmania';
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
-		'scrolltype' => 'multiplicative', 
+		'scrolltype' => 'multiplicative',
 		// anyone reading this, amod is multiplicative speed mod, cmod is constant speed mod, and xmod is bpm based speed mod.
 		// an amod example would be chartSpeed * multiplier
 		// cmod would just be constantSpeed = chartSpeed
@@ -49,7 +49,18 @@ class ClientPrefs {
 		'instakill' => false,
 		'practice' => false,
 		'botplay' => false,
-		'opponentplay' => false
+		'opponentplay' => false,
+
+		// difficulty modifiers
+		'noFail' => false, // you cannot die
+		'noHolds' => false, // removes all holds from the chart
+		'noChords' => false, // removes all jumps, hands, and quads from the chart
+		'jackThreshold' => '16th',
+
+		// other chart modifiers
+		'mirror' => false,
+		'shuffle' => false,
+		'right' => false
 	];
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];

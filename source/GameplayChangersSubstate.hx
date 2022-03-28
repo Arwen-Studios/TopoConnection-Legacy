@@ -82,17 +82,20 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		option.displayFormat = '%vX';
 		optionsArray.push(option);
 
-		var option:GameplayOption = new GameplayOption('Play as Opponent', 'opponentplay', 'bool', false);
-		optionsArray.push(option);
+		optionsArray.push(new GameplayOption('Play as Opponent', 'opponentplay', 'bool', false));
+		optionsArray.push(new GameplayOption('Instakill on Miss', 'instakill', 'bool', false));
+		optionsArray.push(new GameplayOption('Practice Mode', 'practice', 'bool', false));
+		optionsArray.push(new GameplayOption('Botplay', 'botplay', 'bool', false));
+		optionsArray.push(new GameplayOption('No Fail', 'noFail', 'bool', false));
+		optionsArray.push(new GameplayOption('No Holds', 'noHolds', 'bool', false));
+		optionsArray.push(new GameplayOption('No Chords', 'noChords', 'bool', false));
+		optionsArray.push(new GameplayOption('No Jacks', 'noJacks', 'bool', false));
+		optionsArray.push(new GameplayOption('Jack Threshold', 'jackThreshold', 'string', '16th', ["4th", "8th", "12th", "16th", "24th", "32nd", "48th", "64th", "192nd"]));
 
-		var option:GameplayOption = new GameplayOption('Instakill on Miss', 'instakill', 'bool', false);
-		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('Practice Mode', 'practice', 'bool', false);
-		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('Botplay', 'botplay', 'bool', false);
-		optionsArray.push(option);
+		// other chart modifiers
+		optionsArray.push(new GameplayOption('Mirror', 'mirror', 'bool', false));
+		optionsArray.push(new GameplayOption('Shuffle', 'shuffle', 'bool', false));
+		optionsArray.push(new GameplayOption('Right', 'right', 'bool', false));
 	}
 
 	public function getOptionByName(name:String)
