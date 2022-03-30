@@ -34,9 +34,27 @@ class VisualsUISubState extends BaseOptionsMenu
 		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
 
+		var option:Option = new Option('Note Skin:',
+			"Funny Notes, going up and down, How should they look like?",
+			'noteSkin',
+			'string',
+			'Default',
+			['Default', 'Unused', 'Circle', 'Bar', 'FNF']);
+		//option.showNotes = true;
+		//option.onChange = onChangeNoteSkin;
+		if (!OptionsState.cameFromPause)
+			addOption(option);
+
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
 			'noteSplashes',
+			'bool',
+			true);
+		addOption(option);
+
+		var option:Option = new Option('Opaque Holds',
+			"If checked, holds won't have any transparency.",
+			'opaqueHolds',
 			'bool',
 			true);
 		addOption(option);
@@ -89,6 +107,18 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 		
+		var option:Option = new Option('Lane Opacity',
+			'Enables a black bar behind the notes for visibility, how much opaque should it be?.',
+			'laneOpacity',
+			'percent',
+			1);
+		option.scrollSpeed = 1.6;
+		option.minValue = 0.0;
+		option.maxValue = 1;
+		option.changeValue = 0.1;
+		option.decimals = 1;
+		addOption(option);
+		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',
 			'If unchecked, hides FPS Counter.',
@@ -107,16 +137,12 @@ class VisualsUISubState extends BaseOptionsMenu
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
-		
-		var option:Option = new Option('Clip Style:',
-			"Which clip style should the Sustain/Hold Notes use?",
-			'clipStyle',
-			'string',
-			'Stepmania',
-			['FNF', 'Stepmania']);
-		addOption(option);
-
 		super();
+	}
+
+	function onChangeNoteSkin()
+	{
+		updateNotes();
 	}
 
 	var changedMusic:Bool = false;

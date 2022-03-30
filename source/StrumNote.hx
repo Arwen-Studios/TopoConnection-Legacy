@@ -34,7 +34,21 @@ class StrumNote extends FlxSprite
 		this.noteData = leData;
 		super(x, y);
 
-		var skin:String = 'NOTE_assets';
+		var skin:String = '';
+		switch (ClientPrefs.noteSkin)
+		{
+			case 'FNF':
+				skin = 'noteskins/NOTE_assets';
+			case 'Unused':
+				skin = 'noteskins/NOTE_topoV1';
+			case 'Circle':
+				skin = 'noteskins/NOTE_circle';
+			case 'Bar':
+				skin = 'noteskins/NOTE_bar';
+			default:
+				skin = 'noteskins/NOTE_topoV2';
+		}
+
 		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
 		texture = skin; //Load texture and anims
 

@@ -93,7 +93,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(levelDifficulty);
 
 		var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
-		blueballedTxt.text = "Blueballed: " + PlayState.deathCounter;
+		blueballedTxt.text = "Blue balled: " + PlayState.deathCounter;
 		blueballedTxt.scrollFactor.set();
 		blueballedTxt.setFormat(Paths.font('vcr.ttf'), 32);
 		blueballedTxt.updateHitbox();
@@ -223,11 +223,9 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.changedDifficulty = true;
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
-					FlxG.mouse.visible = true;
-					openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){restartSong();}, null, false));
+					restartSong();
 				case "Options":
-                    FlxG.mouse.visible = true;
-					openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){goToOptions();}, null, false));
+					goToOptions();
 				case "Leave Charting Mode":
 					restartSong();
 					PlayState.chartingMode = false;
@@ -382,6 +380,7 @@ class PauseSubState extends MusicBeatSubstate
         MusicBeatState.switchState(new options.OptionsState());
         FlxG.mouse.visible = false;
         playStateToOp = true;
+		options.OptionsState.cameFromPause = true;
         FlxG.sound.playMusic(Paths.music('freakyMenu'));
         PlayState.changedDifficulty = false;
         PlayState.chartingMode = false;

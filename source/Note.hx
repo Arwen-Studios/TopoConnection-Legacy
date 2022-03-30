@@ -170,7 +170,7 @@ class Note extends FlxSprite
 
 		if (isSustainNote && prevNote != null)
 		{
-			if(ClientPrefs.clipStyle == "FNF") {
+			if(!ClientPrefs.opaqueHolds) {
 				alpha = 0.6;
 				multAlpha = 0.6;
 			} else {
@@ -252,7 +252,19 @@ class Note extends FlxSprite
 		if(texture.length < 1) {
 			skin = PlayState.SONG.arrowSkin;
 			if(skin == null || skin.length < 1) {
-				skin = 'NOTE_assets';
+				switch (ClientPrefs.noteSkin)
+				{
+					case 'FNF':
+						skin = 'noteskins/NOTE_assets';
+					case 'Unused':
+						skin = 'noteskins/NOTE_topoV1';
+					case 'Circle':
+						skin = 'noteskins/NOTE_circle';
+					case 'Bar':
+						skin = 'noteskins/NOTE_bar';
+					default:
+						skin = 'noteskins/NOTE_topoV2';
+				}
 			}
 		}
 

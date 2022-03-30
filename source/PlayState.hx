@@ -132,6 +132,9 @@ class PlayState extends MusicBeatState
 
 	private var strumLine:FlxSprite;
 
+	public var laneunderlay:FlxSprite;
+	public var laneunderlayOpponent:FlxSprite;
+
 	//Handles the new epic mega sexy cam code that i've done
 	private var camFollow:FlxPoint;
 	private var camFollowPos:FlxObject;
@@ -878,6 +881,25 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 
+		laneunderlayOpponent = new FlxSprite(0, 0).makeGraphic(110 * 4 + 50, FlxG.height * 2);
+		laneunderlayOpponent.alpha = ClientPrefs.laneOpacity;
+		laneunderlayOpponent.color = FlxColor.BLACK;
+		laneunderlayOpponent.scrollFactor.set();
+
+		laneunderlay = new FlxSprite(0, 0).makeGraphic(110 * 4 + 50, FlxG.height * 2);
+		laneunderlay.alpha = ClientPrefs.laneOpacity;
+		laneunderlay.color = FlxColor.BLACK;
+		laneunderlay.scrollFactor.set();
+		
+		if (ClientPrefs.laneOpacity > 0)
+		{
+			if (!ClientPrefs.middleScroll)
+			{
+				add(laneunderlayOpponent);
+			}
+			add(laneunderlay);
+		}
+
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
 		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -907,7 +929,6 @@ class PlayState extends MusicBeatState
 		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
-		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		timeBar.numDivisions = 400; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.alpha = 0;
 		timeBar.visible = showTime;
@@ -923,6 +944,24 @@ class PlayState extends MusicBeatState
 		{
 			timeTxt.size = 24;
 			timeTxt.y += 3;
+		}
+
+		switch (songName)
+		{
+			case 'purplered' | 'seamless' | 'wannacry': //Chapter 1 - Week 1
+				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
+			case 'lazy':
+				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.LIME);
+			case 'bimbo':
+				timeBar.createFilledBar(FlxColor.BLACK, FlxColor.YELLOW);
+			case 'extrasong':
+				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.RED);
+			case 'suok':
+				timeBar.createFilledBar(0xFFFF0062, 0xFF000000);
+			case 'ghost':
+				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.CYAN);
+			default:
+				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
 
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
@@ -1064,6 +1103,8 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
+		laneunderlay.cameras = [camHUD];
+		laneunderlayOpponent.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
@@ -1526,6 +1567,10 @@ class PlayState extends MusicBeatState
 
 			generateStaticArrows(0);
 			generateStaticArrows(1);
+			laneunderlay.x = playerStrums.members[0].x - 25;
+			laneunderlayOpponent.x = opponentStrums.members[0].x - 25;
+			laneunderlay.screenCenter(Y);
+			laneunderlayOpponent.screenCenter(Y);
 			for (i in 0...playerStrums.length) {
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
