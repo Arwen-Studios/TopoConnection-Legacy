@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				488,
+				378
+			],
+			"loop": false,
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Left",
+			"indices": []
+		},
+		{
+			"offsets": [
+				234,
+				387
+			],
+			"loop": false,
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Right",
+			"indices": []
+		},
+		{
+			"offsets": [
+				362,
+				513
+			],
+			"loop": false,
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				391,
+				468
+			],
+			"loop": false,
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Down",
+			"indices": []
+		},
+		{
+			"offsets": [
+				400,
+				368
+			],
+			"loop": false,
+			"anim": "altPoses",
+			"fps": 24,
+			"name": "Alt",
+			"indices": []
+		},
+		{
+			"offsets": [
+				409,
+				370
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": true,
+			"name": "Idle"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "daviebruno/Bimbo_Assets",
+	"position": [
+		0,
+		300
+	],
+	"healthicon": "bimbo",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		196,
+		0
+	],
+	"camera_position": [
+		-430,
+		-420
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

@@ -22,6 +22,7 @@ class Conductor
 	public static var songPosition:Float=0;
 	public static var lastSongPos:Float;
 	public static var offset:Float = 0;
+	public static var ms:Null<Float>;
 
 	//public static var safeFrames:Int = 10;
 	public static var safeZoneOffset:Float = (ClientPrefs.safeFrames / 60) * 1000; // is calculated in create(), is safeFrames in milliseconds
@@ -38,7 +39,8 @@ class Conductor
 		var timingWindows:Array<Int> = [ClientPrefs.sickWindow, ClientPrefs.goodWindow, ClientPrefs.badWindow];
 		var windowNames:Array<String> = ['sick', 'good', 'bad'];
 
-		// var diff = Math.abs(note.strumTime - Conductor.songPosition) / (PlayState.songMultiplier >= 1 ? PlayState.songMultiplier : 1);
+		ms = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
+		//trace(ms);
 		for(i in 0...timingWindows.length) // based on 4 timing windows, will break with anything else
 		{
 			if (diff <= timingWindows[Math.round(Math.min(i, timingWindows.length - 1))])

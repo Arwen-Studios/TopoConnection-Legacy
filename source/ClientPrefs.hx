@@ -33,6 +33,7 @@ class ClientPrefs {
 	public static var opaqueHolds:Bool = true;
 	public static var noteSkin:String = 'Default';
 	public static var laneOpacity:Float = 0;
+	public static var npsDisplay:Bool = false;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -141,6 +142,7 @@ class ClientPrefs {
 		FlxG.save.data.opaqueHolds = opaqueHolds;
 		FlxG.save.data.noteSkin = noteSkin;
 		FlxG.save.data.laneOpacity = laneOpacity;
+		FlxG.save.data.npsDisplay = npsDisplay;
 	
 		FlxG.save.flush();
 
@@ -255,6 +257,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.laneOpacity != null) {
 			laneOpacity = FlxG.save.data.laneOpacity;
+		}
+		if(FlxG.save.data.npsDisplay != null) {
+			npsDisplay = FlxG.save.data.npsDisplay;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{
