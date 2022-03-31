@@ -250,8 +250,8 @@ class PauseSubState extends MusicBeatSubstate
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;
-					PlayState.instance.alphaWater.visible = PlayState.instance.cpuControlled;
-					PlayState.instance.alphaWater.alpha = 1;
+					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
+					PlayState.instance.botplayTxt.alpha = 1;
 					PlayState.instance.botplaySine = 0;
 				case "Exit to menu":
 					PlayState.deathCounter = 0;
