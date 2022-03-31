@@ -2571,7 +2571,6 @@ class PlayState extends MusicBeatState
 			paused = true;
 			cancelMusicFadeTween();
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
-			endSong();
 		}
 
 		if (startingSong)
