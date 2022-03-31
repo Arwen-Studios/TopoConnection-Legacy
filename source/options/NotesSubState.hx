@@ -71,7 +71,7 @@ class NotesSubState extends MusicBeatSubstate
 			var note:FlxSprite = new FlxSprite(posX, yPos);
 			switch (ClientPrefs.noteSkin)
 			{
-				case 'Unused':
+				case 'Alpha':
 					note.frames = Paths.getSparrowAtlas('noteskins/NOTE_topoV1');
 				case 'Circle':
 					note.frames = Paths.getSparrowAtlas('noteskins/NOTE_circle');

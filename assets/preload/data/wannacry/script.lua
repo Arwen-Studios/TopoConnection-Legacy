@@ -1,8 +1,5 @@
-function onCreate()
-	setProperty('skipCountdown', true)
-end
-
 function onCreatePost()
+
 	for i= 0, 3 do
 		setPropertyFromGroup('opponentStrums', i, 'texture', 'noteskins/opponent/Nxxty')
     end

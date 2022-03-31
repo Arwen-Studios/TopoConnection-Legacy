@@ -1,8 +1,5 @@
 stage
-spooky
-philly
-limo
-mall
-mallEvil
 school
 schoolEvil
+white-space
+windowsxp

@@ -39,7 +39,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'noteSkin',
 			'string',
 			'Default',
-			['Default', 'Unused', 'Circle', 'Bar', 'FNF']);
+			['Default', 'Alpha', 'Circle', 'FNF']);
 		//option.showNotes = true;
 		//option.onChange = onChangeNoteSkin;
 		if (!OptionsState.cameFromPause)
@@ -93,6 +93,18 @@ class VisualsUISubState extends BaseOptionsMenu
 			'scoreZoom',
 			'bool',
 			true);
+		addOption(option);
+
+		var option:Option = new Option('Stage Opacity',
+			'How much opaque should the background be\n0% = Completely Opaque\n100% = Completely Transparent.',
+			'bgAlpha',
+			'percent',
+			1);
+		option.scrollSpeed = 1.6;
+		option.minValue = 0.0;
+		option.maxValue = 1;
+		option.changeValue = 0.1;
+		option.decimals = 1;
 		addOption(option);
 
 		var option:Option = new Option('Health Bar Opacity',

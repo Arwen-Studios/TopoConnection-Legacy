@@ -567,21 +567,24 @@ class TitleState extends MusicBeatState
 				gfDance.animation.play('danceLeft');
 		}
 
-		if(!closedState) {
+		if (!closedState) // so you might want to edit delays
+		{
 			sickBeats++;
 			switch (sickBeats)
 			{
 				case 1:
-					FlxG.sound.music.stop();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-					FlxG.sound.music.fadeIn(5, 0, 0.7);
+					{
+						FlxG.sound.music.stop();
+						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.music.fadeIn(5, 0, 0.7);
+					}
 				case 2:
 					#if PSYCH_WATERMARKS
 					createCoolText(['Psych Engine by'], 15);
 					#else
 					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
 					#end
-				case 3:
+				case 4:
 					#if PSYCH_WATERMARKS
 					addMoreText('Shadow Mario', 15);
 					addMoreText('RiverOaken', 15);
@@ -589,33 +592,34 @@ class TitleState extends MusicBeatState
 					#else
 					addMoreText('present');
 					#end
-				case 4:
-					deleteCoolText();
 				case 5:
+					deleteCoolText();
+				case 6:
 					#if PSYCH_WATERMARKS
 					createCoolText(['Not associated', 'with'], -40);
 					#else
 					createCoolText(['In association', 'with'], -40);
 					#end
-				case 7:
+				case 8:
 					addMoreText('newgrounds', -40);
 					ngSpr.visible = true;
-				case 8:
-					deleteCoolText();
-					ngSpr.visible = false;
 				case 9:
-					createCoolText([curWacky[0]]);
-				case 11:
-					addMoreText(curWacky[1]);
-				case 12:
+					ngSpr.visible = false;
 					deleteCoolText();
+				case 10:
+					createCoolText([curWacky[0]]);
+				case 12:
+					addMoreText(curWacky[1]);
 				case 13:
-					addMoreText('Friday');
+					deleteCoolText();
 				case 14:
-					addMoreText('Night');
+					addMoreText('Friday');
 				case 15:
-					addMoreText('Funkin');
+					addMoreText('Night');
 				case 16:
+					addMoreText('Funkin');
+
+				case 17:
 					skipIntro();
 			}
 		}
@@ -687,6 +691,18 @@ class TitleState extends MusicBeatState
 				remove(credGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
 
+				FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
+
+				logoBl.angle = -4;
+
+				new FlxTimer().start(0.01, function(tmr:FlxTimer)
+				{
+					if (logoBl.angle == -4)
+						FlxTween.angle(logoBl, logoBl.angle, 4, 4, {ease: FlxEase.quartInOut});
+					if (logoBl.angle == 4)
+						FlxTween.angle(logoBl, logoBl.angle, -4, 4, {ease: FlxEase.quartInOut});
+				}, 0);
+
 				var easteregg:String = FlxG.save.data.psychDevsEasterEgg;
 				if (easteregg == null) easteregg = '';
 				easteregg = easteregg.toUpperCase();
@@ -697,6 +713,7 @@ class TitleState extends MusicBeatState
 				}
 				#end
 			}
+			FlxG.sound.music.time = 35000;
 			skippedIntro = true;
 		}
 	}

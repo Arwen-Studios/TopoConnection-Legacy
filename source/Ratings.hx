@@ -7,7 +7,7 @@ package;
     although I could just make a better system, this should work for now
 
     check PlayState.hx
-    line: 4630
+    line: 4702
     - BeastlyGhost
 */
 
@@ -57,16 +57,16 @@ class Ratings extends MusicBeatState
 
     // Ratings for "Ghost"
     public static var ghostRatings:Array<Dynamic> = [
-        ['', 0.2], //0%-19%
-        ['', 0.4], //20%-39%
-        ['', 0.5], //40%-49%
-        ['', 0.6], //50%-59%
-        ['', 0.69], //60%-68%
-        ['', 0.7], //69%
-        ['', 0.8], //70%-79%
-        ['', 0.9], //80%-89%
-        ['', 1], //90%-99%
-        ['', 1] //100%
+        ['You really suck at this.', 0.2], //0%-19%
+        ['I got nothing to say to you', 0.4], //20%-39%
+        ['Need your Ghost Tapping back?', 0.5], //40%-49%
+        ['Concerning?', 0.6], //50%-59%
+        ['Eh..', 0.69], //60%-68%
+        ['Nice', 0.7], //69%
+        ['Better', 0.8], //70%-79%
+        ['Great', 0.9], //80%-89%
+        ['Spooky!', 1], //90%-99%
+        ['Amazing!!', 1] //100%
     ];
 
     // Ratings for "Lazy"
@@ -81,5 +81,27 @@ class Ratings extends MusicBeatState
         ['', 0.9], //80%-89%
         ['', 1], //90%-99%
         ['', 1] //100%
+    ];
+
+    // Ratings for "Bimbo"
+    public static var bimboRatings:Array<Dynamic> = [
+        ["A", 0.401], // 40%
+		["AA", 0.6], // 59%
+		["AAA", 0.7], // 69%
+		["AAAA", 0.8], // 79%
+		["AAAAA", 0.86], // 85%
+		["AAAAAA", 0.9], // 89%
+		["AAAAAAA", 0.96], // 95%
+		["AAAAAAAA", 0.976], // 97.5%
+		["AAAAAAAAA", 0.981], // 98%
+		["AAAAAAAAAA", 0.986], // 98.5%
+		["AAAAAAAAAAA", 0.991], // 99%
+		["AAAAAAAAAAAA", 0.9936], // 99.35%
+		["AAAAAAAAAAAAA", 0.9959], // 99.58%
+		["AAAAAAAAAAAAAA", 0.998], // 99.79%
+		["AAAAAAAAAAAAAAA", 0.9989], // 99.88%
+		["AAAAAAAAAAAAAAAA", 0.9999], // 99.97%
+		["AAAAAAAAAAAAAAAAA", 1], // 99.99%
+        ["AAAAAAAAAAAAAAAAAA", 1] // 100%
     ];
 }

@@ -256,7 +256,7 @@ class Note extends FlxSprite
 				{
 					case 'FNF':
 						skin = 'noteskins/NOTE_assets';
-					case 'Unused':
+					case 'Alpha':
 						skin = 'noteskins/NOTE_topoV1';
 					case 'Circle':
 						skin = 'noteskins/NOTE_circle';
