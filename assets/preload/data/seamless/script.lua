@@ -12,4 +12,8 @@ function onCreatePost()
 			setPropertyFromGroup('unspawnNotes', i, 'texture', 'noteskins/opponent/Nxxty')
 		end
 	end
+
+	function onDestroy()
+		setProperty('skipCountdown', false)
+	end
 end

@@ -36,6 +36,7 @@ class ClientPrefs {
 	public static var npsDisplay:Bool = false;
 	public static var bgAlpha:Float = 0;
 	public static var debugMode:Bool = false;
+	public static var autoPause:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -147,6 +148,7 @@ class ClientPrefs {
 		FlxG.save.data.npsDisplay = npsDisplay;
 		FlxG.save.data.bgAlpha = bgAlpha;
 		FlxG.save.data.debugMode = debugMode;
+		FlxG.save.data.autoPause = autoPause;
 	
 		FlxG.save.flush();
 
@@ -270,6 +272,10 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.debugMode != null) {
 			debugMode = FlxG.save.data.debugMode;
+		}
+		if(FlxG.save.data.autoPause != null) {
+			autoPause = FlxG.save.data.autoPause;
+			FlxG.autoPause = autoPause;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{

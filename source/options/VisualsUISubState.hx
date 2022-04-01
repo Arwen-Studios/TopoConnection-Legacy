@@ -34,6 +34,14 @@ class VisualsUISubState extends BaseOptionsMenu
 		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
 
+		var option:Option = new Option('Auto Pause',
+			'If checked, pauses the game when unfocused.',
+			'autoPause',
+			'bool',
+			true);
+		option.onChange = onChangeAutoPause;
+		addOption(option);
+
 		var option:Option = new Option('Note Skin:',
 			"Funny Notes, going up and down, How should they look like?",
 			'noteSkin',
@@ -150,6 +158,11 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 		super();
+	}
+
+	function onChangeAutoPause()
+	{
+		FlxG.autoPause = ClientPrefs.autoPause;
 	}
 
 	function onChangeNoteSkin()
