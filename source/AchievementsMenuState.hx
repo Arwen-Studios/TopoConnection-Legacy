@@ -26,10 +26,11 @@ class AchievementsMenuState extends MusicBeatState
 	private var achievementArray:Array<AttachedAchievement> = [];
 	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
+	private var descBox:FlxSprite;
 
 	override function create() {
 		#if desktop
-		DiscordClient.changePresence("Achievements Menu", null);
+		DiscordClient.changePresence("In the Menus", "Achievements Menu", null);
 		#end
 
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
@@ -65,11 +66,22 @@ class AchievementsMenuState extends MusicBeatState
 			add(icon);
 		}
 
+		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.alpha = 0.6;
+		add(descBox);
+
 		descText = new FlxText(150, 600, 980, "", 32);
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		descText.borderSize = 2.4;
 		add(descText);
+
+		var resetText:FlxText = new FlxText(0, 680, FlxG.width, "Press R to clear the current achievement", 12);
+		resetText.borderSize = 5;
+		resetText.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		resetText.scrollFactor.set();
+		add(resetText);
+
 		changeSelection();
 
 		super.create();
@@ -83,6 +95,14 @@ class AchievementsMenuState extends MusicBeatState
 		}
 		if (controls.UI_DOWN_P) {
 			changeSelection(1);
+		}
+
+		if(controls.RESET) {
+			if (achievementArray[curSelected].forget())
+			{
+				grpOptions.members[curSelected].changeText('?');
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+			}
 		}
 
 		if (controls.BACK) {
@@ -117,6 +137,12 @@ class AchievementsMenuState extends MusicBeatState
 			}
 		}
 		descText.text = Achievements.achievementsStuff[achievementIndex[curSelected]][1];
+		descText.screenCenter(Y);
+		descText.y += 270;
+
+		descBox.setPosition(descText.x - 10, descText.y - 10);
+		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
+		descBox.updateHitbox();
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 	}
 	#end

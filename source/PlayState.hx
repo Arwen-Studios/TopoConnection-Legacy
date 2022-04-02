@@ -270,10 +270,8 @@ class PlayState extends MusicBeatState
 	// Less laggy controls
 	private var keysArray:Array<Dynamic>;
 
-	// stores the last judgement object
-	public static var lastRating:FlxSprite;
 	// stores the last combo objects in an array
-	public static var lastCombo:Array<FlxSprite>;
+	public static var lastCombo:Array<FlxSprite> = [];
 
 	// floating
 	private var floating:Float = 0;
@@ -284,8 +282,6 @@ class PlayState extends MusicBeatState
 
 		// for lua
 		instance = this;
-
-		lastCombo = [];
 
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
@@ -325,12 +321,15 @@ class PlayState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
 		FlxG.cameras.add(camOther);
+
+		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		FlxG.cameras.setDefaultDrawTarget(camHUD, false);
+		FlxG.cameras.setDefaultDrawTarget(camOther, false);
+		
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
-		FlxCamera.defaultCameras = [camGame];
 		CustomFadeTransition.nextCamera = camOther;
-		//FlxG.cameras.setDefaultDrawTarget(camGame, true);
-
+		
 		persistentUpdate = true;
 		persistentDraw = true;
 
@@ -970,15 +969,20 @@ class PlayState extends MusicBeatState
 		if (songName == "bimbo")
 			engineWatermark.text = "Bimbo Engine v" + MainMenuState.psychEngineVersion;
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+		botplayTxt = new FlxText(395, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+		if(ClientPrefs.downScroll)
+			botplayTxt.y = timeBarBG.y - 78;
+		if(ClientPrefs.middleScroll) {
+			if(ClientPrefs.downScroll)
+				botplayTxt.y = botplayTxt.y - 78;
+			else
+				botplayTxt.y = botplayTxt.y + 78;
+		}
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 2;
-		botplayTxt.visible = true;
+		botplayTxt.visible = cpuControlled;
 		add(botplayTxt);
-		if(ClientPrefs.downScroll) {
-			botplayTxt.y = timeBarBG.y - 78;
-		}
 
 		var dark:FlxSprite = new FlxSprite(FlxG.width * -0.5, FlxG.height * -0.5).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		dark.alpha = ClientPrefs.bgAlpha;
@@ -2418,10 +2422,19 @@ class PlayState extends MusicBeatState
 		scoreTxt.text += (ClientPrefs.npsDisplay ? 'NPS: ${nps}/${maxNPS}${divider}Score: ${songScore}' : 'Score: ${songScore}');
 		scoreTxt.text += divider + 'Misses: ${songMisses}';
 
-		if (ratingName == '?')
-			scoreTxt.text += divider + 'Rating: ?';
-		else
-			scoreTxt.text += divider + 'Rating: ${ratingName} (${Highscore.floorDecimal(ratingPercent * 100, 2)}%)${ratingFC}';
+		var accuracyDisplay = ClientPrefs.accuracyDisplay;
+		if (accuracyDisplay)
+		{
+			if (ratingName == '?')
+				scoreTxt.text += divider + 'Accuracy: 0%';
+			else
+				scoreTxt.text += divider + 'Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' ;
+			
+			if (ratingFC != '')
+				scoreTxt.text += divider + '[${ratingFC}] ${ratingName}';
+			else
+				scoreTxt.text += divider + '${ratingName}';
+		}
 
 		if(botplayTxt.visible) {
 			botplaySine += 180 * elapsed;
@@ -2441,9 +2454,15 @@ class PlayState extends MusicBeatState
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		if (songName != "bimbo" && FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene && !ClientPrefs.debugMode)
 		{
-			PlayState.isStoryMode = false;
-			PlayState.SONG = Song.loadFromJson('bimbo-hard', 'bimbo');
-			LoadingState.loadAndSwitchState(new PlayState());
+			if (!opponentChart)
+			{
+				PlayState.isStoryMode = false;
+				PlayState.SONG = Song.loadFromJson('bimbo-hard', 'bimbo');
+				LoadingState.loadAndSwitchState(new PlayState());
+			} else {
+				LoadingState.loadAndSwitchState(new AntiCheat());
+				AntiCheat.reggieCounter++;
+			}
 		}
 
 		if (FlxG.keys.justPressed.F1 && !startingSong && !inCutscene && ClientPrefs.debugMode)
@@ -3039,7 +3058,7 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Camera Follow Pos':
-				var val1:Float = Std.parseFloat(value1);
+				var val1:Float = Math.abs(Std.parseFloat(value1));
 				var val2:Float = Std.parseFloat(value2);
 				if(Math.isNaN(val1)) val1 = 0;
 				if(Math.isNaN(val2)) val2 = 0;
@@ -3319,9 +3338,8 @@ class PlayState extends MusicBeatState
 		if(achievementObj != null) {
 			return;
 		} else {
-			var achieve:String = checkForAchievement(['week1_nomiss', 'week2_nomiss', 'week3_nomiss', 'week4_nomiss',
-				'week5_nomiss', 'week6_nomiss', 'week7_nomiss', 'ur_bad',
-				'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
+			var achieve:String = checkForAchievement(['week1_nomiss', 'week1_opponent', 'ur_bad',
+				'ur_good', 'hype', 'two_keys', 'toastie', 'bimbo']);
 
 			if(achieve != null) {
 				startAchievement(achieve);
@@ -3424,12 +3442,13 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				trace('WENT BACK TO FREEPLAY??');
+				//trace('WENT BACK TO FREEPLAY??');
+				trace('NO MORE FREEPLAY!!');
 				cancelMusicFadeTween();
 				if(FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
-				MusicBeatState.switchState(new FreeplayState());
+				MusicBeatState.switchState(new MainMenuState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
 			}
@@ -3624,6 +3643,9 @@ class PlayState extends MusicBeatState
 			add(comboSpr);
 
 		add(msText);
+
+		if (!ClientPrefs.accuracyDisplay)
+			msText.visible = false;
 
 		lastCombo.push(comboSpr);
 		lastCombo.push(msText);
@@ -4657,10 +4679,10 @@ class PlayState extends MusicBeatState
 
 			// Rating FC
 			ratingFC = "";
-			if (sicks > 0) ratingFC = " - ☆☆☆"; //Triple Star Grade
-			if (goods > 0) ratingFC = " - ☆☆"; //Double Star Grade
-			if (bads > 0 ) ratingFC = " - ☆"; //Single Star Grade
-			if (shits > 0) ratingFC = " - FC"; //Full Combo
+			if (sicks > 0) ratingFC = "☆☆☆"; //Triple Star Grade
+			if (goods > 0) ratingFC = "☆☆"; //Double Star Grade
+			if (bads > 0 ) ratingFC = "☆"; //Single Star Grade
+			if (shits > 0) ratingFC = "FC"; //Full Combo
 			if (songMisses > 0) ratingFC = "";
 		}
 		setOnLuas('rating', ratingPercent);
@@ -4680,38 +4702,32 @@ class PlayState extends MusicBeatState
 				var unlock:Bool = false;
 				switch(achievementName)
 				{
-					case 'week1_nomiss' | 'week2_nomiss' | 'week3_nomiss' | 'week4_nomiss' | 'week5_nomiss' | 'week6_nomiss' | 'week7_nomiss':
-						if(isStoryMode && campaignMisses + songMisses < 1 && CoolUtil.difficultyString() == 'HARD' && storyPlaylist.length <= 1 && !changedDifficulty && !usedPractice)
+					case 'week1_nomiss':
+						if(isStoryMode && campaignMisses + songMisses < 1 && CoolUtil.difficultyString() == 'HARD' && storyPlaylist.length <= 1 && !changedDifficulty && !usedPractice && !opponentChart)
 						{
 							var weekName:String = WeekData.getWeekFileName();
 							switch(weekName) //I know this is a lot of duplicated code, but it's easier readable and you can add weeks with different names than the achievement tag
 							{
 								case 'week1':
 									if(achievementName == 'week1_nomiss') unlock = true;
-								case 'week2':
-									if(achievementName == 'week2_nomiss') unlock = true;
-								case 'week3':
-									if(achievementName == 'week3_nomiss') unlock = true;
-								case 'week4':
-									if(achievementName == 'week4_nomiss') unlock = true;
-								case 'week5':
-									if(achievementName == 'week5_nomiss') unlock = true;
-								case 'week6':
-									if(achievementName == 'week6_nomiss') unlock = true;
-								case 'week7':
-									if(achievementName == 'week7_nomiss') unlock = true;
+							}
+						}
+					case 'week1_opponent':
+						if(isStoryMode && campaignMisses + songMisses < 1 && CoolUtil.difficultyString() == 'HARD' && storyPlaylist.length <= 1 && !changedDifficulty && !usedPractice && opponentChart)
+						{
+							var weekName:String = WeekData.getWeekFileName();
+							switch(weekName)
+							{
+								case 'week1':
+									if(achievementName == 'week1_opponent') unlock = true;
 							}
 						}
 					case 'ur_bad':
-						if(ratingPercent < 0.2 && !practiceMode) {
+						if(ClientPrefs.accuracyDisplay && ratingPercent < 0.2 && !practiceMode) {
 							unlock = true;
 						}
 					case 'ur_good':
-						if(ratingPercent >= 1 && !usedPractice) {
-							unlock = true;
-						}
-					case 'roadkill_enthusiast':
-						if(Achievements.henchmenDeath >= 100) {
+						if(ClientPrefs.accuracyDisplay && ratingPercent >= 1 && !usedPractice) {
 							unlock = true;
 						}
 					case 'oversinging':
@@ -4734,11 +4750,11 @@ class PlayState extends MusicBeatState
 							}
 						}
 					case 'toastie':
-						if(/*ClientPrefs.framerate <= 60 &&*/ ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing && !ClientPrefs.imagesPersist) {
+						if(/*ClientPrefs.framerate <= 60 &&*/ ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) {
 							unlock = true;
 						}
-					case 'debugger':
-						if(Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice) {
+					case 'bimbo':
+						if(Paths.formatToSongPath(SONG.song) == 'bimbo' && !usedPractice && ClientPrefs.accuracyDisplay && ratingPercent > 0.9) {
 							unlock = true;
 						}
 				}

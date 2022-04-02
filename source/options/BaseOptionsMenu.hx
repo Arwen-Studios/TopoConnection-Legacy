@@ -39,9 +39,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 	private var boyfriend:Character = null;
 	private var previewNotes:AttachedSprite;
-	private var previewNoteOption:Option;
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
+
+	private var previewNoteOption:Option;
 
 	public var title:String;
 	public var rpcTitle:String;
@@ -94,8 +95,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			var optionText:Alphabet = new Alphabet(0, 70 * i, optionsArray[i].name, false, false);
 			optionText.isMenuItem = true;
 			optionText.x += 300;
-			/*optionText.forceX = 300;
-			optionText.yMult = 90;*/
+			optionText.forceX = 300;
+			optionText.yMult = 90;
 			optionText.xAdd = 200;
 			optionText.targetY = i;
 			grpOptions.add(optionText);
@@ -124,7 +125,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			if(optionsArray[i].showNotes && previewNotes == null)
 			{
 				previewNotes = new AttachedSprite();
-				previewNotes.loadGraphic(Paths.image('previewNotes'), true, 164, 164);
+				previewNotes.loadGraphic(Paths.image('noteGrid'), true, 160, 155);
 				previewNotes.animation.add('frames', [0, 1, 2, 3, 4], 0);
 				previewNotes.animation.play('frames');
 				previewNotes.sprTracker = textChild;

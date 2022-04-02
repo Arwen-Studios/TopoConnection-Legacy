@@ -37,8 +37,8 @@ class MainMenuState extends MusicBeatState
 		'story_mode',
 		//'freeplay',
 		//#if MODS_ALLOWED 'mods', #end
-		//#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		//'credits',
+		#if ACHIEVEMENTS_ALLOWED 'awards', #end
+		'credits',
 		//#if !switch 'donate', #end
 		'options'
 	];
@@ -47,10 +47,12 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+	var blammableObjects:Array<FlxSprite> = [];
 
 	override function create()
 	{
 		WeekData.loadTheFirstEnabledMod();
+		Conductor.changeBPM(165);
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -64,35 +66,37 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement);
-		FlxCamera.defaultCameras = [camGame];
+		
+		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		FlxG.cameras.setDefaultDrawTarget(camAchievement, false);
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
 
-		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.set(0, yScroll);
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('mainmenu/bg/topo_lighter'));
+		bg.scrollFactor.set(0);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.color = TitleState.blammedLightsColors[0];
 		add(bg);
+		blammableObjects.push(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.set(0, yScroll);
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('mainmenu/bg/topo_lighter'));
+		magenta.scrollFactor.set(0);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
 		magenta.visible = false;
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
-		magenta.color = 0xFFfd719b;
 		add(magenta);
 		
 		// magenta.scrollFactor.set();
@@ -174,6 +178,9 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -299,5 +306,30 @@ class MainMenuState extends MusicBeatState
 				spr.centerOffsets();
 			}
 		});
+	}
+
+	var curLight:Int = 0;
+	public static var blammedLightsColors:Array<FlxColor> = [
+		0xffff00e4, //purple
+		0xffff0036, //red
+	];
+
+	override function beatHit()
+	{
+		if (curBeat % 4 == 0) 
+		{
+			var randomNum:Int = FlxG.random.int(0, TitleState.blammedLightsColors.length-1, [curLight]);
+			var blamColor:FlxColor = TitleState.blammedLightsColors[randomNum];
+			for (spr in blammableObjects)
+			{
+				spr.color = blamColor;
+			}
+			curLight = randomNum;
+
+			FlxG.camera.zoom = 1.15;
+			FlxTween.tween(FlxG.camera, {zoom: 1}, 0.5, {ease: FlxEase.circOut});
+		}
+
+		super.beatHit();
 	}
 }

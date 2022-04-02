@@ -552,6 +552,13 @@ class TitleState extends MusicBeatState
 
 	private var sickBeats:Int = 0; //Basically curBeat but won't be skipped if you hold the tab or resize the screen
 	public static var closedState:Bool = false;
+
+	var curLight:Int = 0;
+	public static var blammedLightsColors:Array<FlxColor> = [
+		0xffff00e4, //purple
+		0xffff0036, //red
+	];
+
 	override function beatHit()
 	{
 		super.beatHit();
@@ -565,6 +572,12 @@ class TitleState extends MusicBeatState
 				gfDance.animation.play('danceRight');
 			else
 				gfDance.animation.play('danceLeft');
+		}
+
+		if (curBeat % 4 == 0) 
+		{
+			FlxG.camera.zoom = 1.15;
+			FlxTween.tween(FlxG.camera, {zoom: 1}, 0.5, {ease: FlxEase.circOut});
 		}
 
 		if (!closedState) // so you might want to edit delays

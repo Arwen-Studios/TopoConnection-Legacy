@@ -17,7 +17,7 @@ class DiscordClient
 	{
 		trace("Discord Client starting...");
 		DiscordRpc.start({
-			clientID: "941920806450110494",
+			clientID: "959538437663363113",
 			onReady: onReady,
 			onError: onError,
 			onDisconnected: onDisconnected
@@ -45,7 +45,7 @@ class DiscordClient
 			details: "In the Menus",
 			state: null,
 			largeImageKey: 'icon',
-			largeImageText: "Psych Engine"
+			largeImageText: "Made on Psych Engine"
 		});
 	}
 

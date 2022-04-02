@@ -29,7 +29,7 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
+	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Note Colors', 'Note Delay and Combo', 'Visuals and UI'];
 	public static var cameFromPause:Bool = false;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
@@ -47,7 +47,7 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
 				openSubState(new options.GameplaySettingsSubState());
-			case 'Adjust Delay and Combo':
+			case 'Note Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
 	}
@@ -57,7 +57,7 @@ class OptionsState extends MusicBeatState
 
 	override function create() {
 		#if desktop
-		DiscordClient.changePresence("Options Menu", null);
+		DiscordClient.changePresence("In the Menus", "Options Menu", null);
 		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -80,8 +80,8 @@ class OptionsState extends MusicBeatState
 		}
 
 		selectorLeft = new Alphabet(0, 0, '>', true, false);
-		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true, false);
+		add(selectorLeft);
 		add(selectorRight);
 
 		changeSelection();

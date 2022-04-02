@@ -1,3 +1,7 @@
+function onCrete()
+	setPropertyFromClass('ClientPrefs', 'opponentplay', false)
+end
+
 function onCreatePost()
 
 	for i= 0, 3 do

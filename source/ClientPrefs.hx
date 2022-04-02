@@ -9,7 +9,7 @@ import Controls;
 class ClientPrefs {
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
-	public static var showFPS:Bool = true;
+	public static var showFPS:Bool = false;
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
@@ -37,6 +37,7 @@ class ClientPrefs {
 	public static var bgAlpha:Float = 0;
 	public static var debugMode:Bool = false;
 	public static var autoPause:Bool = true;
+	public static var accuracyDisplay:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -149,6 +150,7 @@ class ClientPrefs {
 		FlxG.save.data.bgAlpha = bgAlpha;
 		FlxG.save.data.debugMode = debugMode;
 		FlxG.save.data.autoPause = autoPause;
+		FlxG.save.data.accuracyDisplay = accuracyDisplay;
 	
 		FlxG.save.flush();
 
@@ -276,6 +278,9 @@ class ClientPrefs {
 		if(FlxG.save.data.autoPause != null) {
 			autoPause = FlxG.save.data.autoPause;
 			FlxG.autoPause = autoPause;
+		}
+		if(FlxG.save.data.accuracyDisplay != null) {
+			accuracyDisplay = FlxG.save.data.accuracyDisplay;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{

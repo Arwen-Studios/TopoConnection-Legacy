@@ -27,7 +27,7 @@ class Ratings extends MusicBeatState
         ['Almost there', 0.8], //70%-79%
         ['Good Job', 0.9], //80%-89%
         ['Thats my man', 1], //90%-99%
-        ['Legend!', 1] //100%
+        ['Legend!!', 1] //100%
     ];
 
     // Psych Engine's Default Ratings
@@ -77,7 +77,7 @@ class Ratings extends MusicBeatState
         ["AAAAAAAAAAAAAAA", 0.9989], // 99.88%
         ["AAAAAAAAAAAAAAAA", 0.9999], // 99.97%
         ["AAAAAAAAAAAAAAAAA", 1], // 99.99%
-        ["AAAAAAAAAAAAAAAAAA", 1] // 100%
+        ["AAAAAAAAAAAAAAAAAA!!", 1] // 100%
     ];
 
     /*
@@ -121,6 +121,6 @@ class Ratings extends MusicBeatState
         ['Not so Thirsty', 0.69], //60%-68%
         ['Reasonably Hydrated', 0.9], //80%-89%
         ['Hydrated', 1], //90%-99%
-        ['Healthy', 1] //100%
+        ['Healthy!!', 1] //100%
     ];
 }

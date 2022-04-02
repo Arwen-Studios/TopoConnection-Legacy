@@ -47,11 +47,10 @@ class VisualsUISubState extends BaseOptionsMenu
 			'noteSkin',
 			'string',
 			'Default',
-			['Default', 'Alpha', 'Circle', 'FNF']);
-		//option.showNotes = true;
-		//option.onChange = onChangeNoteSkin;
-		if (!OptionsState.cameFromPause)
-			addOption(option);
+			['Default', 'Alpha', 'Circle', 'Bar', 'FNF']);
+		option.showNotes = true;
+		option.onChange = onChangeNoteSkin;
+		addOption(option);
 
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
