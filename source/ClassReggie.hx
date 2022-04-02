@@ -12,6 +12,9 @@ package;
     - BeastlyGhost
 */
 
+#if desktop
+import Discord.DiscordClient;
+#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
@@ -21,6 +24,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.effects.FlxFlicker;
 import flixel.input.keyboard.FlxKey;
+import Achievements;
 
 class ClassReggie extends MusicBeatState
 {
@@ -35,20 +39,34 @@ class ClassReggie extends MusicBeatState
     // this god damn rat
     var reggie:FlxSprite;
 
-    // funny colors!
-    var blammableObjects:Array<FlxSprite> = [];
+    private var camGame:FlxCamera;
+    private var camAchievement:FlxCamera;
 
     override function create():Void
     {
-        Conductor.changeBPM(102);
+        Paths.clearStoredMemory();
+        #if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("Uncovering a Secret", 'Reggie Count: ${reggieCounter}', null);
+		#end
+
+        camGame = new FlxCamera();
+        camAchievement = new FlxCamera();
+		camAchievement.bgColor.alpha = 0;
+
+        FlxG.cameras.reset(camGame);
+        FlxG.cameras.add(camAchievement);
+
+        FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		FlxG.cameras.setDefaultDrawTarget(camAchievement, false);
 
         // stop all the songs from the previous state
         FlxG.sound.music.stop();
 
-        // play the funny sound and the menu song
-        FlxG.sound.play(Paths.sound('boom'));
+        // play the menu music and the funny sound
         FlxG.sound.playMusic(Paths.music('freakyMenuOG'), 0);
         FlxG.sound.music.fadeIn(4, 0, 0.7);
+        FlxG.sound.play(Paths.sound('boom'));
 
         reggie = new FlxSprite(-80).loadGraphic(Paths.image('topoworld/randomBS/reggieLmao'));
         reggie.scrollFactor.set(0);
@@ -56,9 +74,8 @@ class ClassReggie extends MusicBeatState
         reggie.updateHitbox();
         reggie.screenCenter();
         reggie.alpha = 0.1;
-        reggie.color = TitleState.blammedLightsColors[0];
+        reggie.antialiasing = ClientPrefs.globalAntialiasing;
         add(reggie);
-        blammableObjects.push(reggie);
 
         daText = new FlxText(0, FlxG.height - 405, 0, "", 16);
         daText.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -83,8 +100,29 @@ class ClassReggie extends MusicBeatState
         engineWatermark.scrollFactor.set();
         add(engineWatermark);
 
+        #if ACHIEVEMENTS_ALLOWED
+		Achievements.loadAchievements();
+		if (reggieCounter > 49) {
+			var achieveID:Int = Achievements.getAchievementIndex('reggie');
+			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) {
+				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
+				giveAchievement();
+				ClientPrefs.saveSettings();
+			}
+		}
+		#end
+
         super.create();
     }
+
+    #if ACHIEVEMENTS_ALLOWED
+	// Unlocks "I like guys" achievement
+	function giveAchievement() {
+		add(new AchievementObject('reggie', camAchievement));
+		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+		trace('Giving achievement "reggie"');
+	}
+	#end
 
     override function update(elapsed:Float)
 	{
@@ -93,13 +131,10 @@ class ClassReggie extends MusicBeatState
         daText.text += "\nReggie Count: " + reggieCounter;
         daText.text += "\nPress R to clear the Counter";
         daText.text += "\n";
-
-        if (FlxG.sound.music != null)
-            Conductor.songPosition = FlxG.sound.music.time;
-
-		if (FlxG.sound.music.volume < 0.8) {
+        
+        if (FlxG.sound.music.volume < 0.7) {
             FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-		}
+        }
 
         if (controls.BACK) {
             FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -115,29 +150,4 @@ class ClassReggie extends MusicBeatState
             CoolUtil.browserLoad('https://youtu.be/o2AiSZ8CU-w'); //Placeholder Link for now, and also this song bangs
 		}
     }
-
-    var curLight:Int = 0;
-	public static var blammedLightsColors:Array<FlxColor> = [
-		0xffff00e4, //purple
-		0xffff0036, //red
-	];
-
-	override function beatHit()
-	{
-		if (curBeat % 4 == 0) 
-		{
-			var randomNum:Int = FlxG.random.int(0, TitleState.blammedLightsColors.length-1, [curLight]);
-			var blamColor:FlxColor = TitleState.blammedLightsColors[randomNum];
-			for (spr in blammableObjects)
-			{
-				spr.color = blamColor;
-			}
-			curLight = randomNum;
-
-			FlxG.camera.zoom = 1.15;
-			FlxTween.tween(FlxG.camera, {zoom: 1}, 0.5, {ease: FlxEase.circOut});
-		}
-
-		super.beatHit();
-	}
 }

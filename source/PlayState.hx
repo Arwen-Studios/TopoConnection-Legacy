@@ -2436,6 +2436,15 @@ class PlayState extends MusicBeatState
 				scoreTxt.text += divider + '${ratingName}';
 		}
 
+		if (isStoryMode)
+		{
+			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName + " - " + scoreTxt.text;
+		}
+		else
+		{
+			detailsText = "Freeplay -" + scoreTxt.text;
+		}
+
 		if(botplayTxt.visible) {
 			botplaySine += 180 * elapsed;
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
@@ -2452,7 +2461,7 @@ class PlayState extends MusicBeatState
 		}
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
-		if (songName != "bimbo" && FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene && !ClientPrefs.debugMode)
+		if (songName != "bimbo" && FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene && !cpuControlled && !practiceMode && !ClientPrefs.debugMode)
 		{
 			if (!opponentChart)
 			{
@@ -3536,12 +3545,14 @@ class PlayState extends MusicBeatState
 				totalNotesHit += 0;
 				note.ratingMod = 0;
 				score = 50;
+				health -= 0.2;
 				msText.color = FlxColor.RED;
 				if(!note.ratingDisabled) shits++;
 			case "bad": // bad
 				totalNotesHit += 0.5;
 				note.ratingMod = 0.5;
 				score = 100;
+				health -= 0.06;
 				msText.color = FlxColor.ORANGE;
 				if(!note.ratingDisabled) bads++;
 			case "good": // good
@@ -4448,6 +4459,16 @@ class PlayState extends MusicBeatState
 		{
 			resyncVocals();
 		}
+
+		// this does update every step, and it's bad
+		// but i'm doing this just so I can update misses, accuracy, etc
+		#if desktop
+		// Song duration in a float, useful for the time left feature
+		songLength = FlxG.sound.music.length;
+
+		// Updating Discord Rich Presence (with Time Left)
+		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition);
+		#end
 
 		if(curStep == lastStepHit) {
 			return;

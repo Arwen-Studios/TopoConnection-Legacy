@@ -47,6 +47,7 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+	var curLight:Int = 0;
 	var blammableObjects:Array<FlxSprite> = [];
 
 	override function create()
@@ -307,12 +308,6 @@ class MainMenuState extends MusicBeatState
 			}
 		});
 	}
-
-	var curLight:Int = 0;
-	public static var blammedLightsColors:Array<FlxColor> = [
-		0xffff00e4, //purple
-		0xffff0036, //red
-	];
 
 	override function beatHit()
 	{

@@ -67,10 +67,16 @@ class Achievements {
 		],
 		[
 			"Bimbo",
-			"Beat him with an Accuracy Percent higher than 89%.",
+			"Beat 'Bimbo' with an Accuracy Percent higher than 89%.",
 			'bimbo',
-			true
-		]
+			false
+		],
+		[
+			"I like guys",
+			"Go to the Secret Reggie Scene 50 times.",
+			'reggie',
+			false
+		],
 	];
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
 
