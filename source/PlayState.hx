@@ -2460,8 +2460,8 @@ class PlayState extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson('bimbo-hard', 'bimbo');
 				LoadingState.loadAndSwitchState(new PlayState());
 			} else {
-				LoadingState.loadAndSwitchState(new AntiCheat());
-				AntiCheat.reggieCounter++;
+				LoadingState.loadAndSwitchState(new ClassReggie());
+				ClassReggie.reggieCounter++;
 			}
 		}
 

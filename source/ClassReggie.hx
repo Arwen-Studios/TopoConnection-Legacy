@@ -22,7 +22,7 @@ import flixel.util.FlxColor;
 import flixel.effects.FlxFlicker;
 import flixel.input.keyboard.FlxKey;
 
-class AntiCheat extends MusicBeatState
+class ClassReggie extends MusicBeatState
 {
     // making this public so PlayState can update it
     public static var reggieCounter:Int = 0;
