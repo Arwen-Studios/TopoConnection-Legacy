@@ -551,8 +551,8 @@ class PlayState extends MusicBeatState
 				}
 			case 'white-space': //Chapter 1 - Week 1
 				var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.WHITE);
-				purp = new BGSprite('topoworld1/purp', -600, -200, 0.9, 0.9);
-				crt = new BGSprite('topoworld1/crt-effect', -600, -200, 0.9, 0.9);
+				purp = new BGSprite('topoworld/purp', -600, -200, 0.9, 0.9);
+				crt = new BGSprite('topoworld/crt-effect', -600, -200, 0.9, 0.9);
 
 				purp.setGraphicSize(Std.int(bg.width * 1.1));
 				crt.setGraphicSize(Std.int(bg.width * 1.1));
