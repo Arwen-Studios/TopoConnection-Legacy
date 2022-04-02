@@ -129,8 +129,7 @@ class ClassReggie extends MusicBeatState
         daText.text = "";
         daText.text += "YOU SHOULD REALLY DISABLE OPPONENT MODE FOR THIS";
         daText.text += "\nReggie Count: " + reggieCounter;
-        daText.text += "\nPress R to clear the Counter";
-        daText.text += "\n";
+        daText.text += "\nPress R to clear the Counter\n";
         
         if (FlxG.sound.music.volume < 0.7) {
             FlxG.sound.music.volume += 0.5 * FlxG.elapsed;

@@ -166,7 +166,7 @@ class PlayState extends MusicBeatState
 	public var instakillOnMiss:Bool = false;
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
-	public static var opponentChart:Bool = false;
+	public var opponentChart:Bool = false;
 
 	public var botplaySine:Float = 0;
 	public var botplayTxt:FlxText;
@@ -2425,6 +2425,7 @@ class PlayState extends MusicBeatState
 		var accuracyDisplay = ClientPrefs.accuracyDisplay;
 		if (accuracyDisplay)
 		{
+			scoreTxt.size = 16;
 			if (ratingName == '?')
 				scoreTxt.text += divider + 'Accuracy: 0%';
 			else
@@ -2439,9 +2440,7 @@ class PlayState extends MusicBeatState
 		if (isStoryMode)
 		{
 			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName + " - " + scoreTxt.text;
-		}
-		else
-		{
+		} else {
 			detailsText = "Freeplay -" + scoreTxt.text;
 		}
 
@@ -2602,7 +2601,7 @@ class PlayState extends MusicBeatState
 				} else if(boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
 					boyfriend.dance();
 					//boyfriend.animation.curAnim.finish();
-          		}
+				}
           		if(cpuControlled && opponentChart && dad.holdTimer > Conductor.stepCrochet * 0.001 * dad.singDuration && dad.animation.curAnim.name.startsWith('sing') && !dad.animation.curAnim.name.endsWith('miss')) {
 					dad.dance();
 				}
