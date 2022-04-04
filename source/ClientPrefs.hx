@@ -38,6 +38,7 @@ class ClientPrefs {
 	public static var debugMode:Bool = false;
 	public static var autoPause:Bool = true;
 	public static var accuracyDisplay:Bool = true;
+	public static var camFollow:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -151,6 +152,7 @@ class ClientPrefs {
 		FlxG.save.data.debugMode = debugMode;
 		FlxG.save.data.autoPause = autoPause;
 		FlxG.save.data.accuracyDisplay = accuracyDisplay;
+		FlxG.save.data.camFollow = camFollow;
 	
 		FlxG.save.flush();
 
@@ -281,6 +283,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.accuracyDisplay != null) {
 			accuracyDisplay = FlxG.save.data.accuracyDisplay;
+		}
+		if(FlxG.save.data.camFollow != null) {
+			camFollow = FlxG.save.data.camFollow;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{

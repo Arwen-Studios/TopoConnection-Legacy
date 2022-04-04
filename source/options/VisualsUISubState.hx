@@ -66,6 +66,13 @@ class VisualsUISubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Camera Movement',
+			"If unchecked, the camera won't move every time you or the opponent hits a note.",
+			'camFollow',
+			'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Hide HUD',
 			'If checked, hides most HUD elements.',
 			'hideHud',

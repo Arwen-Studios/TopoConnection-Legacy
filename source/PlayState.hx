@@ -3246,6 +3246,7 @@ class PlayState extends MusicBeatState
 	var cameraTwn:FlxTween;
 	public function moveCamera(isDad:Bool)
 	{
+		getCamOffsets();
 		if(isDad)
 		{
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
@@ -3952,6 +3953,9 @@ class PlayState extends MusicBeatState
 	}
 
 	function noteMiss(daNote:Note):Void { //You didn't hit the key and let it go offscreen, also used by Hurt Notes
+		if (camFocus == 'bf' && ClientPrefs.camFollow)
+			triggerCamMovement(Math.abs(daNote.noteData % 4));
+
 		//Dupe note remove
 		notes.forEachAlive(function(note:Note) {
 			if (daNote != note && daNote.mustPress && daNote.noteData == note.noteData && daNote.isSustainNote == note.isSustainNote && Math.abs(daNote.strumTime - note.strumTime) < 1) {
@@ -4048,6 +4052,9 @@ class PlayState extends MusicBeatState
 
 	function opponentNoteHit(note:Note):Void
 	{
+		if (camFocus == 'dad' && ClientPrefs.camFollow)
+			triggerCamMovement(Math.abs(note.noteData % 4));
+
 		if (!opponentChart) {
 			if (Paths.formatToSongPath(SONG.song) != 'tutorial')
 				camZooming = true;
@@ -4110,6 +4117,9 @@ class PlayState extends MusicBeatState
 
 	function goodNoteHit(note:Note):Void
 	{
+		if (camFocus == 'bf' && ClientPrefs.camFollow)
+			triggerCamMovement(Math.abs(note.noteData % 4));
+
 		if (!note.isSustainNote)
 			notesHitArray.push(Date.now());
 		if (opponentChart) {
@@ -4791,4 +4801,72 @@ class PlayState extends MusicBeatState
 
 	var curLight:Int = 0;
 	var curLightEvent:Int = 0;
+
+	// originally made by brightfyre
+	var camFocus:String = "";
+	var daFunneOffsetMultiplier:Float = 20;
+	var dadPos:Array<Float> = [0, 0];
+	var bfPos:Array<Float> = [0, 0];
+
+	function triggerCamMovement(num:Float = 0)
+	{
+		if (camFocus == 'bf')
+		{
+			switch (num)
+			{
+				case 2:
+					camFollow.y = bfPos[1] - daFunneOffsetMultiplier;
+					camFollow.x = bfPos[0];
+				case 3:
+					camFollow.x = bfPos[0] + daFunneOffsetMultiplier;
+					camFollow.y = bfPos[1];
+				case 1:
+					camFollow.y = bfPos[1] + daFunneOffsetMultiplier;
+					camFollow.x = bfPos[0];
+				case 0:
+					camFollow.x = bfPos[0] - daFunneOffsetMultiplier;
+					camFollow.y = bfPos[1];
+			}
+		}
+		else
+		{
+			switch (num)
+			{
+				case 2:
+					camFollow.y = dadPos[1] - daFunneOffsetMultiplier;
+					camFollow.x = dadPos[0];
+				case 3:
+					camFollow.x = dadPos[0] + daFunneOffsetMultiplier;
+					camFollow.y = dadPos[1];
+				case 1:
+					camFollow.y = dadPos[1] + daFunneOffsetMultiplier;
+					camFollow.x = dadPos[0];
+				case 0:
+					camFollow.x = dadPos[0] - daFunneOffsetMultiplier;
+					camFollow.y = dadPos[1];
+			}
+		}
+	}
+
+	function getCamOffsets()
+	{
+		dadPos[0] = dad.getMidpoint().x + 150 + dad.cameraPosition[0];
+		dadPos[1] = dad.getMidpoint().y - 100 + dad.cameraPosition[1];
+
+		switch (curStage)
+		{
+			case 'limo':
+				bfPos[0] = boyfriend.getMidpoint().x - 110;
+				bfPos[1] = boyfriend.getMidpoint().y - 95;
+			case 'mall':
+				bfPos[0] = boyfriend.getMidpoint().x - 100;
+				bfPos[1] = boyfriend.getMidpoint().y - 165;
+			case 'school' | 'schoolEvil':
+				bfPos[0] = boyfriend.getMidpoint().x - 290;
+				bfPos[1] = boyfriend.getMidpoint().y - 300;
+			default:
+				bfPos[0] = boyfriend.getMidpoint().x - 100 - boyfriend.cameraPosition[0];
+				bfPos[1] = boyfriend.getMidpoint().y - 100 + boyfriend.cameraPosition[1];
+		}
+	}
 }
