@@ -56,6 +56,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false); //Default value
 		addOption(option);
 
+		var option:Option = new Option('Disable Modcharts',
+			'If checked, will disable song-specific Note Effects\nalso known as Easy Mode, Pussy Mode, Skill Issue Mode, etc.',
+			'pussyMode',
+			'bool',
+			false);
+		addOption(option);
+
 		var option:Option = new Option('Middlescroll',
 			'If checked, your notes get centered.',
 			'middleScroll',

@@ -183,19 +183,35 @@ class StoryMenuState extends MusicBeatState
 
 		var tracksSprite:FlxSprite = new FlxSprite(FlxG.width * 0.07, bgSprite.y + 425).loadGraphic(Paths.image('Menu_Tracks'));
 		tracksSprite.antialiasing = ClientPrefs.globalAntialiasing;
+		tracksSprite.color = TitleState.blammedLightsColors[0];
 		add(tracksSprite);
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, tracksSprite.y + 60, 0, "", 32);
 		txtTracklist.alignment = CENTER;
 		txtTracklist.font = rankText.font;
-		txtTracklist.color = 0xFFe55777;
+		txtTracklist.color = TitleState.blammedLightsColors[0];
 		add(txtTracklist);
+		blammableObjects.push(tracksSprite);
+		blammableObjects.push(txtTracklist);
 		// add(rankText);
 		add(scoreText);
 		add(txtWeekTitle);
 
 		changeWeek();
 		changeDifficulty();
+
+		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+		textBG.alpha = 0.6;
+		add(textBG);
+
+		var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+		var size:Int = 16;
+		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
+		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
+		text.color = TitleState.blammedLightsColors[0];
+		text.scrollFactor.set();
+		add(text);
+		blammableObjects.push(text);
 
 		super.create();
 	}
@@ -295,6 +311,7 @@ class StoryMenuState extends MusicBeatState
 			if (stopspamming == false)
 			{
 				FlxG.sound.play(Paths.sound('confirmMenu'));
+				FlxG.sound.music.fadeOut();
 
 				grpWeekText.members[curWeek].startFlashing();
 

@@ -2416,7 +2416,7 @@ class PlayState extends MusicBeatState
 			- BeastlyGhost
 		*/
 
-		var divider:String = ' | ';
+		var divider:String = ' // ';
 
 		scoreTxt.text = '';
 		scoreTxt.text += (ClientPrefs.npsDisplay ? 'NPS: ${nps}/${maxNPS}${divider}Score: ${songScore}' : 'Score: ${songScore}');
@@ -2429,7 +2429,7 @@ class PlayState extends MusicBeatState
 			if (ratingName == '?')
 				scoreTxt.text += divider + 'Accuracy: 0%';
 			else
-				scoreTxt.text += divider + 'Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' ;
+				scoreTxt.text += divider + 'Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%';
 			
 			if (ratingFC != '')
 				scoreTxt.text += divider + '[${ratingFC}] ${ratingName}';
@@ -2439,9 +2439,9 @@ class PlayState extends MusicBeatState
 
 		if (isStoryMode)
 		{
-			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName + " - " + scoreTxt.text;
+			detailsText = WeekData.getCurrentWeek().weekName + " - " + scoreTxt.text;
 		} else {
-			detailsText = "Freeplay -" + scoreTxt.text;
+			detailsText = scoreTxt.text;
 		}
 
 		if(botplayTxt.visible) {

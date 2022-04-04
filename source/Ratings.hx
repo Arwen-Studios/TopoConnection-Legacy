@@ -104,7 +104,7 @@ class Ratings extends MusicBeatState
         ['', 0.5], //40%-49%
         ['', 0.6], //50%-59%
         ['', 0.69], //60%-68%
-        ['', 0.7], //69%
+        ['Fanic', 0.7], //69%
         ['', 0.8], //70%-79%
         ['', 0.9], //80%-89%
         ['', 1], //90%-99%
@@ -112,7 +112,7 @@ class Ratings extends MusicBeatState
     ];
 
     // Ratings for "Brainstorm"
-    public static var literallyfuckingWaterRelated:Array<Dynamic> = [
+    public static var chipRatings:Array<Dynamic> = [
         ['go see a doctor you dumbass', 0.2], //0%-19%
         ['Stone in Kidneys', 0.3], //20%-29%
         ['Yellow Piss', 0.4], //30%-39%
