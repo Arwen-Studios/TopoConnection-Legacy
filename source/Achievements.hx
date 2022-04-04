@@ -31,7 +31,7 @@ class Achievements {
 		],
 		[
 			"What a Funkin' Disaster!",
-			"Complete a Song with a rating lower than 20%.",
+			"Complete a Song with a rating lower than 30%.",
 			'ur_bad',
 			false
 		],

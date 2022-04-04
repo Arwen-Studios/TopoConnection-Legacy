@@ -34,7 +34,7 @@ class MainMenuState extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [
-		'story_mode',
+		'play',
 		//'freeplay',
 		//#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
@@ -49,6 +49,7 @@ class MainMenuState extends MusicBeatState
 	var debugKeys:Array<FlxKey>;
 	var curLight:Int = 0;
 	var blammableObjects:Array<FlxSprite> = [];
+	var blammableOptions:Array<FlxSprite> = [];
 
 	override function create()
 	{
@@ -83,6 +84,7 @@ class MainMenuState extends MusicBeatState
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.color = TitleState.blammedLightsColors[0];
+		bg.alpha = 0.6;
 		add(bg);
 		blammableObjects.push(bg);
 
@@ -129,22 +131,24 @@ class MainMenuState extends MusicBeatState
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
+			menuItem.color = TitleState.blammedAltColors[0];
+			blammableOptions.push(menuItem);
 		}
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var topoVer:FlxText = new FlxText(12, FlxG.height - 64, 0, "Topo Connection v" + topoVer, 12);
+		var topoVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Topo Connection v" + topoVer, 12);
 		topoVer.scrollFactor.set();
 		topoVer.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(topoVer);
-		var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
+		var psychVer:FlxText = new FlxText(12, FlxG.height - 24, 0, "Psych Engine v" + psychEngineVersion, 12);
 		psychVer.scrollFactor.set();
 		psychVer.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(psychVer);
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
+		//add(versionShit);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -238,13 +242,13 @@ class MainMenuState extends MusicBeatState
 						}
 						else
 						{
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
+							if(ClientPrefs.flashing) FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 							{
 								var daChoice:String = optionShit[curSelected];
 
 								switch (daChoice)
 								{
-									case 'story_mode':
+									case 'play':
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
@@ -315,9 +319,14 @@ class MainMenuState extends MusicBeatState
 		{
 			var randomNum:Int = FlxG.random.int(0, TitleState.blammedLightsColors.length-1, [curLight]);
 			var blamColor:FlxColor = TitleState.blammedLightsColors[randomNum];
+			var blamOption:FlxColor = TitleState.blammedAltColors[randomNum];
 			for (spr in blammableObjects)
 			{
 				spr.color = blamColor;
+			}
+			for (spr in blammableOptions)
+			{
+				spr.color = blamOption;
 			}
 			curLight = randomNum;
 

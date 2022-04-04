@@ -146,7 +146,8 @@ class ClassReggie extends MusicBeatState
 		}
 
         if (controls.ACCEPT) {
-            CoolUtil.browserLoad('https://youtu.be/o2AiSZ8CU-w'); //Placeholder Link for now, and also this song bangs
+            FlxG.sound.play(Paths.sound('confirmMenu'));
+            CoolUtil.browserLoad('https://youtu.be/Jvv5pCFj-Y8');
 		}
     }
 }

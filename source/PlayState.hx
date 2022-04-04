@@ -4743,7 +4743,7 @@ class PlayState extends MusicBeatState
 							}
 						}
 					case 'ur_bad':
-						if(ClientPrefs.accuracyDisplay && ratingPercent < 0.2 && !practiceMode) {
+						if(ClientPrefs.accuracyDisplay && ratingPercent < 0.3 && !practiceMode) {
 							unlock = true;
 						}
 					case 'ur_good':

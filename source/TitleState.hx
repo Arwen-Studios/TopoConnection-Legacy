@@ -559,6 +559,11 @@ class TitleState extends MusicBeatState
 		0xffff0036, //red
 	];
 
+	public static var blammedAltColors:Array<FlxColor> = [
+		0xffff0036, //red
+		0xffff00e4, //purple
+	];
+
 	override function beatHit()
 	{
 		super.beatHit();
