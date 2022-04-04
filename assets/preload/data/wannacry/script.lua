@@ -12,7 +12,7 @@ function onCreatePost()
 	setProperty('timeBar.y', 689)
 	setProperty('timeTxt.y', 676)
 
-	local texture = 'noteskins/opponent/' .. 'Nxxty'
+	local texture = 'p2Notes/' .. 'Nxxty'
 	for i = 0, 3 do setPropertyFromGroup('opponentStrums', i, 'texture', texture) end
     for i = 0, getProperty('unspawnNotes.length') - 1 do
         if not getPropertyFromGroup('unspawnNotes', i, 'mustPress') then

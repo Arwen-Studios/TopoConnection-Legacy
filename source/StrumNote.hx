@@ -2,7 +2,11 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.ui.U;
 import flixel.graphics.frames.FlxAtlasFrames;
+#if sys
+import sys.FileSystem;
+#end
 
 using StringTools;
 
@@ -34,19 +38,12 @@ class StrumNote extends FlxSprite
 		this.noteData = leData;
 		super(x, y);
 
-		var skin:String = '';
-		switch (ClientPrefs.noteSkin)
-		{
-			case 'FNF':
-				skin = 'noteskins/NOTE_assets';
-			case 'Alpha':
-				skin = 'noteskins/NOTE_topoV1';
-			case 'Circle':
-				skin = 'noteskins/NOTE_circle';
-			case 'Bar':
-				skin = 'noteskins/NOTE_bar';
-			default:
-				skin = 'noteskins/NOTE_topoV2';
+		var skin:String;
+		if(FlxG.save.data.arrowSkin != null) {	
+			skin = FlxG.save.data.arrowSkin;
+		}
+		else {
+			skin = 'noteskins/NOTE_topoV2';
 		}
 
 		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
@@ -62,10 +59,18 @@ class StrumNote extends FlxSprite
 
 		if(PlayState.isPixelStage)
 		{
-			loadGraphic(Paths.image('pixelUI/' + texture));
+			#if sys
+			var skin:String = 'noteskins/NOTE_topoV2';
+			if (FileSystem.exists(Paths.modFolders('images/pixelUI/$texture.png')) && FileSystem.exists(Paths.modFolders('images/pixelUI/' + texture + 'ENDS.png'))) {
+				skin = FlxG.save.data.arrowSkin;
+			} else {
+				var skin:String = 'noteskins/NOTE_topoV2';
+			}
+			#end
+			loadGraphic(Paths.image('pixelUI/' + skin));
 			width = width / 4;
 			height = height / 5;
-			loadGraphic(Paths.image('pixelUI/' + texture), true, Math.floor(width), Math.floor(height));
+			loadGraphic(Paths.image('pixelUI/' + skin), true, Math.floor(width), Math.floor(height));
 
 			antialiasing = false;
 			setGraphicSize(Std.int(width * PlayState.daPixelZoom));

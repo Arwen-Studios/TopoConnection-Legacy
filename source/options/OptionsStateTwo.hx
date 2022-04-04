@@ -27,9 +27,9 @@ import Controls;
 
 using StringTools;
 
-class OptionsState extends MusicBeatState
+class OptionsStateTwo extends MusicBeatState
 {
-	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Visuals and UI'];
+	var options:Array<String> = ['Note Colors', 'Note Skins', 'Note Delay and Combo'];
 	public static var cameFromPause:Bool = false;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
@@ -37,14 +37,12 @@ class OptionsState extends MusicBeatState
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
-			case 'Controls':
-				openSubState(new options.ControlsSubState());
-			case 'Graphics':
-				openSubState(new options.GraphicsSettingsSubState());
-			case 'Visuals and UI':
-				openSubState(new options.VisualsUISubState());
-			case 'Gameplay':
-				openSubState(new options.GameplaySettingsSubState());
+			case 'Note Colors':
+				openSubState(new options.NotesSubState());
+			case 'Note Skins':
+				LoadingState.loadAndSwitchState(new options.NoteSkinState());
+			case 'Note Delay and Combo':
+				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
 	}
 
@@ -67,13 +65,13 @@ class OptionsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		var titleText:Alphabet = new Alphabet(0, 0, "General Settings", true, false, 0, 0.6);
+		var titleText:Alphabet = new Alphabet(0, 0, "Note Settings", true, false, 0, 0.6);
 		titleText.x += 60;
 		titleText.y += 90;
 		titleText.alpha = 0.4;
 		add(titleText);
 
-		var titleNotice:Alphabet = new Alphabet(0, 0, "< Page 1 >", true, false, 0, 0.6);
+		var titleNotice:Alphabet = new Alphabet(0, 0, "< Page 2 >", true, false, 0, 0.6);
 		titleNotice.x += 70;
 		titleNotice.y += 40;
 		titleNotice.alpha = 0.4;
@@ -113,17 +111,12 @@ class OptionsState extends MusicBeatState
 			changeSelection(1);
 		}
 		if (controls.UI_LEFT_P || controls.UI_RIGHT_P) {
-			MusicBeatState.switchState(new OptionsStateTwo());
+			MusicBeatState.switchState(new OptionsState());
 		}
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if(PauseSubState.playStateToOp) {
-                LoadingState.loadAndSwitchState(new PlayState());
-				PauseSubState.playStateToOp = false;
-			} else {
-                MusicBeatState.switchState(new MainMenuState());
-			}
+			MusicBeatState.switchState(new OptionsState());
 		}
 
 		if (controls.ACCEPT) {

@@ -69,18 +69,10 @@ class NotesSubState extends MusicBeatSubstate
 			}
 
 			var note:FlxSprite = new FlxSprite(posX, yPos);
-			switch (ClientPrefs.noteSkin)
-			{
-				case 'Alpha':
-					note.frames = Paths.getSparrowAtlas('noteskins/NOTE_topoV1');
-				case 'Circle':
-					note.frames = Paths.getSparrowAtlas('noteskins/NOTE_circle');
-				case 'Bar':
-					note.frames = Paths.getSparrowAtlas('noteskins/NOTE_bar');
-				case 'FNF':
-					note.frames = Paths.getSparrowAtlas('noteskins/NOTE_assets');
-				default:
-					note.frames = Paths.getSparrowAtlas('noteskins/NOTE_topoV2');
+			if(FlxG.save.data.arrowSkin != null) {
+				note.frames = Paths.getSparrowAtlas(FlxG.save.data.arrowSkin);
+			} else {
+				note.frames = Paths.getSparrowAtlas('noteskins/NOTE_topoV2');
 			}
 			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
 			note.animation.addByPrefix('idle', animations[i]);

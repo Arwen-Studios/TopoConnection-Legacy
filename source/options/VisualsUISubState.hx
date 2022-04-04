@@ -42,16 +42,6 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.onChange = onChangeAutoPause;
 		addOption(option);
 
-		var option:Option = new Option('Note Skin:',
-			"Funny Notes, going up and down, How should they look like?",
-			'noteSkin',
-			'string',
-			'Default',
-			['Default', 'Alpha', 'Circle', 'Bar', 'FNF']);
-		option.showNotes = true;
-		option.onChange = onChangeNoteSkin;
-		addOption(option);
-
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
 			'noteSplashes',
@@ -169,11 +159,6 @@ class VisualsUISubState extends BaseOptionsMenu
 	function onChangeAutoPause()
 	{
 		FlxG.autoPause = ClientPrefs.autoPause;
-	}
-
-	function onChangeNoteSkin()
-	{
-		updateNotes();
 	}
 
 	var changedMusic:Bool = false;

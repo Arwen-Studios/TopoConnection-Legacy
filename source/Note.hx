@@ -7,6 +7,9 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flash.display.BitmapData;
 import editors.ChartingState;
+#if sys
+import sys.FileSystem;
+#end
 
 using StringTools;
 
@@ -252,21 +255,12 @@ class Note extends FlxSprite
 		if(texture.length < 1) {
 			skin = PlayState.SONG.arrowSkin;
 			if(skin == null || skin.length < 1) {
-				switch (ClientPrefs.noteSkin)
-				{
-					case 'FNF':
-						skin = 'noteskins/NOTE_assets';
-					case 'Alpha':
-						skin = 'noteskins/NOTE_topoV1';
-					case 'Circle':
-						skin = 'noteskins/NOTE_circle';
-					case 'Bar':
-						skin = 'noteskins/NOTE_bar';
-					default:
-						skin = 'noteskins/NOTE_topoV2';
+				skin = FlxG.save.data.arrowSkin;
+			}
+			if(FlxG.save.data.arrowSkin == null) {
+				skin = 'noteskins/NOTE_topoV2';
 				}
 			}
-		}
 
 		var animName:String = null;
 		if(animation.curAnim != null) {
@@ -279,6 +273,13 @@ class Note extends FlxSprite
 		var lastScaleY:Float = scale.y;
 		var blahblah:String = arraySkin.join('/');
 		if(PlayState.isPixelStage) {
+			#if sys
+			if (FileSystem.exists(Paths.modFolders('images/pixelUI/$blahblah.png')) && FileSystem.exists(Paths.modFolders('images/pixelUI/' + blahblah + 'ENDS.png'))) {
+					blahblah = FlxG.save.data.arrowSkin;
+			} else {
+				blahblah = 'noteskins/NOTE_topoV2';
+			}
+			#end
 			if(isSustainNote) {
 				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'));
 				width = width / 4;

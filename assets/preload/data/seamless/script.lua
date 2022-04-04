@@ -3,7 +3,7 @@ function onCreate()
 end
 
 function onCreatePost()
-	local texture = 'noteskins/opponent/' .. 'Nxxty'
+	local texture = 'p2Notes/' .. 'Nxxty'
 
 	for i = 0, 3 do setPropertyFromGroup('opponentStrums', i, 'texture', texture) end
     for i = 0, getProperty('unspawnNotes.length') - 1 do
