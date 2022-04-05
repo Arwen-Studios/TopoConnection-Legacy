@@ -39,6 +39,8 @@ class ClientPrefs {
 	public static var accuracyDisplay:Bool = true;
 	public static var camFollow:Bool = true;
 	public static var pussyMode:Bool = false;
+	public static var antiMash:Bool = true;
+	public static var hellRatings:Bool = false;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -153,6 +155,8 @@ class ClientPrefs {
 		FlxG.save.data.accuracyDisplay = accuracyDisplay;
 		FlxG.save.data.camFollow = camFollow;
 		FlxG.save.data.pussyMode = pussyMode;
+		FlxG.save.data.antiMash = antiMash;
+		FlxG.save.data.hellRatings = hellRatings;
 	
 		FlxG.save.flush();
 
@@ -286,6 +290,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.pussyMode != null) {
 			pussyMode = FlxG.save.data.pussyMode;
+		}
+		if(FlxG.save.data.antiMash != null) {
+			antiMash = FlxG.save.data.antiMash;
+		}
+		if(FlxG.save.data.hellRatings != null) {
+			hellRatings = FlxG.save.data.hellRatings;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{

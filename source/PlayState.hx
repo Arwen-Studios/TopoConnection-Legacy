@@ -3551,14 +3551,16 @@ class PlayState extends MusicBeatState
 				totalNotesHit += 0;
 				note.ratingMod = 0;
 				score = 50;
-				health -= 0.2;
+				if(ClientPrefs.hellRatings)
+					health -= 0.2;
 				msText.color = FlxColor.RED;
 				if(!note.ratingDisabled) shits++;
 			case "bad": // bad
 				totalNotesHit += 0.5;
 				note.ratingMod = 0.5;
 				score = 100;
-				health -= 0.06;
+				if(ClientPrefs.hellRatings)
+					health -= 0.06;
 				msText.color = FlxColor.ORANGE;
 				if(!note.ratingDisabled) bads++;
 			case "good": // good
@@ -3799,7 +3801,8 @@ class PlayState extends MusicBeatState
 							sortedNotesList.push(daNote);
 							//notesDatas.push(daNote.noteData);
 						}
-						canMiss = true;
+						if (ClientPrefs.antiMash)
+							canMiss = true;
 					}
 				});
 				sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));

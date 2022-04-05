@@ -35,10 +35,24 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		rpcTitle = 'Gameplay Settings Menu'; //for Discord Rich Presence
 
 		var option:Option = new Option('Accuracy Display',
-			'If unchecked, Accuracy, Ratings, and related Achievements will be disabled.',
+			'If unchecked, accuracy, ratings, and related achievements will be disabled.',
 			'accuracyDisplay',
 			'bool',
 			true);
+		addOption(option);
+
+		var option:Option = new Option('Anti Mash',
+			"If unchecked, the anti mash system will be disabled completely.",
+			'antiMash',
+			'bool',
+			true);
+		addOption(option);
+
+		var option:Option = new Option('Harsh Judgements',
+			"If checked, any judgement worse than 'Good' will drain health.",
+			'hellRatings',
+			'bool',
+			false);
 		addOption(option);
 
 		var option:Option = new Option('Controller Mode',
