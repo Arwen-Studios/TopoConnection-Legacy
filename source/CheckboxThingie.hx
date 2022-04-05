@@ -20,7 +20,7 @@ class CheckboxThingie extends FlxSprite
 		animation.addByPrefix("checked", "checkbox finish", 24, false);
 
 		antialiasing = ClientPrefs.globalAntialiasing;
-		setGraphicSize(Std.int(0.9 * width));
+		setGraphicSize(Std.int(0.6 * width));
 		updateHitbox();
 
 		animationFinished(checked ? 'checking' : 'unchecking');
@@ -42,11 +42,11 @@ class CheckboxThingie extends FlxSprite
 		if(check) {
 			if(animation.curAnim.name != 'checked' && animation.curAnim.name != 'checking') {
 				animation.play('checking', true);
-				offset.set(34, 25);
+				//offset.set(34, 25);
 			}
 		} else if(animation.curAnim.name != 'unchecked' && animation.curAnim.name != 'unchecking') {
 			animation.play("unchecking", true);
-			offset.set(25, 28);
+			//offset.set(25, 28);
 		}
 		return check;
 	}
@@ -57,11 +57,11 @@ class CheckboxThingie extends FlxSprite
 		{
 			case 'checking':
 				animation.play('checked', true);
-				offset.set(3, 12);
+				//offset.set(3, 12);
 
 			case 'unchecking':
 				animation.play('unchecked', true);
-				offset.set(0, 2);
+				//offset.set(0, 2);
 		}
 	}
 }
