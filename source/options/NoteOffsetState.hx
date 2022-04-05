@@ -101,7 +101,7 @@ class NoteOffsetState extends MusicBeatState
 
 		comboSprite = new FlxSprite().loadGraphic(Paths.image('combo'));
 		comboSprite.cameras = [camHUD];
-		comboSprite.setGraphicSize(Std.int(rating.width * 0.7));
+		comboSprite.setGraphicSize(Std.int(comboSprite.width * 0.7));
 		comboSprite.updateHitbox();
 		comboSprite.antialiasing = ClientPrefs.globalAntialiasing;
 		
@@ -424,8 +424,8 @@ class NoteOffsetState extends MusicBeatState
 		comboNums.y += 80 - ClientPrefs.comboOffset[3];
 
 		comboSprite.screenCenter();
-		comboSprite.x = coolText.x - 90 + ClientPrefs.comboOffset[4];
-		comboSprite.y -= 60 + ClientPrefs.comboOffset[5];
+		comboSprite.x = coolText.x - 120 + ClientPrefs.comboOffset[4];
+		comboSprite.y -= 90 + ClientPrefs.comboOffset[5];
 		
 		reloadTexts();
 	}
