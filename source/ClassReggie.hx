@@ -137,6 +137,7 @@ class ClassReggie extends MusicBeatState
 
         if (controls.BACK) {
             FlxG.sound.play(Paths.sound('cancelMenu'));
+            FlxG.sound.music.fadeOut();
             LoadingState.loadAndSwitchState(new PlayState());
 		}
 

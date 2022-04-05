@@ -31,8 +31,11 @@ class NoteSkinState extends MusicBeatState {
 
     override function create()
     {
+        FlxTransitionableState.skipNextTransOut = true;
+        FlxTransitionableState.skipNextTransIn = true; 
+        
         bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-        bg.color = 0xFFea71fd;
+        bg.color = FlxColor.CYAN;
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
@@ -46,9 +49,6 @@ class NoteSkinState extends MusicBeatState {
 		// add(camFollowPos);
 
         // FlxG.camera.follow(camFollowPos, null, 1);
-
-        transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
 
         grpSkins = new FlxTypedGroup<Alphabet>();
 		add(grpSkins);

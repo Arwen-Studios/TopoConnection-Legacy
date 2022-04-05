@@ -6,6 +6,7 @@ import Discord.DiscordClient;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -40,6 +41,8 @@ class OptionsStateTwo extends MusicBeatState
 			case 'Note Colors':
 				openSubState(new options.NotesSubState());
 			case 'Note Skins':
+				FlxTransitionableState.skipNextTransOut = true;
+				FlxTransitionableState.skipNextTransIn = true;
 				LoadingState.loadAndSwitchState(new options.NoteSkinState());
 			case 'Note Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
@@ -51,11 +54,11 @@ class OptionsStateTwo extends MusicBeatState
 
 	override function create() {
 		#if desktop
-		DiscordClient.changePresence("In the Menus", "Options Menu", null);
+		DiscordClient.changePresence("In the Menus", "Options Menu (Page 2)", null);
 		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
+		bg.color = FlxColor.CYAN;
 		bg.updateHitbox();
 
 		bg.screenCenter();

@@ -3652,8 +3652,8 @@ class PlayState extends MusicBeatState
 		comboSpr.acceleration.y = 600;
 		comboSpr.velocity.y -= 150;
 		comboSpr.visible = (!ClientPrefs.hideHud && showCombo);
-		comboSpr.x += ClientPrefs.comboOffset[0] + 100;
-		comboSpr.y -= ClientPrefs.comboOffset[1] - 20;
+		comboSpr.x += ClientPrefs.comboOffset[4];
+		comboSpr.y -= ClientPrefs.comboOffset[5];
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
 
 		if (combo > 9)
