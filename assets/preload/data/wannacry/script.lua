@@ -1,14 +1,19 @@
 --50 = upscroll
 --570 = downscroll
 
+function opponentNoteHit()
+    health = getProperty('health')
+    if getProperty('health') > 0.05 then
+        setProperty('health', health- 0.02);
+    end
+end
+
 function onCreatePost()
 	setProperty('iconP1.alpha', 0)
 	setProperty('iconP2.alpha', 0)
 	setProperty('laneunderlayOpponent.alpha', 0)
 	setProperty('scoreTxt.y', 10)
-    setProperty('healthBar.y', 340)
-	setProperty('healthBar.x', 969)
-	setProperty('healthBar.angle', 90)
+    setProperty('healthBar.y', 15)
 	setProperty('timeBar.y', 689)
 	setProperty('timeTxt.y', 676)
 

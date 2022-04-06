@@ -221,8 +221,9 @@ class PlayState extends MusicBeatState
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
+	public var isBossSong:Bool = false;
 	var songDisp:FlxText;
-	var engineWatermark:FlxText;
+	//var songAuthor:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
@@ -823,7 +824,10 @@ class PlayState extends MusicBeatState
 
 		switch (songName)
 		{
-			case 'purplered' | 'seamless' | 'wannacry': //Chapter 1 - Week 1
+			case 'purplered' | 'seamless': //Chapter 1 - Week 1
+				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
+			case 'wannacry':
+				isBossSong = true;
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
 			case 'lazy':
 				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.LIME);
@@ -917,7 +921,7 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		moveCameraSection(0);
 
-		healthBarBG = new AttachedSprite('healthBar');
+		healthBarBG = new AttachedSprite(isBossSong ? "bossHealth" : "healthBar");
 		healthBarBG.y = FlxG.height * 0.875;
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
@@ -956,18 +960,10 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		songDisp = new FlxText(0, FlxG.height - 44, 0, SONG.song + " - " + CoolUtil.difficultyString(), 16);
+		songDisp = new FlxText(0, FlxG.height - 24, 0, SONG.song + " - " + CoolUtil.difficultyString(), 16);
 		songDisp.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		songDisp.scrollFactor.set();
 		add(songDisp);
-		
-		engineWatermark = new FlxText(0, FlxG.height - 24, 0, "Psych Engine v" + MainMenuState.psychEngineVersion, 16);
-		engineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		engineWatermark.scrollFactor.set();
-		add(engineWatermark);
-
-		if (songName == "bimbo")
-			engineWatermark.text = "Bimbo Engine v" + MainMenuState.psychEngineVersion;
 
 		botplayTxt = new FlxText(395, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		if(ClientPrefs.downScroll)
@@ -999,7 +995,6 @@ class PlayState extends MusicBeatState
 		scoreTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		songDisp.cameras = [camHUD];
-		engineWatermark.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
@@ -2416,7 +2411,7 @@ class PlayState extends MusicBeatState
 			- BeastlyGhost
 		*/
 
-		var divider:String = ' // ';
+		var divider:String = ' - ';
 
 		scoreTxt.text = '';
 		scoreTxt.text += (ClientPrefs.npsDisplay ? 'NPS: ${nps}/${maxNPS}${divider}Score: ${songScore}' : 'Score: ${songScore}');
@@ -2496,6 +2491,11 @@ class PlayState extends MusicBeatState
 
 		if (health > 2)
 			health = 2;
+
+		if (isBossSong) {
+			if (health > 3)
+				health = 3;
+		}
 
 		if (healthBar.percent < 20) {
 			(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 1;

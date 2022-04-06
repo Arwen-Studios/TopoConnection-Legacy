@@ -4,11 +4,7 @@ package;
     class to avoid Opponent Mode
     on bimbo's song
 
-    I will probably transform this into
-    a gallery someday.
-
-    yes I did put a bit of effort into this
-    my bad lol
+    will be used for more stuff later
     - BeastlyGhost
 */
 
@@ -24,10 +20,15 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.effects.FlxFlicker;
 import flixel.input.keyboard.FlxKey;
+import Song.SwagSong;
 import Achievements;
 
 class ClassReggie extends MusicBeatState
 {
+    public static var instance:ClassReggie;
+    // song loading
+    public static var SONG:SwagSong = null;
+
     // making this public so PlayState can update it
     public static var reggieCounter:Int = 0;
 
@@ -44,6 +45,7 @@ class ClassReggie extends MusicBeatState
 
     override function create():Void
     {
+        instance = this;
         Paths.clearStoredMemory();
         #if desktop
 		// Updating Discord Rich Presence
@@ -89,16 +91,6 @@ class ClassReggie extends MusicBeatState
         daHint.scrollFactor.set();
         if (reggieCounter > 9 && reggieCounter < 11)
             add(daHint);
-
-        songDisp = new FlxText(0, FlxG.height - 44, 0, "??? - HARD", 16);
-        songDisp.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        songDisp.scrollFactor.set();
-        add(songDisp);
-
-        engineWatermark = new FlxText(0, FlxG.height - 24, 0, "Reggie Engine v" + MainMenuState.psychEngineVersion, 16);
-        engineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        engineWatermark.scrollFactor.set();
-        add(engineWatermark);
 
         #if ACHIEVEMENTS_ALLOWED
 		Achievements.loadAchievements();
