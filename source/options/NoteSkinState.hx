@@ -106,9 +106,11 @@ class NoteSkinState extends MusicBeatState {
         var accepted = controls.ACCEPT;
         
         if(downP) {
+            FlxG.sound.play(Paths.sound('scrollMenu'));
             changeSkin();
         }
         else if(upP) {
+            FlxG.sound.play(Paths.sound('scrollMenu'));
             changeSkin(false);
         }
         if(accepted) {

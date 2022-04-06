@@ -58,7 +58,7 @@ class OptionsStateTwo extends MusicBeatState
 		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = FlxColor.CYAN;
+		bg.color = 0xFF007575;
 		bg.updateHitbox();
 
 		bg.screenCenter();
@@ -114,10 +114,14 @@ class OptionsStateTwo extends MusicBeatState
 			changeSelection(1);
 		}
 		if (controls.UI_LEFT_P || controls.UI_RIGHT_P) {
+			FlxTransitionableState.skipNextTransOut = true;
+			FlxTransitionableState.skipNextTransIn = true;
 			MusicBeatState.switchState(new OptionsState());
 		}
 
 		if (controls.BACK) {
+			FlxTransitionableState.skipNextTransOut = true;
+			FlxTransitionableState.skipNextTransIn = true;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new OptionsState());
 		}
