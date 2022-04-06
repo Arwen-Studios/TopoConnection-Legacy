@@ -57,7 +57,7 @@ class StoryMenuState extends MusicBeatState
 	{
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-		Conductor.changeBPM(165);
+		Conductor.changeBPM(TitleState.instance.titleJSON.bpm);
 
 		PlayState.isStoryMode = true;
 		WeekData.reloadWeekFiles(true);
@@ -205,7 +205,7 @@ class StoryMenuState extends MusicBeatState
 		add(textBG);
 
 		var leText:String = "Press SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
-		var size:Int = 16;
+		var size:Int = 13;
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.color = TitleState.blammedLightsColors[0];

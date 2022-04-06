@@ -54,7 +54,7 @@ class MainMenuState extends MusicBeatState
 	override function create()
 	{
 		WeekData.loadTheFirstEnabledMod();
-		Conductor.changeBPM(165);
+		Conductor.changeBPM(TitleState.instance.titleJSON.bpm);
 
 		#if desktop
 		// Updating Discord Rich Presence

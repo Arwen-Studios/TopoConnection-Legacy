@@ -51,6 +51,7 @@ typedef TitleData =
 }
 class TitleState extends MusicBeatState
 {
+	public static var instance:TitleState;
 	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
@@ -77,12 +78,13 @@ class TitleState extends MusicBeatState
 
 	var mustUpdate:Bool = false;
 	
-	var titleJSON:TitleData;
+	public var titleJSON:TitleData;
 	
 	public static var updateVersion:String = '';
 
 	override public function create():Void
 	{
+		instance = this;
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
