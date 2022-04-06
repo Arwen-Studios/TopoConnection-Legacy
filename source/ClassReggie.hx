@@ -65,8 +65,8 @@ class ClassReggie extends MusicBeatState
         // stop all the songs from the previous state
         FlxG.sound.music.stop();
 
-        // play the menu music and the funny sound
-        FlxG.sound.playMusic(Paths.music('freakyMenuOG'), 0);
+        // play the og menu music and the funny sound
+        FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
         FlxG.sound.music.fadeIn(4, 0, 0.7);
         FlxG.sound.play(Paths.sound('boom'));
 

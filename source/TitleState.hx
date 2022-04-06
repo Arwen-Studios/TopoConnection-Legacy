@@ -109,7 +109,7 @@ class TitleState extends MusicBeatState
 		#if CHECK_FOR_UPDATES
 		if(!closedState) {
 			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/ShadowMario/FNF-PsychEngine/main/gitVersion.txt");
+			var http = new haxe.Http("https://raw.githubusercontent.com/BeastlyGhost/FNF-TopoConnection-Source/main/gitVersion.txt");
 			
 			http.onData = function (data:String)
 			{
@@ -243,7 +243,7 @@ class TitleState extends MusicBeatState
 			// music.play();
 
 			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+				FlxG.sound.playMusic(Paths.music(Main.menuSong), 0);
 
 				FlxG.sound.music.fadeIn(4, 0, 0.7);
 			}
@@ -593,7 +593,7 @@ class TitleState extends MusicBeatState
 				case 1:
 					{
 						FlxG.sound.music.stop();
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(Paths.music(Main.menuSong), 0);
 						FlxG.sound.music.fadeIn(5, 0, 0.7);
 					}
 				case 2:
@@ -674,7 +674,7 @@ class TitleState extends MusicBeatState
 						skippedIntro = true;
 						playJingle = false;
 						
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(Paths.music(Main.menuSong), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
 				}
@@ -696,7 +696,7 @@ class TitleState extends MusicBeatState
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(Paths.music(Main.menuSong), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
 					};

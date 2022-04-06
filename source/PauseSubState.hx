@@ -259,9 +259,9 @@ class PauseSubState extends MusicBeatSubstate
 					if(PlayState.isStoryMode) {
 						MusicBeatState.switchState(new StoryMenuState());
 					} else {
-						MusicBeatState.switchState(new MainMenuState());
+						MusicBeatState.switchState(new FreeplayState());
 					}
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music(Main.menuSong));
 					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;
 			}
@@ -381,7 +381,7 @@ class PauseSubState extends MusicBeatSubstate
         FlxG.mouse.visible = false;
         playStateToOp = true;
 		options.OptionsState.cameFromPause = true;
-        FlxG.sound.playMusic(Paths.music('freakyMenu'));
+        FlxG.sound.playMusic(Paths.music(Main.menuSong));
         PlayState.changedDifficulty = false;
         PlayState.chartingMode = false;
     }
