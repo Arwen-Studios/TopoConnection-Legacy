@@ -5,7 +5,7 @@
 	"weekBackground": "",
 	"weekBefore": "",
 	"startUnlocked": true,
-	"hideStoryMode": false,
+	"hideStoryMode": true,
 	"weekCharacters": [
 		"",
 		"bf",
@@ -13,7 +13,16 @@
 	],
 	"songs": [
 		[
-			"Purple Red",
+			"Old Seamless",
+			"nxxty",
+			[
+				226,
+				20,
+				155
+			]
+		],
+		[
+			"Old Wannacry",
 			"nxxty",
 			[
 				226,
@@ -22,6 +31,6 @@
 			]
 		]
 	],
-	"weekName": "Connected",
+	"weekName": "Old Songs",
 	"hiddenUntilUnlocked": false
 }
