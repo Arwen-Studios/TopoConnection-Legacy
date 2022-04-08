@@ -41,6 +41,7 @@ class ClientPrefs {
 	public static var pussyMode:Bool = false;
 	public static var antiMash:Bool = true;
 	public static var hellRatings:Bool = false;
+	public static var ratingPos:String = "World";
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -157,6 +158,7 @@ class ClientPrefs {
 		FlxG.save.data.pussyMode = pussyMode;
 		FlxG.save.data.antiMash = antiMash;
 		FlxG.save.data.hellRatings = hellRatings;
+		FlxG.save.data.ratingPos = ratingPos;
 	
 		FlxG.save.flush();
 
@@ -296,6 +298,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hellRatings != null) {
 			hellRatings = FlxG.save.data.hellRatings;
+		}
+		if(FlxG.save.data.ratingPos != null) {
+			ratingPos = FlxG.save.data.ratingPos;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{

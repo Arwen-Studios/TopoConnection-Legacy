@@ -18,7 +18,6 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.effects.FlxFlicker;
 import flixel.input.keyboard.FlxKey;
 import Song.SwagSong;
 import Achievements;
@@ -80,14 +79,14 @@ class ClassReggie extends MusicBeatState
         add(reggie);
 
         daText = new FlxText(0, FlxG.height - 405, 0, "", 16);
-        daText.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        daText.setFormat(Paths.font("mode-seven.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         daText.x = 250;
         daText.scrollFactor.set();
         daText.borderSize = 1.25;
         add(daText);
 
         var daHint:FlxText = new FlxText(0, FlxG.height - 64, 0, "HINT: You can double increase the counter by quickly going back to this menu while the transition is still happening.", 16);
-        daHint.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        daHint.setFormat(Paths.font("mode-seven.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         daHint.scrollFactor.set();
         if (reggieCounter > 9 && reggieCounter < 11)
             add(daHint);

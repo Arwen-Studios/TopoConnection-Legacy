@@ -213,7 +213,7 @@ class PlayState extends MusicBeatState
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
-	//topoworld BG
+	// topoworld BG
 	public var crt:BGSprite;
 	public var purp:BGSprite;
 
@@ -226,6 +226,12 @@ class PlayState extends MusicBeatState
 	//var songAuthor:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
+
+	// the position of the rating and the number objects on a stage
+	// doesn't work with "Fixed" rating positions.
+	public var stageRatingPos:String;
+	public var stageComboPos:String;
+	public var stageNumberPos:String;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -778,7 +784,7 @@ class PlayState extends MusicBeatState
 
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
-		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat(Paths.font("mode-seven.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
@@ -826,7 +832,7 @@ class PlayState extends MusicBeatState
 		{
 			case 'purplered' | 'seamless': //Chapter 1 - Week 1
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
-			case 'wannacry':
+			case 'old-wannacry' | 'wannacry':
 				isBossSong = true;
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
 			case 'lazy':
@@ -954,14 +960,14 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("mode-seven.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
 		songDisp = new FlxText(0, FlxG.height - 24, 0, SONG.song + " - " + CoolUtil.difficultyString(), 16);
-		songDisp.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		songDisp.setFormat(Paths.font("mode-seven.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		songDisp.scrollFactor.set();
 		add(songDisp);
 
@@ -974,7 +980,7 @@ class PlayState extends MusicBeatState
 			else
 				botplayTxt.y = botplayTxt.y + 78;
 		}
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		botplayTxt.setFormat(Paths.font("mode-seven.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 2;
 		botplayTxt.visible = cpuControlled;
@@ -2427,7 +2433,7 @@ class PlayState extends MusicBeatState
 				scoreTxt.text += divider + 'Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%';
 			
 			if (ratingFC != '')
-				scoreTxt.text += divider + '[${ratingFC}] ${ratingName}';
+				scoreTxt.text += divider + '{${ratingFC}} ${ratingName}';
 			else
 				scoreTxt.text += divider + '${ratingName}';
 		}
@@ -3507,6 +3513,7 @@ class PlayState extends MusicBeatState
 
 	public var showCombo:Bool = true;
 	public var showRating:Bool = true;
+	public var showMilliseconds:Bool = true;
 
 	private function popUpScore(note:Note = null):Void
 	{
@@ -3578,7 +3585,11 @@ class PlayState extends MusicBeatState
 
 		msText.text = Std.string(Std.int(Conductor.ms)) + "ms" + (cpuControlled ? " (BOT)" : "");
 		msText.size = 12;
-		msText.cameras = [camHUD];
+		msText.cameras = [camGame];
+
+		if (ClientPrefs.ratingPos == "Fixed") {
+			msText.cameras = [camHUD];
+		}
 
 		note.rating = daRating;
 
@@ -3629,44 +3640,47 @@ class PlayState extends MusicBeatState
 		}
 
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
-		rating.cameras = [camHUD];
 		rating.screenCenter();
+		rating.cameras = [camGame];
 		rating.x = coolText.x - 40;
 		rating.y -= 60;
+		/*rating.x = stageRatingPos;
+		rating.y = stageRatingPos;*/
 		rating.acceleration.y = 550;
 		rating.velocity.y -= FlxG.random.int(140, 175);
 		rating.velocity.x -= FlxG.random.int(0, 10);
 		rating.visible = (!ClientPrefs.hideHud && showRating);
-		rating.x += ClientPrefs.comboOffset[0];
-		rating.y -= ClientPrefs.comboOffset[1];
-
-		msText.screenCenter();
-		msText.x = rating.x + 10;
-		msText.y = rating.y + 100;
-		msText.acceleration.y = 600;
-		msText.velocity.y -= 150;
-		msText.size = 20;
+		if(ClientPrefs.ratingPos == "Fixed") {
+			rating.cameras = [camHUD];
+			rating.x += ClientPrefs.comboOffset[0];
+			rating.y -= ClientPrefs.comboOffset[1];
+		}
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
-		comboSpr.cameras = [camHUD];
+		comboSpr.cameras = [camGame];
 		comboSpr.screenCenter();
-		comboSpr.x = coolText.x - 40;
-		comboSpr.y -= 60;
+		comboSpr.x = coolText.x - 20;
+		comboSpr.y += 30;
+		/*comboSpr.x = stageComboPos;
+		comboSpr.y = stageComboPos;*/
 		comboSpr.acceleration.y = 550;
 		comboSpr.velocity.y -= FlxG.random.int(140, 175);
 		comboSpr.velocity.x -= FlxG.random.int(0, 10);
 		comboSpr.visible = (!ClientPrefs.hideHud && showCombo);
-		comboSpr.x += ClientPrefs.comboOffset[4];
-		comboSpr.y -= ClientPrefs.comboOffset[5];
+		if(ClientPrefs.ratingPos == "Fixed") {
+			comboSpr.cameras = [camHUD];
+			comboSpr.x += ClientPrefs.comboOffset[4];
+			comboSpr.y -= ClientPrefs.comboOffset[5];
+		}
 
-		if (combo > 9)
-			add(comboSpr);
-
-		add(msText);
-
-		if (!ClientPrefs.accuracyDisplay)
-			msText.visible = false;
-
+		msText.screenCenter();
+		msText.x = comboSpr.x + 10;
+		msText.y = comboSpr.y - 40;
+		msText.acceleration.y = 600;
+		msText.velocity.y -= 150;
+		msText.size = 20;
+		msText.visible = (!ClientPrefs.hideHud && showMilliseconds);
+		
 		lastCombo.push(comboSpr);
 		lastCombo.push(msText);
 
@@ -3701,13 +3715,18 @@ class PlayState extends MusicBeatState
 		for (i in seperatedScore)
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
-			numScore.cameras = [camHUD];
+			numScore.cameras = [camGame];
 			numScore.screenCenter();
 			numScore.x = coolText.x + (43 * daLoop) - 90;
 			numScore.y += 80;
+			/*numScore.x = stageNumberPos;
+			numScore.y = stageNumberPos;*/
 
-			numScore.x += ClientPrefs.comboOffset[2];
-			numScore.y -= ClientPrefs.comboOffset[3];
+			if(ClientPrefs.ratingPos == "Fixed") {
+				numScore.cameras = [camHUD];
+				numScore.x += ClientPrefs.comboOffset[2];
+				numScore.y -= ClientPrefs.comboOffset[3];
+			}
 
 			if (!PlayState.isPixelStage)
 			{
@@ -3725,8 +3744,13 @@ class PlayState extends MusicBeatState
 			numScore.velocity.x = FlxG.random.float(-5, 5);
 			numScore.visible = !ClientPrefs.hideHud;
 
-			if (combo >= 10 || combo == 0)
+			if (combo >= 10 || combo == 0) {
+				insert(members.indexOf(strumLineNotes), comboSpr);
 				insert(members.indexOf(strumLineNotes), numScore);
+			}
+
+			if (combo > 0)
+				insert(members.indexOf(strumLineNotes), msText);
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 				onComplete: function(tween:FlxTween)
@@ -4686,9 +4710,11 @@ class PlayState extends MusicBeatState
 				//trace((totalNotesHit / totalPlayed) + ', Total: ' + totalPlayed + ', notes hit: ' + totalNotesHit);
 				
 				var songName:String = Paths.formatToSongPath(SONG.song);
-				var ratings:Array<Dynamic> = Ratings.topoRatings;
+				var ratings:Array<Dynamic> = Ratings.psychRatings;
 				switch (songName)
 				{
+					case "purplered" | "seamless" | "wannacry" | "old-seamless" | "old-wannacry":
+						ratings = Ratings.topoRatings;
 					case "bimbo":
 						ratings = Ratings.bimboRatings;
 					case "nuzlocke":
@@ -4719,9 +4745,9 @@ class PlayState extends MusicBeatState
 
 			// Rating FC
 			ratingFC = "";
-			if (sicks > 0) ratingFC = "☆☆☆"; //Triple Star Grade
-			if (goods > 0) ratingFC = "☆☆"; //Double Star Grade
-			if (bads > 0 ) ratingFC = "☆"; //Single Star Grade
+			if (sicks > 0) ratingFC = "***"; //Triple Star Grade
+			if (goods > 0) ratingFC = "**"; //Double Star Grade
+			if (bads > 0 ) ratingFC = "*"; //Single Star Grade
 			if (shits > 0) ratingFC = "FC"; //Full Combo
 			if (songMisses > 0) ratingFC = "";
 		}

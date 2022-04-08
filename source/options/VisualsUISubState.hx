@@ -144,6 +144,14 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
 		#end
+
+		var option:Option = new Option('Rating Position:',
+			"Where the ratings should stay in-game?\nFixed means that they will be part of the hud, and you will be able to change their position\nWorld means that they will be part of the stage.",
+			'ratingPos',
+			'string',
+			'World',
+			['World', 'Fixed']);
+		addOption(option);
 		
 		var option:Option = new Option('Pause Screen Song:',
 			"What song do you prefer for the Pause Screen?",

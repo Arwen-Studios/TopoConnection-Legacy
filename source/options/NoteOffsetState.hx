@@ -88,6 +88,11 @@ class NoteOffsetState extends MusicBeatState
 		// Layers
 		add(crt);
 
+		var dark:FlxSprite = new FlxSprite(FlxG.width * -0.5, FlxG.height * -0.5).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+		dark.alpha = ClientPrefs.bgAlpha;
+		dark.scrollFactor.set(0, 0);
+		add(dark);
+
 		// Combo stuff
 		coolText = new FlxText(0, 0, 0, '', 32);
 		coolText.screenCenter();
@@ -147,7 +152,7 @@ class NoteOffsetState extends MusicBeatState
 		add(beatText);
 		
 		timeTxt = new FlxText(0, 600, FlxG.width, "", 32);
-		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat(Paths.font("mode-seven.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.borderSize = 2;
 		timeTxt.visible = false;
@@ -184,7 +189,7 @@ class NoteOffsetState extends MusicBeatState
 		add(blackBox);
 
 		changeModeText = new FlxText(0, 4, FlxG.width, "", 32);
-		changeModeText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
+		changeModeText.setFormat(Paths.font("mode-seven.ttf"), 32, FlxColor.WHITE, CENTER);
 		changeModeText.scrollFactor.set();
 		changeModeText.cameras = [camHUD];
 		add(changeModeText);
@@ -435,7 +440,7 @@ class NoteOffsetState extends MusicBeatState
 		for (i in 0...7)
 		{
 			var text:FlxText = new FlxText(10, 50 + (i * 30), 0, '', 24);
-			text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.setFormat(Paths.font("mode-seven.ttf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.scrollFactor.set();
 			text.borderSize = 2;
 			dumbTexts.add(text);
@@ -463,7 +468,7 @@ class NoteOffsetState extends MusicBeatState
 				case 4: dumbTexts.members[i].text = '\n';
 
 				case 5: dumbTexts.members[i].text = 'Combo Sprite Offset:';
-				case 6: dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[4] + ', ' + ClientPrefs.comboOffset[5] + '] - Use IJKL to Move';
+				case 6: dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[4] + ', ' + ClientPrefs.comboOffset[5] + '] - Use IJKL to Move\n\nHold SHIFT to move faster.';
 			}
 		}
 	}

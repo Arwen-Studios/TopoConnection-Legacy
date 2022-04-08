@@ -73,7 +73,7 @@ class StoryMenuState extends MusicBeatState
 
 		var rankText:FlxText = new FlxText(0, 10);
 		rankText.text = 'RANK: GREAT';
-		rankText.setFormat(Paths.font("vcr.ttf"), 32);
+		rankText.setFormat(Paths.font("mode-seven.ttf"), 32);
 		rankText.size = scoreText.size;
 		rankText.screenCenter(X);
 
@@ -207,7 +207,7 @@ class StoryMenuState extends MusicBeatState
 		var leText:String = "Press SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
 		var size:Int = 13;
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
-		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
+		text.setFormat(Paths.font("mode-seven.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.color = TitleState.blammedLightsColors[0];
 		text.scrollFactor.set();
 		add(text);

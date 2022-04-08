@@ -72,14 +72,14 @@ class AchievementsMenuState extends MusicBeatState
 		add(descBox);
 
 		descText = new FlxText(150, 600, 980, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(Paths.font("mode-seven.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		descText.borderSize = 2.4;
 		add(descText);
 
 		var resetText:FlxText = new FlxText(0, 680, FlxG.width, "Press R to clear the current achievement", 12);
 		resetText.borderSize = 5;
-		resetText.setFormat(Paths.font("vcr.ttf"), 28, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		resetText.setFormat(Paths.font("mode-seven.ttf"), 28, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		resetText.scrollFactor.set();
 		add(resetText);
 
