@@ -101,11 +101,23 @@ class Note extends FlxSprite
 
 	private function set_noteType(value:String):String
 	{
-		if (isPlayer)
+		if (PlayState.instance.opponentChart)
 		{
-			colorSwap.hue = ClientPrefs.arrowHSV[noteData % 4][0] / 360;
-			colorSwap.saturation = ClientPrefs.arrowHSV[noteData % 4][1] / 100;
-			colorSwap.brightness = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
+			if (!isPlayer)
+			{
+				colorSwap.hue = ClientPrefs.arrowHSV[noteData % 4][0] / 360;
+				colorSwap.saturation = ClientPrefs.arrowHSV[noteData % 4][1] / 100;
+				colorSwap.brightness = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
+			}
+		}
+		else
+		{
+			if (isPlayer)
+			{
+				colorSwap.hue = ClientPrefs.arrowHSV[noteData % 4][0] / 360;
+				colorSwap.saturation = ClientPrefs.arrowHSV[noteData % 4][1] / 100;
+				colorSwap.brightness = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
+			}
 		}
 
 		if (noteData > -1 && noteType != value)
@@ -171,13 +183,31 @@ class Note extends FlxSprite
 			if (FlxG.save.data.arrowSkin != null)
 				skinoption = FlxG.save.data.arrowSkin;
 
-			if (isPlayer)
-				texture = skinoption;
+			if (PlayState.instance.opponentChart)
+			{
+				if (!isPlayer)
+					texture = skinoption;
+				else
+					texture = skinnote;
+			}
 			else
-				texture = skinnote;
+			{
+				if (isPlayer)
+					texture = skinoption;
+				else
+					texture = skinnote;
+			}
 			colorSwap = new ColorSwap();
-			if (isPlayer)
-				shader = colorSwap.shader;
+			if (PlayState.instance.opponentChart)
+			{
+				if (!isPlayer)
+					shader = colorSwap.shader;
+			}
+			else
+			{
+				if (isPlayer)
+					shader = colorSwap.shader;
+			}
 
 			x += swagWidth * (noteData % 4);
 			if (!isSustainNote)
