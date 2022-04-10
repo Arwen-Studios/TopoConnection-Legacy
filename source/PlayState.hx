@@ -1951,10 +1951,20 @@ class PlayState extends MusicBeatState
 					oldNote = null;
 				var swagNote:Note;
 
-				if (gottaHitNote)
-					swagNote = new Note(daStrumTime, daNoteData, oldNote, false, false, true, boyfriend.noteSkinFile);
+				if (opponentChart)
+				{
+					if (gottaHitNote)
+						swagNote = new Note(daStrumTime, daNoteData, oldNote, false, false, true, dad.noteSkinFile);
+					else
+						swagNote = new Note(daStrumTime, daNoteData, oldNote, false, false, false, boyfriend.noteSkinFile);
+				}
 				else
-					swagNote = new Note(daStrumTime, daNoteData, oldNote, false, false, false, dad.noteSkinFile);
+				{
+					if (gottaHitNote)
+						swagNote = new Note(daStrumTime, daNoteData, oldNote, false, false, true, boyfriend.noteSkinFile);
+					else
+						swagNote = new Note(daStrumTime, daNoteData, oldNote, false, false, false, dad.noteSkinFile);
+				}
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
 				swagNote.gfNote = (section.gfSection && (songNotes[1] < 4));
@@ -1980,14 +1990,32 @@ class PlayState extends MusicBeatState
 						oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 						var sustainNote:Note;
 
-						if (gottaHitNote)
-							sustainNote = new Note(daStrumTime + (Conductor.stepCrochet * susNote) +
-								(Conductor.stepCrochet / FlxMath.roundDecimal(songSpeed, 2)),
-								daNoteData, oldNote, true, false, true, boyfriend.noteSkinFile);
+						if (opponentChart)
+						{
+							if (gottaHitNote)
+								sustainNote = new Note(daStrumTime
+									+ (Conductor.stepCrochet * susNote)
+									+ (Conductor.stepCrochet / FlxMath.roundDecimal(songSpeed, 2)), daNoteData,
+									oldNote, true, false, true, dad.noteSkinFile);
+							else
+								sustainNote = new Note(daStrumTime
+									+ (Conductor.stepCrochet * susNote)
+									+ (Conductor.stepCrochet / FlxMath.roundDecimal(songSpeed, 2)), daNoteData,
+									oldNote, true, false, false, boyfriend.noteSkinFile);
+						}
 						else
-							sustainNote = new Note(daStrumTime + (Conductor.stepCrochet * susNote) +
-								(Conductor.stepCrochet / FlxMath.roundDecimal(songSpeed, 2)),
-								daNoteData, oldNote, true, false, false, dad.noteSkinFile);
+						{
+							if (gottaHitNote)
+								sustainNote = new Note(daStrumTime
+									+ (Conductor.stepCrochet * susNote)
+									+ (Conductor.stepCrochet / FlxMath.roundDecimal(songSpeed, 2)), daNoteData,
+									oldNote, true, false, true, boyfriend.noteSkinFile);
+							else
+								sustainNote = new Note(daStrumTime
+									+ (Conductor.stepCrochet * susNote)
+									+ (Conductor.stepCrochet / FlxMath.roundDecimal(songSpeed, 2)), daNoteData,
+									oldNote, true, false, false, dad.noteSkinFile);
+						}
 						sustainNote.mustPress = gottaHitNote;
 						sustainNote.gfNote = (section.gfSection && (songNotes[1] < 4));
 						sustainNote.noteType = swagNote.noteType;
