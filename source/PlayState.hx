@@ -227,7 +227,7 @@ class PlayState extends MusicBeatState
 	var bgGhouls:BGSprite;
 
 	// topoworld BG
-	public var crt:BGSprite;
+	public var vignette:FlxSprite;
 	public var purp:BGSprite;
 
 	public var songScore:Int = 0;
@@ -587,15 +587,11 @@ class PlayState extends MusicBeatState
 			case 'white-space': // Chapter 1 - Week 1
 				var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.WHITE);
 				purp = new BGSprite('topoworld/purp', -600, -200, 0.9, 0.9);
-				crt = new BGSprite('topoworld/crt-effect', -600, -200, 0.9, 0.9);
 
 				purp.setGraphicSize(Std.int(bg.width * 1.1));
-				crt.setGraphicSize(Std.int(bg.width * 1.1));
-				crt.alpha = 0.2;
 
 				bg.screenCenter(XY);
 				purp.screenCenter(XY);
-				crt.screenCenter(XY);
 
 				add(bg);
 			case 'windowsxp': // Bimbo
@@ -621,7 +617,24 @@ class PlayState extends MusicBeatState
 		add(boyfriendGroup);
 
 		if (curStage == 'white-space')
-			add(crt);
+		{
+			if (vignette == null)
+			{
+				vignette = new FlxSprite().loadGraphic(Paths.image('topoworld/vinagrete'));
+				vignette.width = 1280;
+				vignette.height = 720;
+				vignette.x = 0;
+				vignette.y = 0;
+				vignette.updateHitbox();
+				vignette.cameras = [camOther];
+				add(vignette);
+			}
+			var dark:FlxSprite = new FlxSprite(FlxG.width * -0.5, FlxG.height * -0.5).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+			dark.alpha = 0.3;
+			dark.scrollFactor.set(0, 0);
+			add(dark);
+			vignette.alpha = 0.875;
+		}
 
 		if (curStage == 'spooky')
 		{
