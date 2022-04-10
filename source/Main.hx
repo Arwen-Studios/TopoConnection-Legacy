@@ -20,6 +20,7 @@ class Main extends Sprite
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
+
 	public static var fpsVar:FPS;
 
 	public static var menuSong:String = "topoMenu";
@@ -34,6 +35,12 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
+
+		#if debug
+		ClientPrefs.debugMode = true;
+		#else
+		ClientPrefs.debugMode = false;
+		#end
 
 		if (stage != null)
 		{
@@ -72,7 +79,7 @@ class Main extends Sprite
 		#if !debug
 		initialState = Cache;
 		#end
-	
+
 		ClientPrefs.loadDefaultKeys();
 		// fuck you, persistent caching stays ON during sex
 		FlxGraphic.defaultPersist = true;
@@ -84,7 +91,8 @@ class Main extends Sprite
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null) {
+		if (fpsVar != null)
+		{
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
 		#end

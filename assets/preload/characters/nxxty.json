@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				109,
 				390
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "Idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				100,
 				410
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "Up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				240,
 				320
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				120,
 				390
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "Left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				160,
 				360
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Right"
 		}
 	],
 	"no_antialiasing": false,
@@ -73,6 +73,7 @@
 		-150,
 		-220
 	],
+	"noteSkin": "p2Notes/Nxxty",
 	"sing_duration": 4,
 	"scale": 1
 }

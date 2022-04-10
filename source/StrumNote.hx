@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.addons.ui.U;
 import flixel.graphics.frames.FlxAtlasFrames;
 #if sys
@@ -13,57 +14,69 @@ using StringTools;
 class StrumNote extends FlxSprite
 {
 	private var colorSwap:ColorSwap;
+
 	public var resetAnim:Float = 0;
+
 	private var noteData:Int = 0;
-	public var direction:Float = 90;//plan on doing scroll directions soon -bb
-	public var downScroll:Bool = false;//plan on doing scroll directions soon -bb
+
+	public var direction:Float = 90; // plan on doing scroll directions soon -bb
+	public var downScroll:Bool = false; // plan on doing scroll directions soon -bb
 	public var sustainReduce:Bool = true;
-	
+
 	private var player:Int;
-	
+
 	public var texture(default, set):String = null;
-	private function set_texture(value:String):String {
-		if(texture != value) {
+
+	private function set_texture(value:String):String
+	{
+		if (texture != value)
+		{
 			texture = value;
 			reloadNote();
 		}
 		return value;
 	}
 
-	public function new(x:Float, y:Float, leData:Int, player:Int) {
+	public function new(x:Float, y:Float, leData:Int, player:Int, ?skinnote:String = 'NOTE_assets')
+	{
 		colorSwap = new ColorSwap();
-		shader = colorSwap.shader;
+		if (player > 0)
+			shader = colorSwap.shader;
 		noteData = leData;
 		this.player = player;
 		this.noteData = leData;
 		super(x, y);
 
 		var skin:String;
-		if(FlxG.save.data.arrowSkin != null) {	
-			skin = FlxG.save.data.arrowSkin;
-		}
-		else {
-			skin = 'noteskins/NOTE_topoV2';
-		}
+		var skinoption:String = "noteskins/Default";
+		if (FlxG.save.data.arrowSkin != null)
+			skinoption = FlxG.save.data.arrowSkin;
 
-		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
-		texture = skin; //Load texture and anims
-
+		if (player > 0)
+			skin = skinoption;
+		else
+			skin = skinnote;
+		texture = skin; // Load texture and anims
 		scrollFactor.set();
 	}
 
 	public function reloadNote()
 	{
 		var lastAnim:String = null;
-		if(animation.curAnim != null) lastAnim = animation.curAnim.name;
+		if (animation.curAnim != null)
+			lastAnim = animation.curAnim.name;
 
-		if(PlayState.isPixelStage)
+		if (PlayState.isPixelStage)
 		{
 			#if sys
 			var skin:String = 'noteskins/NOTE_topoV2';
-			if (FileSystem.exists(Paths.modFolders('images/pixelUI/$texture.png')) && FileSystem.exists(Paths.modFolders('images/pixelUI/' + texture + 'ENDS.png'))) {
+			if (FileSystem.exists(Paths.modFolders('images/pixelUI/$texture.png'))
+				&& FileSystem.exists(Paths.modFolders('images/pixelUI/' + texture + 'ENDS.png')))
+			{
 				skin = FlxG.save.data.arrowSkin;
-			} else {
+			}
+			else
+			{
 				var skin:String = 'noteskins/NOTE_topoV2';
 			}
 			#end
@@ -132,13 +145,14 @@ class StrumNote extends FlxSprite
 		}
 		updateHitbox();
 
-		if(lastAnim != null)
+		if (lastAnim != null)
 		{
 			playAnim(lastAnim, true);
 		}
 	}
 
-	public function postAddedToGroup() {
+	public function postAddedToGroup()
+	{
 		playAnim('static');
 		x += Note.swagWidth * noteData;
 		x += 50;
@@ -146,37 +160,49 @@ class StrumNote extends FlxSprite
 		ID = noteData;
 	}
 
-	override function update(elapsed:Float) {
-		if(resetAnim > 0) {
+	override function update(elapsed:Float)
+	{
+		if (resetAnim > 0)
+		{
 			resetAnim -= elapsed;
-			if(resetAnim <= 0) {
+			if (resetAnim <= 0)
+			{
 				playAnim('static');
 				resetAnim = 0;
 			}
 		}
-		//if(animation.curAnim != null){ //my bad i was upset
-		if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
+		// if(animation.curAnim != null){ //my bad i was upset
+		if (animation.curAnim.name == 'confirm')
+		{
 			centerOrigin();
-		//}
+			// }
 		}
 
 		super.update(elapsed);
 	}
 
-	public function playAnim(anim:String, ?force:Bool = false) {
+	public function playAnim(anim:String, ?force:Bool = false)
+	{
 		animation.play(anim, force);
 		centerOffsets();
 		centerOrigin();
-		if(animation.curAnim == null || animation.curAnim.name == 'static') {
+		if (animation.curAnim == null || animation.curAnim.name == 'static')
+		{
 			colorSwap.hue = 0;
 			colorSwap.saturation = 0;
 			colorSwap.brightness = 0;
-		} else {
-			colorSwap.hue = ClientPrefs.arrowHSV[noteData % 4][0] / 360;
-			colorSwap.saturation = ClientPrefs.arrowHSV[noteData % 4][1] / 100;
-			colorSwap.brightness = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
+		}
+		else
+		{
+			if (player > 0)
+			{
+				colorSwap.hue = ClientPrefs.arrowHSV[noteData % 4][0] / 360;
+				colorSwap.saturation = ClientPrefs.arrowHSV[noteData % 4][1] / 100;
+				colorSwap.brightness = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
+			}
 
-			if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
+			if (animation.curAnim.name == 'confirm')
+			{
 				centerOrigin();
 			}
 		}

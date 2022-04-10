@@ -1,70 +1,70 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				488,
 				378
 			],
-			"loop": false,
-			"anim": "singLEFT",
 			"fps": 24,
-			"name": "Left",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Left"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				234,
 				387
 			],
-			"loop": false,
-			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "Right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Right"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				362,
 				513
 			],
-			"loop": false,
-			"anim": "singUP",
 			"fps": 24,
-			"name": "Up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				391,
 				468
 			],
-			"loop": false,
-			"anim": "singDOWN",
 			"fps": 24,
-			"name": "Down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				400,
 				368
 			],
-			"loop": false,
-			"anim": "altPoses",
 			"fps": 24,
-			"name": "Alt",
-			"indices": []
+			"anim": "altPoses",
+			"indices": [],
+			"name": "Alt"
 		},
 		{
+			"loop": true,
 			"offsets": [
 				409,
 				370
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "idle",
-			"loop": true,
-			"name": "Idle"
+			"fps": 24,
+			"name": "Idle",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -84,6 +84,7 @@
 		-430,
 		-420
 	],
+	"noteSkin": "p2Notes/bimbo",
 	"sing_duration": 4,
 	"scale": 1
 }
