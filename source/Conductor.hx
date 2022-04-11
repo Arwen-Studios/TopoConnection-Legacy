@@ -40,13 +40,15 @@ class Conductor
 			ClientPrefs.perfWindow,
 			ClientPrefs.sickWindow,
 			ClientPrefs.goodWindow,
-			ClientPrefs.badWindow
+			ClientPrefs.badWindow/*,
+			ClientPrefs.shitWindow*/
 		];
 		var windowNames:Array<String> = [
 			'perfect',
 			'sick',
 			'good',
-			'bad'
+			'bad'/*,
+			'shit'*/
 		];
 
 		ms = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);

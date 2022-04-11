@@ -136,7 +136,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.displayFormat = '%vms';
 		option.scrollSpeed = 15;
 		option.minValue = 4;
-		option.maxValue = 22;
+		option.maxValue = 33;
 		addOption(option);
 
 		var option:Option = new Option('Sick! Hit Window',
@@ -147,7 +147,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.displayFormat = '%vms';
 		option.scrollSpeed = 15;
 		option.minValue = 9;
-		option.maxValue = 45;
+		option.maxValue = 68;
 		addOption(option);
 
 		var option:Option = new Option('Good Hit Window',
@@ -158,7 +158,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.displayFormat = '%vms';
 		option.scrollSpeed = 30;
 		option.minValue = 18;
-		option.maxValue = 90;
+		option.maxValue = 135;
 		addOption(option);
 
 		var option:Option = new Option('Bad Hit Window',
@@ -169,8 +169,21 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.displayFormat = '%vms';
 		option.scrollSpeed = 60;
 		option.minValue = 27;
-		option.maxValue = 135;
+		option.maxValue = 180;
 		addOption(option);
+
+		/*
+		var option:Option = new Option('Shit Hit Window',
+			'Changes the amount of time you have\nfor hitting a "Shit" in milliseconds.',
+			'shitWindow',
+			'int',
+			180);
+		option.displayFormat = '%vms';
+		option.scrollSpeed = 60;
+		option.minValue = 36;
+		option.maxValue = 270;
+		addOption(option);
+		*/
 
 		var option:Option = new Option('Safe Frames',
 			'Changes how many frames you have for\nhitting a note earlier or late.',
