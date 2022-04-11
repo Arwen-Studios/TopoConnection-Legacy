@@ -32,7 +32,7 @@ class OptionsState extends MusicBeatState
 {
 	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Visuals and UI', 'Note Colors', 'Note Delay and Combo'];
 	public static var cameFromPause:Bool = false;
-	private var grpOptions:FlxTypedGroup<Alphabet>; //o mathesu é gay
+	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 
