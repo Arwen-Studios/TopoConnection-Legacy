@@ -128,14 +128,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.maxValue = 30;
 		addOption(option);
 
-		var option:Option = new Option('Marvelous! Hit Window',
-			'Changes the amount of time you have\nfor hitting a "Marvelous!" in milliseconds.',
-			'marvWindow',
+		var option:Option = new Option('Perfect!! Hit Window',
+			'Changes the amount of time you have\nfor hitting a "Perfect!!" in milliseconds.',
+			'perfWindow',
 			'int',
 			22);
 		option.displayFormat = '%vms';
 		option.scrollSpeed = 15;
-		option.minValue = 15;
+		option.minValue = 4;
 		option.maxValue = 22;
 		addOption(option);
 
@@ -146,7 +146,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			45);
 		option.displayFormat = '%vms';
 		option.scrollSpeed = 15;
-		option.minValue = 15;
+		option.minValue = 9;
 		option.maxValue = 45;
 		addOption(option);
 
@@ -157,7 +157,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			90);
 		option.displayFormat = '%vms';
 		option.scrollSpeed = 30;
-		option.minValue = 15;
+		option.minValue = 18;
 		option.maxValue = 90;
 		addOption(option);
 
@@ -168,7 +168,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			135);
 		option.displayFormat = '%vms';
 		option.scrollSpeed = 60;
-		option.minValue = 15;
+		option.minValue = 27;
 		option.maxValue = 135;
 		addOption(option);
 

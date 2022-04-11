@@ -37,13 +37,13 @@ class Conductor
 	{
 		//tryna do MS based judgment due to popular demand
 		var timingWindows:Array<Int> = [
-			ClientPrefs.marvWindow,
+			ClientPrefs.perfWindow,
 			ClientPrefs.sickWindow,
 			ClientPrefs.goodWindow,
 			ClientPrefs.badWindow
 		];
 		var windowNames:Array<String> = [
-			'marvelous',
+			'perfect',
 			'sick',
 			'good',
 			'bad'

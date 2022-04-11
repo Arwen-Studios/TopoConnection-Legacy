@@ -201,7 +201,7 @@ class FreeplayState extends MusicBeatState
 		var size:Int = 18;
 		#end
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
-		text.setFormat(Paths.font("mode-seven.ttf"), size, FlxColor.WHITE, RIGHT);
+		text.setFormat(Paths.font("mode-seven.ttf"), size, FlxColor.WHITE, CENTER);
 		text.scrollFactor.set();
 		add(text);
 		super.create();

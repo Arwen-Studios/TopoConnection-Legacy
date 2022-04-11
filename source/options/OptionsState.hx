@@ -30,9 +30,9 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Visuals and UI'];
+	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Visuals and UI', 'Note Colors', 'Note Delay and Combo'];
 	public static var cameFromPause:Bool = false;
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var grpOptions:FlxTypedGroup<Alphabet>; //o mathesu é gay
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 
@@ -46,6 +46,10 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
 				openSubState(new options.GameplaySettingsSubState());
+			case 'Note Colors':
+				openSubState(new options.NotesSubState());
+			case 'Note Delay and Combo':
+				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
 	}
 
@@ -68,13 +72,13 @@ class OptionsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		var titleText:Alphabet = new Alphabet(0, 0, "General Settings", true, false, 0, 0.6);
+		var titleText:Alphabet = new Alphabet(0, 0, "General", true, false, 0, 0.6);
 		titleText.x += 60;
 		titleText.y += 90;
 		titleText.alpha = 0.4;
 		add(titleText);
 
-		var titleNotice:Alphabet = new Alphabet(0, 0, "< Page 1 >", true, false, 0, 0.6);
+		var titleNotice:Alphabet = new Alphabet(0, 0, "Page 1", true, false, 0, 0.6);
 		titleNotice.x += 70;
 		titleNotice.y += 40;
 		titleNotice.alpha = 0.4;
@@ -112,11 +116,6 @@ class OptionsState extends MusicBeatState
 		}
 		if (controls.UI_DOWN_P) {
 			changeSelection(1);
-		}
-		if (controls.UI_LEFT_P || controls.UI_RIGHT_P) {
-			FlxTransitionableState.skipNextTransOut = true;
-			FlxTransitionableState.skipNextTransIn = true;
-			MusicBeatState.switchState(new OptionsStateTwo());
 		}
 
 		if (controls.BACK) {

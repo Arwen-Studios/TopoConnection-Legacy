@@ -162,7 +162,7 @@ class PlayState extends MusicBeatState
 
 	public var judCText:FlxText;
 
-	public var marvs:Int = 0;
+	public var perfs:Int = 0;
 	public var sicks:Int = 0;
 	public var goods:Int = 0;
 	public var bads:Int = 0;
@@ -1040,14 +1040,19 @@ class PlayState extends MusicBeatState
 		judgementCounterBG.visible = !ClientPrefs.hideHud;
 		add(judgementCounterBG);
 
-		judCText = new FlxText(judgementCounterBG.x, judgementCounterBG.y, 0, "", 20);
-		judCText.setFormat(Paths.font("mode-seven.ttf"), 32, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judCText = new FlxText(judgementCounterBG.x + 30, 118, 0, "", 35);
+		judCText.setFormat(Paths.font("mode-seven.ttf"), 35, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judCText.borderSize = 2;
 		judCText.borderQuality = 2;
-		judCText.scrollFactor.set();
-		judCText.screenCenter();
-
-		judCText.text = "0\n0\n0\n0\n0\n0\n0\n";
+		
+		judCText.text = '${totalCombo}\n\n';
+		judCText.text += '${perfs}\n\n';
+		judCText.text += '${sicks}\n\n';
+		judCText.text += '${goods}\n\n';
+		judCText.text += '${bads}\n\n';
+		judCText.text += '${shits}\n\n';
+		judCText.text += '${songMisses}\n\n';
+		judCText.text += '\n';
 		add(judCText);
 		//
 
@@ -2700,14 +2705,14 @@ class PlayState extends MusicBeatState
 		var divider:String = ' // ';
 
 		//
-		/*judCText.text += '\n${totalCombo}';
-		judCText.text += '\n${marvs}';
-		judCText.text += '\n${sicks}';
-		judCText.text += '\n${goods}';
-		judCText.text += '\n${bads}';
-		judCText.text += '\n${shits}';
-		judCText.text += '\n${songMisses}';
-		judCText.text += '\n';*/
+		judCText.text = '${totalCombo}\n\n';
+		judCText.text += '${perfs}\n\n';
+		judCText.text += '${sicks}\n\n';
+		judCText.text += '${goods}\n';
+		judCText.text += '${bads}\n';
+		judCText.text += '${shits}\n';
+		judCText.text += '${songMisses}\n';
+		judCText.text += '\n';
 		//
 
 		scoreTxt.text = '';
@@ -4039,8 +4044,7 @@ class PlayState extends MusicBeatState
 		var daRating:String = Conductor.judgeNote(note, noteDiff);
 		var msText:FlxText = null;
 
-		if (daRating != null)
-		{
+		if (daRating != null) {
 			msText = new FlxText(0, 0, 0, 0);
 			msText.setFormat(Paths.font("pixel.otf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
@@ -4078,12 +4082,12 @@ class PlayState extends MusicBeatState
 				msText.color = FlxColor.CYAN;
 				if (!note.ratingDisabled)
 					sicks++;
-			case "marvelous": // marv
+			case "perfect": // perf
 				totalNotesHit += 1;
 				note.ratingMod = 1;
-				msText.color = FlxColor.PURPLE;
+				msText.color = FlxColor.fromRGB(255, 0, 54);
 				if (!note.ratingDisabled)
-					marvs++;
+					perfs++;
 		}
 
 		msText.text = Std.string(Std.int(Conductor.ms)) + "ms" + (cpuControlled ? " (BOT)" : "");
@@ -4097,7 +4101,7 @@ class PlayState extends MusicBeatState
 
 		note.rating = daRating;
 
-		if (daRating == 'marvelous' && !note.noteSplashDisabled)
+		if (daRating == 'perfect' && !note.noteSplashDisabled)
 		{
 			spawnNoteSplashOnNote(note);
 		}
@@ -5409,7 +5413,7 @@ class PlayState extends MusicBeatState
 
 			// Rating FC
 			ratingFC = "";
-			if (marvs > 0)
+			if (perfs > 0)
 				ratingFC = "***"; // Triple Star Grade
 			if (sicks > 0)
 				ratingFC = "**"; // Double Star Grade
