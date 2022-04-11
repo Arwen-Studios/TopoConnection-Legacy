@@ -37,7 +37,7 @@ class StrumNote extends FlxSprite
 		return value;
 	}
 
-	public function new(x:Float, y:Float, leData:Int, player:Int, ?skinnote:String = 'NOTE_assets')
+	public function new(x:Float, y:Float, leData:Int, player:Int, ?skinnote:String = 'noteskins/Default')
 	{
 		colorSwap = new ColorSwap();
 		if (player > 0)
@@ -48,14 +48,9 @@ class StrumNote extends FlxSprite
 		super(x, y);
 
 		var skin:String;
-		var skinoption:String = "noteskins/Default";
-		if (FlxG.save.data.arrowSkin != null)
-			skinoption = FlxG.save.data.arrowSkin;
+		var defskin:String = "noteskins/Default";
 
-		if (player > 0)
-			skin = skinoption;
-		else
-			skin = skinnote;
+		skin = skinnote;
 		texture = skin; // Load texture and anims
 		scrollFactor.set();
 	}
@@ -63,27 +58,14 @@ class StrumNote extends FlxSprite
 	public function reloadNote()
 	{
 		var lastAnim:String = null;
-		if (animation.curAnim != null)
-			lastAnim = animation.curAnim.name;
+		if(animation.curAnim != null) lastAnim = animation.curAnim.name;
 
-		if (PlayState.isPixelStage)
+		if(PlayState.isPixelStage)
 		{
-			#if sys
-			var skin:String = 'noteskins/NOTE_topoV2';
-			if (FileSystem.exists(Paths.modFolders('images/pixelUI/$texture.png'))
-				&& FileSystem.exists(Paths.modFolders('images/pixelUI/' + texture + 'ENDS.png')))
-			{
-				skin = FlxG.save.data.arrowSkin;
-			}
-			else
-			{
-				var skin:String = 'noteskins/NOTE_topoV2';
-			}
-			#end
-			loadGraphic(Paths.image('pixelUI/' + skin));
+			loadGraphic(Paths.image('pixelUI/' + texture));
 			width = width / 4;
 			height = height / 5;
-			loadGraphic(Paths.image('pixelUI/' + skin), true, Math.floor(width), Math.floor(height));
+			loadGraphic(Paths.image('pixelUI/' + texture), true, Math.floor(width), Math.floor(height));
 
 			antialiasing = false;
 			setGraphicSize(Std.int(width * PlayState.daPixelZoom));
@@ -145,7 +127,7 @@ class StrumNote extends FlxSprite
 		}
 		updateHitbox();
 
-		if (lastAnim != null)
+		if(lastAnim != null)
 		{
 			playAnim(lastAnim, true);
 		}

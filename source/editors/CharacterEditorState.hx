@@ -420,7 +420,7 @@ class CharacterEditorState extends MusicBeatState
 			],
 			"sing_duration": 6.1,
 			"scale": 1,
-			"noteSkin": "noteskins/Arrow"
+			"noteSkin": "noteskins/Default"
 		}
 		';
 
@@ -556,7 +556,7 @@ class CharacterEditorState extends MusicBeatState
 
 		healthIconInputText = new FlxUIInputText(15, imageInputText.y + 35, 75, leHealthIcon.getCharacter(), 8);
 
-		noteSkinInputText = new FlxUIInputText(healthIconInputText.x + 95, imageInputText.y + 35, 80, 'noteskins/Arrow', 8);
+		noteSkinInputText = new FlxUIInputText(healthIconInputText.x + 95, imageInputText.y + 35, 80, 'noteskins/Default', 8);
 
 		singDurationStepper = new FlxUINumericStepper(15, healthIconInputText.y + 45, 0.1, 4, 0, 999, 1);
 

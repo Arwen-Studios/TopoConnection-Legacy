@@ -155,7 +155,7 @@ class Note extends FlxSprite
 	}
 
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inEditor:Bool = false, ?IsPlayer:Bool = false,
-			?skinnote:String = 'NOTE_assets')
+			?skinnote:String = 'noteskins/Default')
 	{
 		super();
 
@@ -179,24 +179,7 @@ class Note extends FlxSprite
 
 		if (noteData > -1)
 		{
-			var skinoption:String = "noteskins/Default";
-			if (FlxG.save.data.arrowSkin != null)
-				skinoption = FlxG.save.data.arrowSkin;
-
-			if (PlayState.instance.opponentChart)
-			{
-				if (!isPlayer)
-					texture = skinoption;
-				else
-					texture = skinnote;
-			}
-			else
-			{
-				if (isPlayer)
-					texture = skinoption;
-				else
-					texture = skinnote;
-			}
+			texture = skinnote;
 			colorSwap = new ColorSwap();
 			if (PlayState.instance.opponentChart)
 			{
@@ -337,29 +320,14 @@ class Note extends FlxSprite
 
 		var lastScaleY:Float = scale.y;
 		var blahblah:String = arraySkin.join('/');
-		if (PlayState.isPixelStage)
-		{
-			#if sys
-			if (FileSystem.exists(Paths.modFolders('images/pixelUI/$blahblah.png'))
-				&& FileSystem.exists(Paths.modFolders('images/pixelUI/' + blahblah + 'ENDS.png')))
-			{
-				blahblah = FlxG.save.data.arrowSkin;
-			}
-			else
-			{
-				blahblah = 'noteskins/NOTE_topoV2';
-			}
-			#end
-			if (isSustainNote)
-			{
+		if(PlayState.isPixelStage) {
+			if(isSustainNote) {
 				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'));
 				width = width / 4;
 				height = height / 2;
 				originalHeightForCalcs = height;
 				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'), true, Math.floor(width), Math.floor(height));
-			}
-			else
-			{
+			} else {
 				loadGraphic(Paths.image('pixelUI/' + blahblah));
 				width = width / 4;
 				height = height / 5;
@@ -369,37 +337,32 @@ class Note extends FlxSprite
 			loadPixelNoteAnims();
 			antialiasing = false;
 
-			if (isSustainNote)
-			{
+			if(isSustainNote) {
 				offsetX += lastNoteOffsetXForPixelAutoAdjusting;
 				lastNoteOffsetXForPixelAutoAdjusting = (width - 7) * (PlayState.daPixelZoom / 2);
 				offsetX -= lastNoteOffsetXForPixelAutoAdjusting;
-
+				
 				/*if(animName != null && !animName.endsWith('end'))
-					{
-						lastScaleY /= lastNoteScaleToo;
-						lastNoteScaleToo = (6 / height);
-						lastScaleY *= lastNoteScaleToo; 
+				{
+					lastScaleY /= lastNoteScaleToo;
+					lastNoteScaleToo = (6 / height);
+					lastScaleY *= lastNoteScaleToo; 
 				}*/
 			}
-		}
-		else
-		{
+		} else {
 			frames = Paths.getSparrowAtlas(blahblah);
 			loadNoteAnims();
 			antialiasing = ClientPrefs.globalAntialiasing;
 		}
-		if (isSustainNote)
-		{
+		if(isSustainNote) {
 			scale.y = lastScaleY;
 		}
 		updateHitbox();
 
-		if (animName != null)
+		if(animName != null)
 			animation.play(animName, true);
 
-		if (inEditor)
-		{
+		if(inEditor) {
 			setGraphicSize(ChartingState.GRID_SIZE, ChartingState.GRID_SIZE);
 			updateHitbox();
 		}

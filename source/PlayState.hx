@@ -854,7 +854,7 @@ class PlayState extends MusicBeatState
 		}
 		updateTime = showTime;
 
-		timeBarBG = new AttachedSprite('timeBar');
+		timeBarBG = new AttachedSprite('bossHealth');
 		timeBarBG.x = timeTxt.x;
 		timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 		timeBarBG.scrollFactor.set();
@@ -887,7 +887,7 @@ class PlayState extends MusicBeatState
 
 		switch (songName)
 		{
-			case 'purplered' | 'seamless': // Chapter 1 - Week 1
+			case 'purple-red' | 'purplered' | 'seamless': // Chapter 1 - Week 1
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
 			case 'old-wannacry' | 'wannacry':
 				isBossSong = true;
@@ -4653,6 +4653,11 @@ class PlayState extends MusicBeatState
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 4, time);
 		note.hitByOpponent = true;
 
+		if (!note.noteSplashDisabled && !note.isSustainNote)
+		{
+			spawnNoteSplashOnNote(note);
+		}
+
 		callOnLuas('opponentNoteHit', [
 			notes.members.indexOf(note),
 			Math.abs(note.noteData),
@@ -4827,6 +4832,7 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.noteSplashes && note != null)
 		{
 			var strum:StrumNote = playerStrums.members[note.noteData];
+			if (note.hitByOpponent) strum = opponentStrums.members[note.noteData];
 			if (strum != null)
 			{
 				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
@@ -5323,7 +5329,7 @@ class PlayState extends MusicBeatState
 				var ratings:Array<Dynamic> = Ratings.psychRatings;
 				switch (songName)
 				{
-					case "purplered" | "seamless" | "wannacry" | "old-seamless" | "old-wannacry":
+					case "purple-red" | "purplered" | "seamless" | "wannacry" | "old-seamless" | "old-wannacry":
 						ratings = Ratings.topoRatings;
 					case "bimbo":
 						ratings = Ratings.bimboRatings;
