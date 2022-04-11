@@ -1,103 +1,103 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				109,
 				390
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "Idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				112,
 				404
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "Up0",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				94,
 				369
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Down0",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				107,
 				368
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "Left0",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Left0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				117,
 				371
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Right0",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Right0"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				109,
 				403
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singUP-alt",
-			"loop": false,
-			"name": "UpAlt0"
+			"fps": 24,
+			"name": "UpAlt0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				90,
 				371
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singDOWN-alt",
-			"loop": false,
-			"name": "DownAlt0"
+			"fps": 24,
+			"name": "DownAlt0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				110,
 				368
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singLEFT-alt",
-			"loop": false,
-			"name": "LeftAlt0"
+			"fps": 24,
+			"name": "LeftAlt0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				117,
 				368
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singRIGHT-alt",
-			"loop": false,
-			"name": "RightAlt0"
+			"fps": 24,
+			"name": "RightAlt0",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -117,6 +117,7 @@
 		-150,
 		-220
 	],
+	"noteSkin": "noteskins/Arrow",
 	"sing_duration": 4,
 	"scale": 1
 }

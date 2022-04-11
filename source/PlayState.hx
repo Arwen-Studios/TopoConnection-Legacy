@@ -633,7 +633,7 @@ class PlayState extends MusicBeatState
 			dark.alpha = 0.3;
 			dark.scrollFactor.set(0, 0);
 			add(dark);
-			vignette.alpha = 0.875;
+			vignette.alpha = 0.4;
 		}
 
 		if (curStage == 'spooky')
