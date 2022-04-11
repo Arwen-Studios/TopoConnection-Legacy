@@ -145,6 +145,7 @@ class PlayState extends MusicBeatState
 
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
+	private var totalCombo:Int = 0;
 	public var combo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
@@ -157,6 +158,11 @@ class PlayState extends MusicBeatState
 
 	public var timeBar:FlxBar;
 
+	private var judgementCounterBG:AttachedSprite;
+
+	public var judCText:FlxText;
+
+	public var marvs:Int = 0;
 	public var sicks:Int = 0;
 	public var goods:Int = 0;
 	public var bads:Int = 0;
@@ -888,7 +894,7 @@ class PlayState extends MusicBeatState
 
 		switch (songName)
 		{
-			case 'purple-red' | 'purplered' | 'seamless': // Chapter 1 - Week 1
+			case 'purple-red' | 'purplered' | 'seamless' | 'old-seamless': // Chapter 1 - Week 1
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
 			case 'old-wannacry' | 'wannacry':
 				isBossSong = true;
@@ -1025,6 +1031,25 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
+		//
+		judgementCounterBG = new AttachedSprite("judgementCounter");
+		judgementCounterBG.y = FlxG.height * 0.065;
+		judgementCounterBG.x = FlxG.width * 0;
+		judgementCounterBG.scrollFactor.set();
+		judgementCounterBG.visible = !ClientPrefs.hideHud;
+		add(judgementCounterBG);
+
+		judCText = new FlxText(judgementCounterBG.x, judgementCounterBG.y, 0, "", 20);
+		judCText.setFormat(Paths.font("mode-seven.ttf"), 32, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judCText.borderSize = 2;
+		judCText.borderQuality = 2;
+		judCText.scrollFactor.set();
+		judCText.screenCenter();
+
+		judCText.text = "0\n0\n0\n0\n0\n0\n0\n";
+		add(judCText);
+		//
+
 		songDisp = new FlxText(0, FlxG.height - 24, 0, SONG.song + " - " + CoolUtil.difficultyString(), 16);
 		songDisp.setFormat(Paths.font("mode-seven.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		songDisp.scrollFactor.set();
@@ -1064,6 +1089,8 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
+		judgementCounterBG.cameras = [camHUD];
+		judCText.cameras = [camHUD];
 		laneunderlay.cameras = [camHUD];
 		laneunderlayOpponent.cameras = [camHUD];
 		doof.cameras = [camHUD];
@@ -2495,10 +2522,10 @@ class PlayState extends MusicBeatState
 		nps = Math.floor(notesHitArray.length / 2);
 		if (nps > maxNPS)
 			maxNPS = nps;
-		/*if (FlxG.keys.justPressed.NINE)
+		if (FlxG.keys.justPressed.NINE)
 		{
 			iconP1.swapOldIcon();
-	}*/
+		}
 
 		callOnLuas('onUpdate', [elapsed]);
 
@@ -2654,6 +2681,9 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		if(combo > totalCombo)
+			totalCombo = combo;
+
 		// bimbo floating thing
 		if (dad.curCharacter == 'bimbo')
 		{
@@ -2666,11 +2696,21 @@ class PlayState extends MusicBeatState
 		- BeastlyGhost
 	 */
 
-		var divider:String = ' - ';
+		var divider:String = ' // ';
+
+		//
+		/*judCText.text += '\n${totalCombo}';
+		judCText.text += '\n${marvs}';
+		judCText.text += '\n${sicks}';
+		judCText.text += '\n${goods}';
+		judCText.text += '\n${bads}';
+		judCText.text += '\n${shits}';
+		judCText.text += '\n${songMisses}';
+		judCText.text += '\n';*/
+		//
 
 		scoreTxt.text = '';
 		scoreTxt.text += (ClientPrefs.npsDisplay ? 'NPS: ${nps}/${maxNPS}${divider}Score: ${songScore}' : 'Score: ${songScore}');
-		scoreTxt.text += divider + 'Misses: ${songMisses}';
 
 		var accuracyDisplay = ClientPrefs.accuracyDisplay;
 		if (accuracyDisplay)
@@ -4032,11 +4072,17 @@ class PlayState extends MusicBeatState
 				if (!note.ratingDisabled)
 					goods++;
 			case "sick": // sick
-				totalNotesHit += 1;
-				note.ratingMod = 1;
-				msText.color = (cpuControlled ? FlxColor.WHITE : FlxColor.CYAN);
+				totalNotesHit += 0.85;
+				note.ratingMod = 0.85;
+				msText.color = FlxColor.CYAN;
 				if (!note.ratingDisabled)
 					sicks++;
+			case "marvelous": // marv
+				totalNotesHit += 1;
+				note.ratingMod = 1;
+				msText.color = FlxColor.PURPLE;
+				if (!note.ratingDisabled)
+					marvs++;
 		}
 
 		msText.text = Std.string(Std.int(Conductor.ms)) + "ms" + (cpuControlled ? " (BOT)" : "");
@@ -4050,7 +4096,7 @@ class PlayState extends MusicBeatState
 
 		note.rating = daRating;
 
-		if (daRating == 'sick' && !note.noteSplashDisabled)
+		if (daRating == 'marvelous' && !note.noteSplashDisabled)
 		{
 			spawnNoteSplashOnNote(note);
 		}
@@ -5362,15 +5408,15 @@ class PlayState extends MusicBeatState
 
 			// Rating FC
 			ratingFC = "";
-			if (sicks > 0)
+			if (marvs > 0)
 				ratingFC = "***"; // Triple Star Grade
-			if (goods > 0)
+			if (sicks > 0)
 				ratingFC = "**"; // Double Star Grade
-			if (bads > 0)
+			if (goods > 0)
 				ratingFC = "*"; // Single Star Grade
-			if (shits > 0)
+			if (bads > 0)
 				ratingFC = "FC"; // Full Combo
-			if (songMisses > 0)
+			if (shits > 0 || songMisses > 0)
 				ratingFC = "";
 		}
 		setOnLuas('rating', ratingPercent);
