@@ -1033,8 +1033,9 @@ class PlayState extends MusicBeatState
 
 		//
 		judgementCounterBG = new AttachedSprite("judgementCounter");
-		judgementCounterBG.y = FlxG.height * 0.065;
+		judgementCounterBG.y = FlxG.height * 0.025;
 		judgementCounterBG.x = FlxG.width * 0;
+		judgementCounterBG.setGraphicSize(Std.int(judgementCounterBG.width * 0.7));
 		judgementCounterBG.scrollFactor.set();
 		judgementCounterBG.visible = !ClientPrefs.hideHud;
 		add(judgementCounterBG);
