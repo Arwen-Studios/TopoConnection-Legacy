@@ -1,5 +1,5 @@
 {
-	"storyName": "a New Connection.",
+	"storyName": "Beta Songs.",
 	"difficulties": "Hard",
 	"hideFreeplay": false,
 	"weekBackground": "",
@@ -13,7 +13,7 @@
 	],
 	"songs": [
 		[
-			"Old Seamless",
+			"Beta Seamless",
 			"nxxty",
 			[
 				226,
@@ -22,15 +22,33 @@
 			]
 		],
 		[
-			"Old Wannacry",
+			"Beta Wannacry",
 			"nxxty",
 			[
 				226,
 				20,
 				155
 			]
+		],
+		[
+			"Beta Bimbo",
+			"bimbo",
+			[
+				255,
+				196,
+				0
+			]
+		],
+		[
+			"Beta Nuzlocke",
+			"bf",
+			[
+				53,
+				53,
+				53
+			]
 		]
 	],
-	"weekName": "Old Songs",
-	"hiddenUntilUnlocked": false
+	"weekName": "Beta",
+	"hiddenUntilUnlocked": true
 }

@@ -953,9 +953,9 @@ class PlayState extends MusicBeatState
 
 		switch (songName)
 		{
-			case 'purple-red' | 'purplered' | 'seamless' | 'old-seamless': // Chapter 1 - Week 1
+			case 'purple-red' | 'purplered' | 'seamless' | 'beta-seamless': // Chapter 1 - Week 1
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
-			case 'old-wannacry' | 'wannacry':
+			case 'beta-wannacry' | 'wannacry':
 				isBossSong = true;
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
 			case 'lazy':
@@ -1097,7 +1097,8 @@ class PlayState extends MusicBeatState
 		judgementCounterBG.setGraphicSize(Std.int(judgementCounterBG.width * 0.7));
 		judgementCounterBG.scrollFactor.set();
 		judgementCounterBG.visible = !ClientPrefs.hideHud;
-		add(judgementCounterBG);
+		if (ClientPrefs.showJC)
+			add(judgementCounterBG);
 
 		judCText = new FlxText(judgementCounterBG.x + 30, 118, 0, "", 35);
 		judCText.setFormat(Paths.font(Std.string(Main.gameFont)), 35, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1112,7 +1113,8 @@ class PlayState extends MusicBeatState
 		judCText.text += '${shits}\n\n';
 		judCText.text += '${songMisses}\n\n';
 		judCText.text += '\n';
-		add(judCText);
+		if (ClientPrefs.showJC)
+			add(judCText);
 		//
 
 		botplayTxt = new FlxText(395, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
@@ -5451,11 +5453,11 @@ class PlayState extends MusicBeatState
 				var ratings:Array<Dynamic> = Ratings.psychRatings;
 				switch (songName)
 				{
-					case "purple-red" | "purplered" | "seamless" | "wannacry" | "old-seamless" | "old-wannacry":
+					case "purple-red" | "purplered" | "seamless" | "wannacry" | "beta-seamless" | "beta-wannacry":
 						ratings = Ratings.topoRatings;
 					case "bimbo":
 						ratings = Ratings.bimboRatings;
-					case "nuzlocke":
+					case "nuzlocke" | 'beta-nuzlocke':
 						ratings = Ratings.nuzlockeRatings;
 					case "ghost":
 						ratings = Ratings.ghostRatings;
