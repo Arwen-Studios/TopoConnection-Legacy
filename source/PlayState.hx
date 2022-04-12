@@ -4775,7 +4775,7 @@ class PlayState extends MusicBeatState
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 4, time);
 		note.hitByOpponent = true;
 
-		if (!note.noteSplashDisabled && !note.isSustainNote)
+		if (!note.noteSplashDisabled && !note.isSustainNote && !isBossSong)
 		{
 			spawnNoteSplashOnNote(note);
 		}
@@ -4954,7 +4954,7 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.noteSplashes && note != null)
 		{
 			var strum:StrumNote = playerStrums.members[note.noteData];
-			if (note.hitByOpponent && !isBossSong) strum = opponentStrums.members[note.noteData];
+			if (note.hitByOpponent) strum = opponentStrums.members[note.noteData];
 			if (strum != null)
 			{
 				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
