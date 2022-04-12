@@ -144,7 +144,7 @@ class FreeplayState extends MusicBeatState
 		WeekData.setDirectoryFromWeek();
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
-		scoreText.setFormat(Paths.font("mode-seven.ttf"), 32, FlxColor.WHITE, RIGHT);
+		scoreText.setFormat(Paths.font(Std.string(Main.gameFont)), 32, FlxColor.WHITE, RIGHT);
 
 		scoreBG = new FlxSprite(scoreText.x - scoreText.width, 0).makeGraphic(Std.int(FlxG.width * 0.35), 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
@@ -201,7 +201,7 @@ class FreeplayState extends MusicBeatState
 		var size:Int = 18;
 		#end
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
-		text.setFormat(Paths.font("mode-seven.ttf"), size, FlxColor.WHITE, CENTER);
+		text.setFormat(Paths.font(Std.string(Main.gameFont)), size, FlxColor.WHITE, CENTER);
 		text.scrollFactor.set();
 		add(text);
 		super.create();

@@ -65,15 +65,15 @@ class StoryMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
-		scoreText.setFormat("VCR OSD Mono", 32);
+		scoreText.setFormat(Paths.font(Std.string(Main.gameFont)), 32);
 
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
-		txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
+		txtWeekTitle.setFormat(Paths.font(Std.string(Main.gameFont)), 32, FlxColor.WHITE, RIGHT);
 		txtWeekTitle.alpha = 0.7;
 
 		var rankText:FlxText = new FlxText(0, 10);
 		rankText.text = 'RANK: GREAT';
-		rankText.setFormat(Paths.font("mode-seven.ttf"), 32);
+		rankText.setFormat(Paths.font(Std.string(Main.gameFont)), 32);
 		rankText.size = scoreText.size;
 		rankText.screenCenter(X);
 
@@ -207,7 +207,7 @@ class StoryMenuState extends MusicBeatState
 		var leText:String = "Press SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
 		var size:Int = 13;
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
-		text.setFormat(Paths.font("mode-seven.ttf"), size, FlxColor.WHITE, RIGHT);
+		text.setFormat(Paths.font(Std.string(Main.gameFont)), size, FlxColor.WHITE, RIGHT);
 		text.color = TitleState.blammedLightsColors[0];
 		text.scrollFactor.set();
 		add(text);
@@ -226,7 +226,7 @@ class StoryMenuState extends MusicBeatState
 	{
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
-		// scoreText.setFormat('VCR OSD Mono', 32);
+		// scoreText.setFormat(Std.string(Main.gameFont), 32);
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 30, 0, 1)));
 		if(Math.abs(intendedScore - lerpScore) < 10) lerpScore = intendedScore;
 

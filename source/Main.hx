@@ -23,7 +23,9 @@ class Main extends Sprite
 
 	public static var fpsVar:FPS;
 
+	// global menu song and game font
 	public static var menuSong:String = "topoMenu";
+	public static var gameFont:String = "mode-seven.ttf";
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 

@@ -3,3 +3,5 @@ school
 schoolEvil
 white-space
 windowsxp
+mall
+mallEvil
