@@ -85,21 +85,21 @@ class CreditsState extends MusicBeatState
 			[
 				'NxtVithor',
 				'vito',
-				'Project Lead and Designer\n"Eu amo a pessoa de baixo."',
+				'Project Lead and Designer\n"I love the person down below."',
 				'https://twitter.com/NxtVithor',
 				'444444'
 			],
 			[
 				'BeastlyMaxx',
 				'maxx',
-				'Director, Musician\n"eu NAO SEI OQ FALA"',
+				"Director, Musician\n" + '"' + "i DON'T KNOW WHAT TO SAY" + '"',
 				'https://twitter.com/BeastlyMaxxVivi',
 				'444444'
 			],
 			[
 				'BeastlyChip',
 				'chip',
-				'Director, Musician\n"meu pau na tua roda"',
+				'Director, Musician\n"Vithor my dick is stuck on a wheel please help me"',
 				'https://twitter.com/BeastlyChip',
 				'444444'
 			],
@@ -113,7 +113,7 @@ class CreditsState extends MusicBeatState
 			[
 				'Senshi_Z',
 				'senshi',
-				'Musician\n"dislexia"',
+				'Musician\n"dyslexia."',
 				'https://twitter.com/Senshi_Z12',
 				'444444'
 			],
@@ -127,7 +127,7 @@ class CreditsState extends MusicBeatState
 			[
 				'Gazozoz',
 				'shadowmario',
-				'Coder, Animator\n"Como isso afeta o GREMIO?"',
+				'Coder, Animator\n"How does this affect the ECONOMY?"',
 				'https://twitter.com/Gazozoz_',
 				'444444'
 			],
@@ -148,9 +148,39 @@ class CreditsState extends MusicBeatState
 			[
 				'Brycee',
 				'bryce',
-				'Background Artist\n"Nunca pergunte pro vithor se ele curte uma bunda."',
+				'Background Artist\n"You should never ask Vithor if he likes ass."',
 				'https://twitter.com/Bryceegay',
 				'444444'
+			],
+			[''],
+			['Special Thanks'],
+			[
+				'Blueballs Incident',
+				'bbincident',
+				'Our biggest inspiration for this mod\nNxt (AKA Vithor) just loves this mod and so we credited it!',
+				'https://gamebanana.com/mods/293462',
+				'e1e4a1'
+			],
+			[
+				"Hypno's Lullaby",
+				'lullaby',
+				"One of our inpisrations for this mod, this one is actually\none of Ghost's personal favorites.",
+				'https://gamebanana.com/mods/332345',
+				'F5E54B'
+			],
+			[
+				"B3 Remixed",
+				'B3',
+				"Thanks for being one of the best remix mods out there\nour Nom cover wouldn't exist without this mod!\n(Nxt loves this song lmao!!!!!!).",
+				'https://gamebanana.com/mods/332345',
+				'55fa57'
+			],
+			[
+				'Arrow Funk',
+				'arrowfunk',
+				'Great mod, I recommend it.',
+				'https://gamejolt.com/games/arrowfunk/646058',
+				'52A4FF	'
 			],
 			[''],
 			['Psych Engine Team'],
@@ -250,29 +280,6 @@ class CreditsState extends MusicBeatState
 				"Composer of Friday Night Funkin'",
 				'https://twitter.com/kawaisprite',
 				'6475F3'
-			],
-			[''],
-			['Special Thanks'],
-			[
-				'Blueballs Incident',
-				'bbincident',
-				'Grande Inspiracao para este Mod\no vithor ama esse mod e eu to sendo escravizado pra escrever sobre ele aqui\n:) -BeastlyGhost',
-				'https://gamebanana.com/mods/293462',
-				'e1e4a1'
-			],
-			[
-				"Hypno's Lullaby",
-				'lullaby',
-				'Outra inspiracao, alem de estar aqui como mencao honrosa.',
-				'https://gamebanana.com/mods/332345',
-				'F5E54B'
-			],
-			[
-				'Arrow Funk',
-				'arrowfunk',
-				'Mod bom, Recomendo.',
-				'https://gamejolt.com/games/arrowfunk/646058',
-				'52A4FF	'
 			]
 		];
 		
