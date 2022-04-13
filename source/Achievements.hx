@@ -27,7 +27,7 @@ class Achievements {
 			"a Familiar Connection",
 			"Beat Week 1 on Hard with no Misses and as the Opponent.",
 			'week1_opponent',
-			false
+			true
 		],
 		[
 			"What a Funkin' Disaster!",
@@ -69,13 +69,13 @@ class Achievements {
 			"Bimbo",
 			"Beat 'Bimbo' with an Accuracy Percent higher than 89%.",
 			'bimbo',
-			false
+			true
 		],
 		[
 			"I like guys",
 			"Go to the Secret Reggie Scene 50 times.",
 			'reggie',
-			false
+			true
 		],
 	];
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();

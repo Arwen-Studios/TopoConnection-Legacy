@@ -81,26 +81,199 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+			['Topo Connection Team'],
+			[
+				'NxtVithor',
+				'vito',
+				'Project Lead and Designer\n"Eu amo a pessoa de baixo."',
+				'https://twitter.com/NxtVithor',
+				'444444'
+			],
+			[
+				'BeastlyMaxx',
+				'maxx',
+				'Director, Musician\n"eu NAO SEI OQ FALA"',
+				'https://twitter.com/BeastlyMaxxVivi',
+				'444444'
+			],
+			[
+				'BeastlyChip',
+				'chip',
+				'Director, Musician\n"meu pau na tua roda"',
+				'https://twitter.com/BeastlyChip',
+				'444444'
+			],
+			[
+				'BeastlyGhost',
+				'ghost',
+				'Coder, Director\n"Just happy to be here!"',
+				'https://twitter.com/Fan_de_RPG',
+				'444444'
+			],
+			[
+				'Senshi_Z',
+				'senshi',
+				'Musician\n"dislexia"',
+				'https://twitter.com/Senshi_Z12',
+				'444444'
+			],
+			[
+				'Luis com "S"',
+				'luis',
+				"Coder\n" + '"' + "I'm lazy AF" + '"',
+				'https://twitter.com/Luis_comS_10',
+				'444444'
+			],
+			[
+				'Gazozoz',
+				'shadowmario',
+				'Coder, Animator\n"Como isso afeta o GREMIO?"',
+				'https://twitter.com/Gazozoz_',
+				'444444'
+			],
+			[
+				'Suok',
+				'suok',
+				'Spriter, Animator\n"*starts beatboxing in Pennywise*"',
+				'https://twitter.com/oSuOk3',
+				'444444'
+			],
+			[
+				'Mathesu',
+				'matt',
+				'Charter\n"I can chart you"',
+				'https://twitter.com/MattPogg',
+				'444444'
+			],
+			[
+				'Brycee',
+				'bryce',
+				'Background Artist\n"Nunca pergunte pro vithor se ele curte uma bunda."',
+				'https://twitter.com/Bryceegay',
+				'444444'
+			],
+			[''],
 			['Psych Engine Team'],
-			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',							'https://twitter.com/Shadow_Mario_',	'444444'],
-			['RiverOaken',			'riveroaken',		'Main Artist/Animator of Psych Engine',						'https://twitter.com/RiverOaken',		'C30085'],
-			['shubs',				'shubs',			'Additional Programmer of Psych Engine',					'https://twitter.com/yoshubs',			'279ADC'],
+			[
+				'Shadow Mario',
+				'shadowmario',
+				'Main Programmer of Psych Engine',
+				'https://twitter.com/Shadow_Mario_',
+				'444444'
+			],
+			[
+				'RiverOaken',
+				'riveroaken',
+				'Main Artist/Animator of Psych Engine',
+				'https://twitter.com/RiverOaken',
+				'C30085'
+			],
+			[
+				'shubs',
+				'shubs',
+				'Additional Programmer of Psych Engine',
+				'https://twitter.com/yoshubs',
+				'279ADC'
+			],
 			[''],
 			['Former Engine Members'],
-			['bb-panzu',			'bb-panzu',			'Ex-Programmer of Psych Engine',							'https://twitter.com/bbsub3',			'389A58'],
+			[
+				'bb-panzu',
+				'bb-panzu',
+				'Ex-Programmer of Psych Engine',
+				'https://twitter.com/bbsub3',
+				'389A58'
+			],
 			[''],
 			['Engine Contributors'],
-			['iFlicky',				'iflicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',	'https://twitter.com/flicky_i',			'AA32FE'],
-			['SqirraRNG',			'gedehari',			'Chart Editor\'s Sound Waveform base',						'https://twitter.com/gedehari',			'FF9300'],
-			['PolybiusProxy',		'polybiusproxy',	'.MP4 Video Loader Extension',								'https://twitter.com/polybiusproxy',	'FFEAA6'],
-			['Keoiki',				'keoiki',			'Note Splash Animations',									'https://twitter.com/Keoiki_',			'FFFFFF'],
-			['Smokey',				'smokey',			'Spritemap Texture Support',								'https://twitter.com/Smokey_5_',		'4D5DBD'],
+			[
+				'iFlicky',
+				'iflicky',
+				'Composer of Psync and Tea Time\nMade the Dialogue Sounds',
+				'https://twitter.com/flicky_i',
+				'AA32FE'
+			],
+			[
+				'SqirraRNG',
+				'gedehari',
+				'Chart Editor\'s Sound Waveform base',
+				'https://twitter.com/gedehari',
+				'FF9300'
+			],
+			[
+				'PolybiusProxy',
+				'polybiusproxy',
+				'.MP4 Video Loader Extension',
+				'https://twitter.com/polybiusproxy',
+				'FFEAA6'
+			],
+			[
+				'Keoiki',
+				'keoiki',
+				'Note Splash Animations',
+				'https://twitter.com/Keoiki_',
+				'FFFFFF'
+			],
+			[
+				'Smokey',
+				'smokey',
+				'Spritemap Texture Support',
+				'https://twitter.com/Smokey_5_',
+				'4D5DBD'
+			],
 			[''],
 			["Funkin' Crew"],
-			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",						'https://twitter.com/ninja_muffin99',	'F73838'],
-			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",							'https://twitter.com/PhantomArcade3K',	'FFBB1B'],
-			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",							'https://twitter.com/evilsk8r',			'53E52C'],
-			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",							'https://twitter.com/kawaisprite',		'6475F3']
+			[
+				'ninjamuffin99',
+				'ninjamuffin99',
+				"Programmer of Friday Night Funkin'",
+				'https://twitter.com/ninja_muffin99',
+				'F73838'
+			],
+			[
+				'PhantomArcade',
+				'phantomarcade',
+				"Animator of Friday Night Funkin'",	
+				'https://twitter.com/PhantomArcade3K',
+				'FFBB1B'
+			],
+			[
+				'evilsk8r',
+				'evilsk8r',
+				"Artist of Friday Night Funkin'",
+				'https://twitter.com/evilsk8r',
+				'53E52C'
+			],
+			[
+				'kawaisprite',
+				'kawaisprite',
+				"Composer of Friday Night Funkin'",
+				'https://twitter.com/kawaisprite',
+				'6475F3'
+			],
+			[''],
+			['Special Thanks'],
+			[
+				'Blueballs Incident',
+				'bbincident',
+				'Grande Inspiracao para este Mod\no vithor ama esse mod e eu to sendo escravizado pra escrever sobre ele aqui\n:) -BeastlyGhost',
+				'https://gamebanana.com/mods/293462',
+				'e1e4a1'
+			],
+			[
+				"Hypno's Lullaby",
+				'lullaby',
+				'Outra inspiracao, alem de estar aqui como mencao honrosa.',
+				'https://gamebanana.com/mods/332345',
+				'F5E54B'
+			],
+			[
+				'Arrow Funk',
+				'arrowfunk',
+				'Mod bom, Recomendo.',
+				'https://gamejolt.com/games/arrowfunk/646058',
+				'52A4FF	'
+			]
 		];
 		
 		for(i in pisspoop){

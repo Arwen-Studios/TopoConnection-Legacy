@@ -54,6 +54,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
+		
+		var option:Option = new Option('Judgement Counter',
+			"If unchecked, the number of judgments you got on a song will not be shown.",
+			'showJC',
+			'bool',
+			true);
+		addOption(option);
 
 		var option:Option = new Option('Controller Mode',
 			'Check this if you want to play with\na controller instead of using your Keyboard.',
