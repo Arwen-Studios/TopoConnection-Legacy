@@ -394,6 +394,8 @@ class PlayState extends MusicBeatState
 		{
 			switch (songName)
 			{
+				case 'purplered' | 'purple-red' | 'seamless' | 'wannacry' | 'beta-seamless' | 'beta-wannacry':
+					curStage = 'white-space';
 				case 'spookeez' | 'south' | 'monster':
 					curStage = 'spooky';
 				case 'pico' | 'blammed' | 'philly' | 'philly-nice':
@@ -518,9 +520,8 @@ class PlayState extends MusicBeatState
 				var fgSnow:BGSprite = new BGSprite('christmas/fgSnow', -600, 700);
 				add(fgSnow);
 
-				santa = new BGSprite('christmas/santa', -840, 150, 1, 1, ['santa idle in fear']);
-				add(santa);
 				CoolUtil.precacheSound('Lights_Shut_off');
+				GameOverSubstate.characterName = 'vsilva';
 
 			case 'mallEvil': //Week 5 - Winter Horrorland
 				var bg:BGSprite = new BGSprite('christmas/evilBG', -400, -500, 0.2, 0.2);
@@ -952,10 +953,10 @@ class PlayState extends MusicBeatState
 		{
 			case 'purple-red' | 'purplered' | 'seamless' | 'beta-seamless': // Chapter 1 - Week 1
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
-			case 'wannacry' | 'beta-wannacry':
+			case 'wannacry' | 'beta-wannacry': // Chapter 1 - Boss
 				isBossSong = true;
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
-			case 'bimbo' | 'beta-bimbo':
+			case 'bimbo' | 'beta-bimbo': // Secret Song
 				timeBar.createFilledBar(FlxColor.BLACK, FlxColor.YELLOW);
 			case 'extrasong':
 				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.RED);
@@ -963,6 +964,8 @@ class PlayState extends MusicBeatState
 				timeBar.createFilledBar(0xFFFF0062, 0xFF000000);
 			case 'ghost':
 				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.CYAN);
+			case 'cocoa': // Secret Song
+				timeBar.createFilledBar(0xFFE78EE6, 0xFF353535);
 			default:
 				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
@@ -1248,7 +1251,7 @@ class PlayState extends MusicBeatState
 
 		// PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
 		if (ClientPrefs.hitsoundVolume > 0)
-			CoolUtil.precacheSound('hitsound');
+			CoolUtil.precacheSound('noteHit');
 		CoolUtil.precacheSound('missnote1');
 		CoolUtil.precacheSound('missnote2');
 		CoolUtil.precacheSound('missnote3');
@@ -1720,7 +1723,7 @@ class PlayState extends MusicBeatState
 						upperBoppers.dance(true);
 
 					bottomBoppers.dance(true);
-					santa.dance(true);
+					//santa.dance(true);
 				}
 
 				switch (swagCounter)
@@ -4140,8 +4143,8 @@ class PlayState extends MusicBeatState
 					goods++;
 				doRatingTween(3);
 			case "sick": // sick
-				totalNotesHit += 0.85;
-				note.ratingMod = 0.85;
+				totalNotesHit += 0.98;
+				note.ratingMod = 0.98;
 				msText.color = FlxColor.CYAN;
 				if (!note.ratingDisabled)
 					sicks++;
@@ -4831,7 +4834,7 @@ class PlayState extends MusicBeatState
 		{
 			if (ClientPrefs.hitsoundVolume > 0 && !note.hitsoundDisabled)
 			{
-				FlxG.sound.play(Paths.sound('hitsound'), ClientPrefs.hitsoundVolume);
+				FlxG.sound.play(Paths.sound('noteHit'), ClientPrefs.hitsoundVolume);
 			}
 
 			if (cpuControlled && (note.ignoreNote || note.hitCausesMiss))
@@ -5336,7 +5339,7 @@ class PlayState extends MusicBeatState
 
 				if (heyTimer <= 0)
 					bottomBoppers.dance(true);
-				santa.dance(true);
+				//santa.dance(true);
 
 			case 'limo':
 				if (!ClientPrefs.lowQuality)

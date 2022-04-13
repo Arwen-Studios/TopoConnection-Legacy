@@ -164,7 +164,7 @@ class CreditsState extends MusicBeatState
 			[
 				"Hypno's Lullaby",
 				'lullaby',
-				"One of our inpisrations for this mod, this one is actually\none of Ghost's personal favorites.",
+				"One of our inspirations for this mod, this one is actually\none of Ghost's personal favorites.",
 				'https://gamebanana.com/mods/332345',
 				'F5E54B'
 			],
@@ -178,7 +178,7 @@ class CreditsState extends MusicBeatState
 			[
 				'Arrow Funk',
 				'arrowfunk',
-				'Great mod, I recommend it.',
+				'Overhaul, a great mod made by some pretty awesome people, I recommend it.',
 				'https://gamejolt.com/games/arrowfunk/646058',
 				'52A4FF	'
 			],

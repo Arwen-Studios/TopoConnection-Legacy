@@ -1,110 +1,110 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				109,
 				390
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Idle"
+			"fps": 24,
+			"name": "Idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				112,
 				404
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Up0"
+			"fps": 24,
+			"name": "Up0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				94,
 				369
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Down0"
+			"fps": 24,
+			"name": "Down0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				107,
 				368
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Left0"
+			"fps": 24,
+			"name": "Left0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				112,
 				371
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "Right0"
+			"fps": 24,
+			"name": "Right0",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				110,
 				403
 			],
-			"anim": "singUP-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "UpAlt0",
-			"indices": []
+			"anim": "singUP-alt",
+			"indices": [],
+			"name": "UpAlt0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				90,
 				368
 			],
-			"anim": "singDOWN-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "DownAlt0",
-			"indices": []
+			"anim": "singDOWN-alt",
+			"indices": [],
+			"name": "DownAlt0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				108,
 				368
 			],
-			"anim": "singLEFT-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "LeftAlt0",
-			"indices": []
+			"anim": "singLEFT-alt",
+			"indices": [],
+			"name": "LeftAlt0"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				115,
 				368
 			],
-			"anim": "singRIGHT-alt",
+			"loop": false,
 			"fps": 24,
-			"name": "RightAlt0",
-			"indices": []
+			"anim": "singRIGHT-alt",
+			"indices": [],
+			"name": "RightAlt0"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/VithMaxx_Assets",
 	"position": [
-		0,
-		370
+		-150,
+		420
 	],
 	"healthicon": "vivito",
 	"flip_x": false,
@@ -114,8 +114,8 @@
 		238
 	],
 	"camera_position": [
-		-150,
-		-220
+		0,
+		-340
 	],
 	"noteSkin": "noteskins/Default",
 	"sing_duration": 4,

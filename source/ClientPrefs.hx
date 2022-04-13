@@ -40,7 +40,7 @@ class ClientPrefs {
 	public static var camFollow:Bool = true;
 	public static var pussyMode:Bool = false;
 	public static var antiMash:Bool = true;
-	public static var hellRatings:Bool = false;
+	public static var hellRatings:Bool = true;
 	public static var ratingPos:String = "World";
 	public static var showJC:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [

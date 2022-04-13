@@ -103,7 +103,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'How much opaque should the background be\n0% = Completely Opaque\n100% = Completely Transparent.',
 			'bgAlpha',
 			'percent',
-			1);
+			0);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;
@@ -127,7 +127,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'Enables a black bar behind the notes for visibility, how much opaque should it be?.',
 			'laneOpacity',
 			'percent',
-			1);
+			0);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;

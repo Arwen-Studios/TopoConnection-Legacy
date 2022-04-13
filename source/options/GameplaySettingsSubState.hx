@@ -49,10 +49,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		addOption(option);
 
 		var option:Option = new Option('Harsh Judgements',
-			"If checked, any judgement worse than 'Good' will drain health.",
+			"If unchecked, any judgement worse than 'Good' won't drain health.",
 			'hellRatings',
 			'bool',
-			false);
+			true);
 		addOption(option);
 		
 		var option:Option = new Option('Judgement Counter',
