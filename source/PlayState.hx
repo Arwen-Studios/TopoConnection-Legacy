@@ -145,23 +145,17 @@ class PlayState extends MusicBeatState
 
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
-	private var totalCombo:Int = 0;
 	public var combo:Int = 0;
+	private var totalCombo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
-
 	public var healthBar:FlxBar;
 
 	var songPercent:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
 	private var timeBarOV:AttachedSprite;
-
 	public var timeBar:FlxBar;
-
-	private var judgementCounterBG:AttachedSprite;
-
-	public var judCText:FlxText;
 
 	public var perfs:Int = 0;
 	public var sicks:Int = 0;
@@ -246,6 +240,9 @@ class PlayState extends MusicBeatState
 	// var songAuthor:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
+
+	public var ratingTxtGroup:FlxTypedGroup<FlxText>;
+	public var ratingTxtTweens:Array<FlxTween> = [null, null, null, null, null];
 
 	// the position of the rating and the number objects on a stage
 	// doesn't work with "Fixed" rating positions.
@@ -955,12 +952,10 @@ class PlayState extends MusicBeatState
 		{
 			case 'purple-red' | 'purplered' | 'seamless' | 'beta-seamless': // Chapter 1 - Week 1
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
-			case 'beta-wannacry' | 'wannacry':
+			case 'wannacry' | 'beta-wannacry':
 				isBossSong = true;
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
-			case 'lazy':
-				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.LIME);
-			case 'bimbo':
+			case 'bimbo' | 'beta-bimbo':
 				timeBar.createFilledBar(FlxColor.BLACK, FlxColor.YELLOW);
 			case 'extrasong':
 				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.RED);
@@ -1091,30 +1086,15 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		//
-		judgementCounterBG = new AttachedSprite("judgementCounter");
-		judgementCounterBG.y = FlxG.height * 0.025;
-		judgementCounterBG.x = FlxG.width * 0;
-		judgementCounterBG.setGraphicSize(Std.int(judgementCounterBG.width * 0.7));
-		judgementCounterBG.scrollFactor.set();
-		judgementCounterBG.visible = !ClientPrefs.hideHud;
-		if (ClientPrefs.showJC)
-			add(judgementCounterBG);
-
-		judCText = new FlxText(judgementCounterBG.x + 30, 118, 0, "", 35);
-		judCText.setFormat(Paths.font(Std.string(Main.gameFont)), 35, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		judCText.borderSize = 2;
-		judCText.borderQuality = 2;
-		
-		judCText.text = '${totalCombo}\n\n';
-		judCText.text += '${perfs}\n\n';
-		judCText.text += '${sicks}\n\n';
-		judCText.text += '${goods}\n\n';
-		judCText.text += '${bads}\n\n';
-		judCText.text += '${shits}\n\n';
-		judCText.text += '${songMisses}\n\n';
-		judCText.text += '\n';
-		if (ClientPrefs.showJC)
-			add(judCText);
+		ratingTxtGroup = new FlxTypedGroup<FlxText>();
+		ratingTxtGroup.visible = !ClientPrefs.hideHud && ClientPrefs.showJC;
+		for (i in 0...7) {
+			var ratingTxt = new FlxText(20, FlxG.height * 0.5 - 8 + (16 * (i - 2)), FlxG.width, "", 16);
+			ratingTxt.setFormat(Paths.font(Main.gameFont), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			ratingTxt.scrollFactor.set();
+			ratingTxtGroup.add(ratingTxt);
+		}
+		add(ratingTxtGroup);
 		//
 
 		botplayTxt = new FlxText(395, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
@@ -1151,8 +1131,7 @@ class PlayState extends MusicBeatState
 		timeBarBG.cameras = [camHUD];
 		timeBarOV.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
-		judgementCounterBG.cameras = [camHUD];
-		judCText.cameras = [camHUD];
+		ratingTxtGroup.cameras = [camHUD];
 		laneunderlay.cameras = [camHUD];
 		laneunderlayOpponent.cameras = [camHUD];
 		doof.cameras = [camHUD];
@@ -2762,17 +2741,6 @@ class PlayState extends MusicBeatState
 
 		var divider:String = ' // ';
 
-		//
-		judCText.text = '${totalCombo}\n\n';
-		judCText.text += '${perfs}\n\n';
-		judCText.text += '${sicks}\n\n';
-		judCText.text += '${goods}\n';
-		judCText.text += '${bads}\n';
-		judCText.text += '${shits}\n';
-		judCText.text += '${songMisses}\n';
-		judCText.text += '\n';
-		//
-
 		scoreTxt.text = '';
 		scoreTxt.text += (ClientPrefs.npsDisplay ? 'NPS: ${nps}/${maxNPS}${divider}Score: ${songScore}' : 'Score: ${songScore}');
 
@@ -2806,6 +2774,26 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
+		for (i in 0...ratingTxtGroup.members.length) {
+			var rating = ratingTxtGroup.members[i];
+			switch (i) {
+				case 0:
+					rating.text = 'Highest Combo: $totalCombo';
+				case 1:
+					rating.text = 'Perf: $perfs';
+				case 2:
+					rating.text = 'Sick: $sicks';
+				case 3:
+					rating.text = 'Good: $goods';
+				case 4:
+					rating.text = 'Bad: $bads';
+				case 5:
+					rating.text = 'Shit: $bads';
+				case 6:
+					rating.text = 'Miss: $songMisses';
+			}
+		}
+
 		if (controls.PAUSE && startedCountdown && canPause)
 		{
 			pauseState();
@@ -2827,8 +2815,8 @@ class PlayState extends MusicBeatState
 			&& !ClientPrefs.debugMode)
 		{
 				PlayState.isStoryMode = false;
-				PlayState.SONG = Song.loadFromJson('bimbo-hard', 'bimbo');
-				LoadingState.loadAndSwitchState(new PlayState());
+				PlayState.SONG = Song.loadFromJson('beta-bimbo-hard', 'beta-bimbo'); // preventing a crash
+				LoadingState.loadAndSwitchState(new PlayState());					// until we have the new song
 		}
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter)
 			&& !endingSong
@@ -4131,7 +4119,8 @@ class PlayState extends MusicBeatState
 					health -= 0.2;
 				msText.color = FlxColor.RED;
 				if (!note.ratingDisabled)
-					shits++;
+					shits++;	
+				doRatingTween(5);
 			case "bad": // bad
 				totalNotesHit += 0.5;
 				note.ratingMod = 0.5;
@@ -4141,6 +4130,7 @@ class PlayState extends MusicBeatState
 				msText.color = FlxColor.ORANGE;
 				if (!note.ratingDisabled)
 					bads++;
+				doRatingTween(4);
 			case "good": // good
 				totalNotesHit += 0.75;
 				note.ratingMod = 0.75;
@@ -4148,18 +4138,21 @@ class PlayState extends MusicBeatState
 				msText.color = FlxColor.GREEN;
 				if (!note.ratingDisabled)
 					goods++;
+				doRatingTween(3);
 			case "sick": // sick
 				totalNotesHit += 0.85;
 				note.ratingMod = 0.85;
 				msText.color = FlxColor.CYAN;
 				if (!note.ratingDisabled)
 					sicks++;
+				doRatingTween(2);
 			case "perfect": // perf
 				totalNotesHit += 1;
 				note.ratingMod = 1;
 				msText.color = FlxColor.fromRGB(255, 0, 54);
 				if (!note.ratingDisabled)
 					perfs++;
+				doRatingTween(1);
 		}
 
 		msText.text = Std.string(Std.int(Conductor.ms)) + "ms" + (cpuControlled ? " (BOT)" : "");
@@ -4379,6 +4372,22 @@ class PlayState extends MusicBeatState
 			},
 			startDelay: Conductor.crochet * 0.001
 		});
+	}
+
+	function doRatingTween(ind:Int = 0) {
+		if (ClientPrefs.scoreZoom)
+		{
+			if (ratingTxtTweens[ind] != null) {
+				ratingTxtTweens[ind].cancel();
+			}
+			ratingTxtGroup.members[ind].scale.x = 1.02;
+			ratingTxtGroup.members[ind].scale.y = 1.02;
+			ratingTxtTweens[ind] = FlxTween.tween(ratingTxtGroup.members[ind].scale, {x: 1, y: 1}, 0.2, {
+				onComplete: function(twn:FlxTween) {
+					ratingTxtTweens[ind] = null;
+				}
+			});
+		}
 	}
 
 	private function onKeyPress(event:KeyboardEvent):Void
@@ -4615,6 +4624,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 		combo = 0;
+		doRatingTween(6);
 
 		health -= daNote.missHealth * healthLoss;
 		if (instakillOnMiss)
@@ -4678,6 +4688,7 @@ class PlayState extends MusicBeatState
 				gf.playAnim('sad');
 			}
 			combo = 0;
+			doRatingTween(6);
 
 			if (!practiceMode)
 				songScore -= 10;
@@ -4858,6 +4869,7 @@ class PlayState extends MusicBeatState
 			{
 				combo += 1;
 				popUpScore(note);
+				doRatingTween(0);
 				if (combo > 9999)
 					combo = 9999;
 			}
@@ -5455,14 +5467,12 @@ class PlayState extends MusicBeatState
 				{
 					case "purple-red" | "purplered" | "seamless" | "wannacry" | "beta-seamless" | "beta-wannacry":
 						ratings = Ratings.topoRatings;
-					case "bimbo":
+					case "bimbo" | "beta-bimbo":
 						ratings = Ratings.bimboRatings;
 					case "nuzlocke" | 'beta-nuzlocke':
 						ratings = Ratings.nuzlockeRatings;
 					case "ghost":
 						ratings = Ratings.ghostRatings;
-					case "lazy":
-						ratings = Ratings.lazyRatings;
 				}
 				// Rating Name
 				if (ratingPercent >= 1)

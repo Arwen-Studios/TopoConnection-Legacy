@@ -24,12 +24,12 @@ class OutdatedState extends MusicBeatState
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"Sup bro, looks like you're running an   \n
-			outdated version of Psych Engine (" + MainMenuState.psychEngineVersion + "),\n
+			"I'm sorry, but it seems like   \n
+			We aren't able to connect, due to the fact you have a older version (" + MainMenuState.topoVer + "),\n
 			please update to " + TitleState.updateVersion + "!\n
-			Press ESCAPE to proceed anyway.\n
+			Press ESCAPE to ignore this.\n
 			\n
-			Thank you for using the Engine!",
+			Thank you for your time!",
 			32);
 		warnText.setFormat(Std.string(Main.gameFont), 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
@@ -41,7 +41,7 @@ class OutdatedState extends MusicBeatState
 		if(!leftState) {
 			if (controls.ACCEPT) {
 				leftState = true;
-				CoolUtil.browserLoad("https://github.com/ShadowMario/FNF-PsychEngine/releases");
+				CoolUtil.browserLoad("*link do GJ*");
 			}
 			else if(controls.BACK) {
 				leftState = true;
