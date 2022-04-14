@@ -43,6 +43,7 @@ class ClientPrefs {
 	public static var hellRatings:Bool = true;
 	public static var ratingPos:String = "World";
 	public static var showJC:Bool = true;
+	public static var freePlaying:Bool = false;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -165,6 +166,7 @@ class ClientPrefs {
 		FlxG.save.data.hellRatings = hellRatings;
 		FlxG.save.data.ratingPos = ratingPos;
 		FlxG.save.data.showJC = showJC;
+		FlxG.save.data.freePlaying = freePlaying;
 	
 		FlxG.save.flush();
 
@@ -316,6 +318,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.showJC != null) {
 			showJC = FlxG.save.data.showJC;
+		}
+		if(FlxG.save.data.freePlaying != null) {
+			freePlaying = FlxG.save.data.freePlaying;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{

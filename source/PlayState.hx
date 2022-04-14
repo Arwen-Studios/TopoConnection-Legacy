@@ -237,7 +237,7 @@ class PlayState extends MusicBeatState
 	public var scoreTxt:FlxText;
 	public var isBossSong:Bool = false;
 
-	// var songAuthor:FlxText;
+	var songAuthor:FlxSprite;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
@@ -1068,6 +1068,12 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
+		songAuthor = new AttachedSprite('songPorts/' + curSong);
+		songAuthor.scrollFactor.set();
+		songAuthor.visible = !ClientPrefs.hideHud;
+		songAuthor.x -= 500;
+		add(songAuthor);
+
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
@@ -1126,6 +1132,7 @@ class PlayState extends MusicBeatState
 		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
+		songAuthor.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
@@ -5222,6 +5229,27 @@ class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
+		// setting stepHit stuff
+		if(curStep == lastStepHit) {
+			return;
+		}
+
+		if (curStep == 1)
+		{
+				FlxTween.tween(songAuthor, {x: 0}, 2.6, {ease: FlxEase.expoOut});
+		}
+		
+		if (curStep == 32)
+		{
+			FlxTween.tween(songAuthor, {x: -500}, 2.6, {
+				ease: FlxEase.expoIn,
+				onComplete: function(twn:FlxTween)
+				{
+					songAuthor.alpha = 0;
+				}
+			});
+		}
+
 		// this does update every step, and it's bad
 		// but i'm doing this just so I can update misses, accuracy, etc
 		#if desktop
@@ -5543,6 +5571,8 @@ class PlayState extends MusicBeatState
 							{
 								case 'week1':
 									if (achievementName == 'week1_nomiss') unlock = true;
+									ClientPrefs.freePlaying = true;
+									ClientPrefs.saveSettings();
 							}
 						}
 					case 'week1_opponent':

@@ -204,10 +204,14 @@ class StoryMenuState extends MusicBeatState
 		textBG.alpha = 0.6;
 		add(textBG);
 
-		var leText:String = "Press SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
-		var size:Int = 13;
+		var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score.";
+		var size:Int = 18;
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
-		text.setFormat(Paths.font(Std.string(Main.gameFont)), size, FlxColor.WHITE, RIGHT);
+		text.setFormat(Paths.font(Std.string(Main.gameFont)), size, FlxColor.WHITE, CENTER);
+		if(ClientPrefs.freePlaying) {
+			size = 16;
+			leText = "Press SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score.";
+		}
 		text.color = TitleState.blammedLightsColors[0];
 		text.scrollFactor.set();
 		add(text);
@@ -272,7 +276,7 @@ class StoryMenuState extends MusicBeatState
 				persistentUpdate = false;
 				openSubState(new GameplayChangersSubstate());
 			}
-			if(FlxG.keys.justPressed.SHIFT)
+			if(ClientPrefs.freePlaying && FlxG.keys.justPressed.SHIFT)
 			{
 				MusicBeatState.switchState(new FreeplayState());
 			}
