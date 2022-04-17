@@ -112,7 +112,7 @@ class FreeplayState extends MusicBeatState
 		for (i in 0...songs.length)
 		{
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false);
-			songText.isMenuItem = true;
+			songText.isOption = true;
 			songText.targetY = i;
 			grpSongs.add(songText);
 
@@ -146,7 +146,7 @@ class FreeplayState extends MusicBeatState
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
 		scoreText.setFormat(Paths.font(Std.string(Main.gameFont)), 32, FlxColor.WHITE, RIGHT);
 
-		scoreBG = new FlxSprite(scoreText.x - scoreText.width, 0).makeGraphic(Std.int(FlxG.width * 0.35), 66, 0xFF000000);
+		scoreBG = new FlxSprite(scoreText.x - scoreText.width, 0).makeGraphic(Std.int(FlxG.width * 0.35), 46, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
@@ -154,7 +154,7 @@ class FreeplayState extends MusicBeatState
 		diffText.alignment = CENTER;
 		diffText.font = scoreText.font;
 		diffText.x = scoreBG.getGraphicMidpoint().x;
-		add(diffText);
+		//add(diffText);
 		add(scoreText);
 
 		if(curSelected >= songs.length) curSelected = 0;

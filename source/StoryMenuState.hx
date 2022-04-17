@@ -156,7 +156,7 @@ class StoryMenuState extends MusicBeatState
 		leftArrow.animation.addByPrefix('press', "arrow push left");
 		leftArrow.animation.play('idle');
 		leftArrow.antialiasing = ClientPrefs.globalAntialiasing;
-		difficultySelectors.add(leftArrow);
+		//difficultySelectors.add(leftArrow);
 
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 		if(lastDifficultyName == '')
@@ -167,7 +167,7 @@ class StoryMenuState extends MusicBeatState
 		
 		sprDifficulty = new FlxSprite(0, leftArrow.y);
 		sprDifficulty.antialiasing = ClientPrefs.globalAntialiasing;
-		difficultySelectors.add(sprDifficulty);
+		//difficultySelectors.add(sprDifficulty);
 
 		rightArrow = new FlxSprite(leftArrow.x + 376, leftArrow.y);
 		rightArrow.frames = ui_tex;
@@ -175,7 +175,7 @@ class StoryMenuState extends MusicBeatState
 		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
 		rightArrow.animation.play('idle');
 		rightArrow.antialiasing = ClientPrefs.globalAntialiasing;
-		difficultySelectors.add(rightArrow);
+		//difficultySelectors.add(rightArrow);
 
 		add(bgYellow);
 		add(bgSprite);
@@ -206,12 +206,12 @@ class StoryMenuState extends MusicBeatState
 
 		var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score.";
 		var size:Int = 18;
+		if(ClientPrefs.freePlaying) {
+			leText = "Press SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score.";
+			size = 16;
+		}
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
 		text.setFormat(Paths.font(Std.string(Main.gameFont)), size, FlxColor.WHITE, CENTER);
-		if(ClientPrefs.freePlaying) {
-			size = 16;
-			leText = "Press SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score.";
-		}
 		text.color = TitleState.blammedLightsColors[0];
 		text.scrollFactor.set();
 		add(text);

@@ -32,7 +32,6 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var opaqueHolds:Bool = true;
 	public static var laneOpacity:Float = 0;
-	public static var npsDisplay:Bool = false;
 	public static var bgAlpha:Float = 0;
 	public static var debugMode:Bool = false;
 	public static var autoPause:Bool = true;
@@ -155,7 +154,6 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.opaqueHolds = opaqueHolds;
 		FlxG.save.data.laneOpacity = laneOpacity;
-		FlxG.save.data.npsDisplay = npsDisplay;
 		FlxG.save.data.bgAlpha = bgAlpha;
 		FlxG.save.data.debugMode = debugMode;
 		FlxG.save.data.autoPause = autoPause;
@@ -284,9 +282,6 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.laneOpacity != null) {
 			laneOpacity = FlxG.save.data.laneOpacity;
-		}
-		if(FlxG.save.data.npsDisplay != null) {
-			npsDisplay = FlxG.save.data.npsDisplay;
 		}
 		if(FlxG.save.data.bgAlpha != null) {
 			bgAlpha = FlxG.save.data.bgAlpha;

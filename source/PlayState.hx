@@ -1088,7 +1088,7 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font(Std.string(Main.gameFont)), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font(Std.string(Main.gameFont)), (ClientPrefs.accuracyDisplay ? 16 : 20), FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
@@ -2565,16 +2565,6 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		for (i in 0...notesHitArray.length)
-		{
-			var cock:Date = notesHitArray[i];
-			if (cock != null)
-				if (cock.getTime() + 2000 < Date.now().getTime())
-					notesHitArray.remove(cock);
-		}
-		nps = Math.floor(notesHitArray.length / 2);
-		if (nps > maxNPS)
-			maxNPS = nps;
 		if (FlxG.keys.justPressed.NINE)
 		{
 			iconP1.swapOldIcon();
@@ -2747,17 +2737,13 @@ class PlayState extends MusicBeatState
 		Made scoreTxt a little bit
 		easier to work with
 		- BeastlyGhost
-	 */
+		*/
 
-		var divider:String = ' // ';
+		var divider:String = ' - ';
+		scoreTxt.text = 'Score: ${songScore}';
 
-		scoreTxt.text = '';
-		scoreTxt.text += (ClientPrefs.npsDisplay ? 'NPS: ${nps}/${maxNPS}${divider}Score: ${songScore}' : 'Score: ${songScore}');
-
-		var accuracyDisplay = ClientPrefs.accuracyDisplay;
-		if (accuracyDisplay)
+		if (ClientPrefs.accuracyDisplay)
 		{
-			scoreTxt.size = 16;
 			if (ratingName == '?')
 				scoreTxt.text += divider + 'Accuracy: 0%';
 			else

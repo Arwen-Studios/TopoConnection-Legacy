@@ -19,7 +19,7 @@ class Achievements {
 		],
 		[
 			"a New Connection",
-			"Beat Week 1 on Hard with no Misses.",
+			"Beat Week 1 on Hard with no Misses.\n(Unlocks Freeplay)",
 			'week1_nomiss',
 			false
 		],
