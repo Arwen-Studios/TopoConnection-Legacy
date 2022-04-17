@@ -951,21 +951,32 @@ class PlayState extends MusicBeatState
 
 		switch (songName)
 		{
-			case 'purple-red' | 'purplered' | 'seamless' | 'beta-seamless': // Chapter 1 - Week 1
+			case 'purple-red' | 'purplered':
+				startVideo('cutscene1');
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
+
+			case 'seamless' | 'beta-seamless': // Chapter 1 - Week 1
+				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
+
 			case 'wannacry' | 'beta-wannacry': // Chapter 1 - Boss
 				isBossSong = true;
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
+
 			case 'bimbo' | 'beta-bimbo': // Secret Song
 				timeBar.createFilledBar(FlxColor.BLACK, FlxColor.YELLOW);
+
 			case 'extrasong':
 				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.RED);
+
 			case 'suok':
 				timeBar.createFilledBar(0xFFFF0062, 0xFF000000);
-			case 'ghost':
+
+			case 'ghost-tap':
 				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.CYAN);
+
 			case 'cocoa': // Secret Song
 				timeBar.createFilledBar(0xFFE78EE6, 0xFF353535);
+				
 			default:
 				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
