@@ -27,6 +27,7 @@ class CreditsState extends MusicBeatState
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<AttachedSprite> = [];
+	private var portArray:Array<AttachedSprite> = [];
 	private var creditsStuff:Array<Array<String>> = [];
 
 	var bg:FlxSprite;
@@ -41,8 +42,10 @@ class CreditsState extends MusicBeatState
 	{
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In the Menus", 'Reading the Credits', null);
 		#end
+
+		FlxG.sound.music.volume = 0.1;
 
 		persistentUpdate = true;
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -80,77 +83,176 @@ class CreditsState extends MusicBeatState
 		}
 		#end
 
-		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+		var pisspoop:Array<Array<String>> = [
+			/**
+			 * Name
+			 * Icon name
+			 * Description
+			 * Link
+			 * BG Color
+			 * Sound
+			**/
 			['Topo Connection Team'],
 			[
 				'NxtVithor',
 				'vito',
 				'Project Lead and Designer\n"I love the person down below."',
 				'https://twitter.com/NxtVithor',
-				'444444'
+				'e78ee6',
+				'Vithor_Sound',
+				'vito'
 			],
 			[
 				'BeastlyMaxx',
 				'maxx',
 				"Director, Musician\n" + '"' + "i DON'T KNOW WHAT TO SAY" + '"',
 				'https://twitter.com/BeastlyMaxxVivi',
-				'444444'
+				'353535',
+				'Maxx_Sound',
+				'maxx'
 			],
 			[
 				'BeastlyChip',
 				'chip',
-				'Director, Musician\n"Vithor my dick is stuck on a wheel please help me"',
+				'Director, Musician\n"Hold my amen breaks"',
 				'https://twitter.com/BeastlyChip',
-				'444444'
+				'e295ff',
+				'Chip_Sound',
+				'chip'
 			],
 			[
 				'BeastlyGhost',
 				'ghost',
-				'Coder, Director\n"Just happy to be here!"',
+				'Director, Coder\n"Just happy to be here!"',
 				'https://twitter.com/Fan_de_RPG',
-				'444444'
+				'00ffbf',
+				'Ghost_Sound',
+				'ghost'
+			],
+			[
+				'LazyBudd',
+				'lazy',
+				'Director, Musician\n"I love sex"',
+				'https://twitter.com/DaLazy_Composer',
+				'a529e0',
+				'Lazy_Sound',
+				'lazy'
 			],
 			[
 				'Senshi_Z',
 				'senshi',
-				'Musician\n"dyslexia."',
+				'Director, Musician\n"dislexia."',
 				'https://twitter.com/Senshi_Z12',
-				'444444'
+				'bbffb1',
+				'Senshi_Sound',
+				'senshi'
+			],
+			[''],
+			['Artists'],
+			[
+				'BeastlyMudoku',
+				'mudoku',
+				"Sprite Artist\n" + '"' + "I don't owe you anything" + '"',
+				'https://twitter.com/Mudoku__',
+				'80ffa1',
+				'Shiny_Sound',
+				'shiny'
 			],
 			[
-				'Luis com "S"',
-				'luis',
-				"Coder\n" + '"' + "I'm lazy AF" + '"',
-				'https://twitter.com/Luis_comS_10',
-				'444444'
-			],
-			[
-				'Gazozoz',
-				'shadowmario',
-				'Coder, Animator\n"How does this affect the ECONOMY?"',
-				'https://twitter.com/Gazozoz_',
-				'444444'
+				'BeastlyYoshi',
+				'yoshi',
+				"Background Artist\n" + '"' + "It's a crime to use amen break, whoever does it will go to hell immediately." + '"',
+				'https://twitter.com/yoshizitosNG',
+				'481874',
+				'Yoshi_Sound',
+				'yoshi'
 			],
 			[
 				'Suok',
 				'suok',
 				'Spriter, Animator\n"*starts beatboxing in Pennywise*"',
 				'https://twitter.com/oSuOk3',
-				'444444'
+				'ff0062',
+				'Suok_Sound',
+				'suok'
 			],
+			[
+				'Brycee',
+				'brycee',
+				'Spriter\n"You should never ask Vithor if he likes ass."',
+				'https://twitter.com/Bryceegay',
+				'aa6abb',
+				'Brycee_Sound',
+				'brycee'
+			],
+			[
+				'AquaStrikr',
+				'aqua',
+				'Spriter, Judgement Designer\n"agoti rip-off"',
+				'https://twitter.com/aqua_strikr',
+				'd4d4d4',
+				'Aqua_Sound',
+				'aqua'
+			],
+			[
+				'NaferNightmare',
+				'nafer',
+				'Animator, made the Cutscenes\n"exactly like my balls, get it?"',
+				'https://twitter.com/NaferNightmare',
+				'ffb600',
+				'Nafer_Sound',
+				'nafer'
+			],
+			[''],
+			['Sound and Music Designer'],
+			[
+				'BeastlyShiny',
+				'shiny',
+				"Nxxty's Voice Actor\n" + '"' + "meow meow meow meow meow meow" + '"',
+				'https://twitter.com/shinyshyni_',
+				'c5c5c5',
+				'Shiny_Sound',
+				'shiny'
+			],
+			[
+				'JulianoBeta',
+				'juliano',
+				'Made da funny songs\n"hi I make bimbo."',
+				'https://twitter.com/JulianoIts',
+				'0d2146',
+				'Juliano_Sound',
+				'juliano'
+			],
+			[''],
+			['Coders'],
+			[
+				'Luis com "S"',
+				'luis',
+				"Coder\n" + '"' + "I'm lazy AF" + '"',
+				'https://twitter.com/Luis_comS_10',
+				'c29c6e',
+				'Luis_Sound',
+				'luis'
+			],
+			[
+				'Gazozoz',
+				'gazozoz',
+				'Coder, Animator\n"How does this affect the ECONOMY?"',
+				'https://twitter.com/Gazozoz_',
+				'9c2323',
+				'Gazozoz_Sound',
+				'gazozoz'
+			],
+			[''],
+			['Charters'],
 			[
 				'Mathesu',
 				'matt',
 				'Charter\n"I can chart you"',
 				'https://twitter.com/MattPogg',
-				'444444'
-			],
-			[
-				'Brycee',
-				'bryce',
-				'Background Artist\n"You should never ask Vithor if he likes ass."',
-				'https://twitter.com/Bryceegay',
-				'444444'
+				'2c2c2c',
+				'Matt_Sound',
+				'matt'
 			],
 			[''],
 			['Special Thanks'],
@@ -159,28 +261,36 @@ class CreditsState extends MusicBeatState
 				'bbincident',
 				'Our biggest inspiration for this mod\nNxt (AKA Vithor) just loves this mod and so we credited it!',
 				'https://gamebanana.com/mods/293462',
-				'e1e4a1'
+				'e1e4a1',
+				'BBIncident_Sound',
+				'trollge'
 			],
 			[
 				"Hypno's Lullaby",
 				'lullaby',
 				"One of our inspirations for this mod, this one is actually\none of Ghost's personal favorites.",
 				'https://gamebanana.com/mods/332345',
-				'F5E54B'
+				'F5E54B',
+				'Hypno_Sound',
+				'hypno'
 			],
 			[
 				"B3 Remixed",
 				'B3',
 				"Thanks for being one of the best remix mods out there\nour Nom cover wouldn't exist without this mod!\n(Nxt loves this song lmao!!!!!!).",
 				'https://gamebanana.com/mods/332345',
-				'55fa57'
+				'55fa57',
+				'B3_Sound',
+				'b3'
 			],
 			[
 				'Arrow Funk',
 				'arrowfunk',
 				'Overhaul, a great mod made by some pretty awesome people, I recommend it.',
 				'https://gamejolt.com/games/arrowfunk/646058',
-				'52A4FF	'
+				'52A4FF',
+				'ArrowFunk_Sound',
+				'arrowfunk'
 			],
 			[''],
 			['Psych Engine Team'],
@@ -189,21 +299,27 @@ class CreditsState extends MusicBeatState
 				'shadowmario',
 				'Main Programmer of Psych Engine',
 				'https://twitter.com/Shadow_Mario_',
-				'444444'
+				'444444',
+				'JingleShadow',
+				''
 			],
 			[
 				'RiverOaken',
 				'riveroaken',
 				'Main Artist/Animator of Psych Engine',
 				'https://twitter.com/RiverOaken',
-				'C30085'
+				'C30085',
+				'JingleRiver',
+				''
 			],
 			[
 				'shubs',
 				'shubs',
 				'Additional Programmer of Psych Engine',
 				'https://twitter.com/yoshubs',
-				'279ADC'
+				'279ADC',
+				'JingleShubs',
+				''
 			],
 			[''],
 			['Former Engine Members'],
@@ -212,7 +328,9 @@ class CreditsState extends MusicBeatState
 				'bb-panzu',
 				'Ex-Programmer of Psych Engine',
 				'https://twitter.com/bbsub3',
-				'389A58'
+				'389A58',
+				'JingleBB',
+				''
 			],
 			[''],
 			['Engine Contributors'],
@@ -221,35 +339,45 @@ class CreditsState extends MusicBeatState
 				'iflicky',
 				'Composer of Psync and Tea Time\nMade the Dialogue Sounds',
 				'https://twitter.com/flicky_i',
-				'AA32FE'
+				'AA32FE',
+				'',
+				''
 			],
 			[
 				'SqirraRNG',
 				'gedehari',
 				'Chart Editor\'s Sound Waveform base',
 				'https://twitter.com/gedehari',
-				'FF9300'
+				'FF9300',
+				'',
+				''
 			],
 			[
 				'PolybiusProxy',
 				'polybiusproxy',
 				'.MP4 Video Loader Extension',
 				'https://twitter.com/polybiusproxy',
-				'FFEAA6'
+				'FFEAA6',
+				'',
+				''
 			],
 			[
 				'Keoiki',
 				'keoiki',
 				'Note Splash Animations',
 				'https://twitter.com/Keoiki_',
-				'FFFFFF'
+				'FFFFFF',
+				'',
+				''
 			],
 			[
 				'Smokey',
 				'smokey',
 				'Spritemap Texture Support',
 				'https://twitter.com/Smokey_5_',
-				'4D5DBD'
+				'4D5DBD',
+				'',
+				''
 			],
 			[''],
 			["Funkin' Crew"],
@@ -258,28 +386,36 @@ class CreditsState extends MusicBeatState
 				'ninjamuffin99',
 				"Programmer of Friday Night Funkin'",
 				'https://twitter.com/ninja_muffin99',
-				'F73838'
+				'F73838',
+				'',
+				''
 			],
 			[
 				'PhantomArcade',
 				'phantomarcade',
 				"Animator of Friday Night Funkin'",	
 				'https://twitter.com/PhantomArcade3K',
-				'FFBB1B'
+				'FFBB1B',
+				'',
+				''
 			],
 			[
 				'evilsk8r',
 				'evilsk8r',
 				"Artist of Friday Night Funkin'",
 				'https://twitter.com/evilsk8r',
-				'53E52C'
+				'53E52C',
+				'',
+				''
 			],
 			[
 				'kawaisprite',
 				'kawaisprite',
 				"Composer of Friday Night Funkin'",
 				'https://twitter.com/kawaisprite',
-				'6475F3'
+				'6475F3',
+				'',
+				''
 			]
 		];
 		
@@ -317,6 +453,12 @@ class CreditsState extends MusicBeatState
 				add(icon);
 				Paths.currentModDirectory = '';
 
+				var portrait:AttachedSprite = new AttachedSprite('credits/portraits/' + creditsStuff[i][6]);
+				portrait.x += 1090;
+				portrait.y += 400;
+				portArray.push(portrait);
+				//add(portrait);
+
 				if(curSelected == -1) curSelected = i;
 			}
 		}
@@ -336,6 +478,16 @@ class CreditsState extends MusicBeatState
 		descBox.sprTracker = descText;
 		add(descText);
 
+		var blackBox:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 80, FlxColor.BLACK);
+		blackBox.scrollFactor.set();
+		blackBox.alpha = 0.6;
+		add(blackBox);
+
+		var keyText:FlxText = new FlxText(0, 4, FlxG.width, "Press Enter to access this person's social media\nPress Space to play this person's sound", 32);
+		keyText.setFormat(Paths.font(Std.string(Main.gameFont)), 32, FlxColor.WHITE, CENTER);
+		keyText.scrollFactor.set();
+		add(keyText);
+
 		bg.color = getCurrentBGColor();
 		intendedColor = bg.color;
 		changeSelection();
@@ -346,11 +498,6 @@ class CreditsState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (FlxG.sound.music.volume < 0.7)
-		{
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-		}
-
 		if(!quitting)
 		{
 			if(creditsStuff.length > 1)
@@ -385,8 +532,11 @@ class CreditsState extends MusicBeatState
 				}
 			}
 
-			if(controls.ACCEPT) {
+			if(FlxG.keys.justPressed.ENTER) {
 				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
+			}
+			if(FlxG.keys.justPressed.SPACE) {
+				FlxG.sound.play(Paths.sound('credits/' + creditsStuff[curSelected][5]));
 			}
 			if (controls.BACK)
 			{

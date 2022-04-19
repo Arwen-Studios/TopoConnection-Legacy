@@ -268,6 +268,8 @@ class FreeplayState extends MusicBeatState
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
+		var leftP = controls.UI_LEFT_P;
+		var rightP = controls.UI_RIGHT_P;	
 		var accepted = controls.ACCEPT;
 		var space = FlxG.keys.justPressed.SPACE;
 		var ctrl = FlxG.keys.justPressed.CONTROL;
@@ -282,10 +284,29 @@ class FreeplayState extends MusicBeatState
 				changeSelection(-shiftMult);
 				holdTime = 0;
 			}
+			
 			if (downP)
 			{
 				changeSelection(shiftMult);
 				holdTime = 0;
+			}
+			
+			if (leftP)
+			{
+				if (vocals != null)
+				{
+					vocals.time -= 5000;
+				}
+				FlxG.sound.music.time -= 5000;
+			}
+
+			if (rightP)
+			{
+				if (vocals != null)
+				{
+					vocals.time += 5000;
+				}
+				FlxG.sound.music.time += 5000;
 			}
 
 			if(controls.UI_DOWN || controls.UI_UP)

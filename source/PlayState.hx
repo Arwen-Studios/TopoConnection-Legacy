@@ -1,12 +1,15 @@
 package;
 
-import flixel.graphics.FlxGraphic;
-#if desktop
-import Discord.DiscordClient;
-#end
+import Achievements;
+import DialogueBoxPsych;
+import FunkinLua;
+import Note.EventNote;
 import Section.SwagSection;
 import Song.SwagSong;
+import StageData;
 import WiggleEffect.WiggleEffectType;
+import editors.CharacterEditorState;
+import editors.ChartingState;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -21,9 +24,12 @@ import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.effects.chainable.FlxEffectSprite;
 import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.graphics.FlxGraphic;
 import flixel.graphics.atlas.FlxAtlas;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
@@ -34,6 +40,7 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
+import flixel.util.FlxSave;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
@@ -42,24 +49,18 @@ import lime.utils.Assets;
 import openfl.Lib;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
+import openfl.events.KeyboardEvent;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
-import editors.ChartingState;
-import editors.CharacterEditorState;
-import flixel.group.FlxSpriteGroup;
-import flixel.input.keyboard.FlxKey;
-import Note.EventNote;
-import openfl.events.KeyboardEvent;
-import flixel.util.FlxSave;
-import Achievements;
-import StageData;
-import FunkinLua;
-import DialogueBoxPsych;
+
+using StringTools;
+#if desktop
+import Discord.DiscordClient;
+#end
 #if sys
 import sys.FileSystem;
 #end
 
-using StringTools;
 
 class PlayState extends MusicBeatState
 {
@@ -394,22 +395,8 @@ class PlayState extends MusicBeatState
 		{
 			switch (songName)
 			{
-				case 'purplered' | 'purple-red' | 'seamless' | 'wannacry' | 'beta-seamless' | 'beta-wannacry':
+				case 'purple-red' | 'seamless' | 'wannacry' | 'citriky' | 'protocol':
 					curStage = 'white-space';
-				case 'spookeez' | 'south' | 'monster':
-					curStage = 'spooky';
-				case 'pico' | 'blammed' | 'philly' | 'philly-nice':
-					curStage = 'philly';
-				case 'milf' | 'satin-panties' | 'high':
-					curStage = 'limo';
-				case 'cocoa' | 'eggnog':
-					curStage = 'mall';
-				case 'winter-horrorland':
-					curStage = 'mallEvil';
-				case 'senpai' | 'roses':
-					curStage = 'school';
-				case 'thorns':
-					curStage = 'schoolEvil';
 				default:
 					curStage = 'stage';
 			}
@@ -634,15 +621,27 @@ class PlayState extends MusicBeatState
 					add(bg);
 				}
 			case 'white-space': // Chapter 1 - Week 1
-				var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.WHITE);
-				purp = new BGSprite('topoworld/purp', -600, -200, 0.9, 0.9);
-
-				purp.setGraphicSize(Std.int(bg.width * 1.1));
-
-				bg.screenCenter(XY);
-				purp.screenCenter(XY);
-
+				var songName:String = Paths.formatToSongPath(SONG.song);
+				var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), songName == 'purple-red' ? FlxColor.BLACK : FlxColor.WHITE);
+				bg.screenCenter();
 				add(bg);
+
+				var purp:FlxSprite = new FlxSprite(-140, -30);
+				purp.frames = Paths.getSparrowAtlas('topoworld/bg-w1');
+				purp.animation.addByPrefix('scrolling', "purp", 24);
+				purp.animation.play('scrolling', true);
+				purp.scrollFactor.set(0.9, 0.9);
+				purp.setGraphicSize(Std.int(purp.width * 2));
+				add(purp);
+
+				var upperThingy:BGSprite = new BGSprite('topoworld/bruh', -640, -200, 0.9, 0.9);
+				upperThingy.setGraphicSize(Std.int(upperThingy.width * 1.1));
+				add(upperThingy);
+
+				var purpGround:BGSprite = new BGSprite('topoworld/ground', -640, -150, 0.9, 0.9);
+				purpGround.updateHitbox();
+				add(purpGround);
+				
 			case 'windowsxp': // Bimbo
 				var bg:BGSprite = new BGSprite('bimbo/bemvindoaoinferno', -600, -200, 0.9, 0.9);
 				bg.setGraphicSize(Std.int(bg.width * 2.5));
@@ -660,9 +659,6 @@ class PlayState extends MusicBeatState
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
 			add(limo);
-
-		if (curStage == 'white-space')
-			add(purp);
 		
 		add(dadGroup);
 		add(boyfriendGroup);
@@ -951,18 +947,14 @@ class PlayState extends MusicBeatState
 
 		switch (songName)
 		{
-			case 'purple-red' | 'purplered':
-				startVideo('cutscene1');
+			case 'purple-red' | 'seamless' | 'citriky': // Chapter 1 - Week 1
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
 
-			case 'seamless' | 'beta-seamless': // Chapter 1 - Week 1
-				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
-
-			case 'wannacry' | 'beta-wannacry': // Chapter 1 - Boss
+			case 'wannacry' | 'protocol': // Chapter 1 - Boss
 				isBossSong = true;
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
 
-			case 'bimbo' | 'beta-bimbo': // Secret Song
+			case 'bimbo' | 'deez-nuts': // Secret Song
 				timeBar.createFilledBar(FlxColor.BLACK, FlxColor.YELLOW);
 
 			case 'extrasong':
@@ -1255,6 +1247,9 @@ class PlayState extends MusicBeatState
 					if (daSong == 'roses')
 						FlxG.sound.play(Paths.sound('ANGRY'));
 					schoolIntro(doof);
+
+				case 'purple-red':
+					startVideo('cutscene1');
 
 				default:
 					startCountdown();
@@ -2822,7 +2817,7 @@ class PlayState extends MusicBeatState
 			&& !ClientPrefs.debugMode)
 		{
 				PlayState.isStoryMode = false;
-				PlayState.SONG = Song.loadFromJson('beta-bimbo-hard', 'beta-bimbo'); // preventing a crash
+				PlayState.SONG = Song.loadFromJson('deez-nuts-hard', 'deez-nuts'); // preventing a crash
 				LoadingState.loadAndSwitchState(new PlayState());					// until we have the new song
 		}
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter)
@@ -4020,14 +4015,16 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				// trace('WENT BACK TO FREEPLAY??');
-				trace('NO MORE FREEPLAY!!');
+				trace('WENT BACK TO FREEPLAY??');
 				cancelMusicFadeTween();
 				if (FlxTransitionableState.skipNextTransIn)
 				{
 					CustomFadeTransition.nextCamera = null;
 				}
-				MusicBeatState.switchState(new MainMenuState());
+				if(!ClientPrefs.freePlaying)
+					MusicBeatState.switchState(new MainMenuState());
+				else
+					MusicBeatState.switchState(new FreeplayState());
 				FlxG.sound.playMusic(Paths.music(Main.menuSong));
 				changedDifficulty = false;
 			}
@@ -5233,7 +5230,7 @@ class PlayState extends MusicBeatState
 
 		if (curStep == 1)
 		{
-				FlxTween.tween(songAuthor, {x: 0}, 2.6, {ease: FlxEase.expoOut});
+			FlxTween.tween(songAuthor, {x: 0}, 2.6, {ease: FlxEase.expoOut});
 		}
 		
 		if (curStep == 32)
@@ -5493,11 +5490,11 @@ class PlayState extends MusicBeatState
 				var ratings:Array<Dynamic> = Ratings.psychRatings;
 				switch (songName)
 				{
-					case "purple-red" | "purplered" | "seamless" | "wannacry" | "beta-seamless" | "beta-wannacry":
+					case "purple-red" | "seamless" | "wannacry" | "citriky" | "protocol":
 						ratings = Ratings.topoRatings;
-					case "bimbo" | "beta-bimbo":
+					case "bimbo" | "deez-nuts":
 						ratings = Ratings.bimboRatings;
-					case "nuzlocke" | 'beta-nuzlocke':
+					case "nuzlocke":
 						ratings = Ratings.nuzlockeRatings;
 					case "ghost":
 						ratings = Ratings.ghostRatings;
@@ -5567,9 +5564,12 @@ class PlayState extends MusicBeatState
 							switch (weekName) // I know this is a lot of duplicated code, but it's easier readable and you can add weeks with different names than the achievement tag
 							{
 								case 'week1':
-									if (achievementName == 'week1_nomiss') unlock = true;
-									ClientPrefs.freePlaying = true;
-									ClientPrefs.saveSettings();
+									if (achievementName == 'week1_nomiss')
+									{
+										ClientPrefs.freePlaying = true;
+										ClientPrefs.saveSettings();
+										unlock = true;
+									}
 							}
 						}
 					case 'week1_opponent':
@@ -5585,7 +5585,9 @@ class PlayState extends MusicBeatState
 							switch (weekName)
 							{
 								case 'week1':
-									if (achievementName == 'week1_opponent') unlock = true;
+									if (achievementName == 'week1_opponent') {
+										unlock = true;
+									}
 							}
 						}
 					case 'ur_bad':

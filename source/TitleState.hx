@@ -482,7 +482,7 @@ class TitleState extends MusicBeatState
 								FlxG.save.data.psychDevsEasterEgg = word;
 							FlxG.save.flush();
 
-							FlxG.sound.play(Paths.sound('ToggleJingle'));
+							FlxG.sound.play(Paths.sound('credits/ToggleJingle'));
 
 							var black:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 							black.alpha = 0;
@@ -665,13 +665,13 @@ class TitleState extends MusicBeatState
 				switch(easteregg)
 				{
 					case 'RIVER':
-						sound = FlxG.sound.play(Paths.sound('JingleRiver'));
+						sound = FlxG.sound.play(Paths.sound('credits/JingleRiver'));
 					case 'SHUBS':
-						sound = FlxG.sound.play(Paths.sound('JingleShubs'));
+						sound = FlxG.sound.play(Paths.sound('credits/JingleShubs'));
 					case 'SHADOW':
-						FlxG.sound.play(Paths.sound('JingleShadow'));
+						FlxG.sound.play(Paths.sound('credits/JingleShadow'));
 					case 'BBPANZU':
-						sound = FlxG.sound.play(Paths.sound('JingleBB'));
+						sound = FlxG.sound.play(Paths.sound('credits/JingleBB'));
 					
 					default: //Go back to normal ugly ass boring GF
 						remove(ngSpr);

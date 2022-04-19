@@ -806,6 +806,8 @@ class FunkinLua {
 
 			if(PlayState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
+			else if (!ClientPrefs.freePlaying)
+				MusicBeatState.switchState(new MainMenuState());
 			else
 				MusicBeatState.switchState(new FreeplayState());
 
