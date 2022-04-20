@@ -252,12 +252,6 @@ class PlayState extends MusicBeatState
 	public var ratingTxtGroup:FlxTypedGroup<FlxText>;
 	public var ratingTxtTweens:Array<FlxTween> = [null, null, null, null, null];
 
-	// the position of the rating and the number objects on a stage
-	// doesn't work with "Fixed" rating positions.
-	public var stageRatingPos:String;
-	public var stageComboPos:String;
-	public var stageNumberPos:String;
-
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
@@ -4248,8 +4242,6 @@ class PlayState extends MusicBeatState
 		rating.cameras = [camGame];
 		rating.x = coolText.x - 40;
 		rating.y -= 60;
-		/*rating.x = stageRatingPos;
-		rating.y = stageRatingPos; */
 		rating.acceleration.y = 550;
 		rating.velocity.y -= FlxG.random.int(140, 175);
 		rating.velocity.x -= FlxG.random.int(0, 10);
@@ -4266,8 +4258,6 @@ class PlayState extends MusicBeatState
 		comboSpr.screenCenter();
 		comboSpr.x = coolText.x - 20;
 		comboSpr.y += 30;
-		/*comboSpr.x = stageComboPos;
-		comboSpr.y = stageComboPos; */
 		comboSpr.acceleration.y = 550;
 		comboSpr.velocity.y -= FlxG.random.int(140, 175);
 		comboSpr.velocity.x -= FlxG.random.int(0, 10);
@@ -4325,8 +4315,6 @@ class PlayState extends MusicBeatState
 			numScore.screenCenter();
 			numScore.x = coolText.x + (43 * daLoop) - 90;
 			numScore.y += 80;
-			/*numScore.x = stageNumberPos;
-			numScore.y = stageNumberPos; */
 
 			if (ClientPrefs.ratingPos == "Fixed")
 			{

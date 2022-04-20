@@ -27,8 +27,13 @@ class CreditsState extends MusicBeatState
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<AttachedSprite> = [];
-	private var portArray:Array<AttachedSprite> = [];
 	private var creditsStuff:Array<Array<String>> = [];
+
+	// for the portraits
+	var portSpr:FlxSprite;
+	var hasPortrait:Array<String> = []; // members that do have a portrait
+	var noPortrait:Array<String> = []; // members that don't have a portrait
+	var person:String;
 
 	var bg:FlxSprite;
 	var descText:FlxText;
@@ -152,7 +157,7 @@ class CreditsState extends MusicBeatState
 			[
 				'BeastlyMudoku',
 				'mudoku',
-				"Sprite Artist\n" + '"' + "I don't owe you anything" + '"',
+				"Sprite Artist\"\nI don't owe you anything",
 				'https://twitter.com/Mudoku__',
 				'80ffa1',
 				'Shiny_Sound',
@@ -161,7 +166,7 @@ class CreditsState extends MusicBeatState
 			[
 				'BeastlyYoshi',
 				'yoshi',
-				"Background Artist\n" + '"' + "It's a crime to use amen break, whoever does it will go to hell immediately." + '"',
+				"Background Artist\"\nIt's a crime to use amen break, whoever does it will go to hell immediately.",
 				'https://twitter.com/yoshizitosNG',
 				'481874',
 				'Yoshi_Sound',
@@ -228,7 +233,7 @@ class CreditsState extends MusicBeatState
 			[
 				'Luis com "S"',
 				'luis',
-				"Coder\n" + '"' + "I'm lazy AF" + '"',
+				"Coder\"\nI'm lazy AF",
 				'https://twitter.com/Luis_comS_10',
 				'c29c6e',
 				'Luis_Sound',
@@ -300,8 +305,7 @@ class CreditsState extends MusicBeatState
 				'Main Programmer of Psych Engine',
 				'https://twitter.com/Shadow_Mario_',
 				'444444',
-				'JingleShadow',
-				''
+				'JingleShadow'
 			],
 			[
 				'RiverOaken',
@@ -309,8 +313,7 @@ class CreditsState extends MusicBeatState
 				'Main Artist/Animator of Psych Engine',
 				'https://twitter.com/RiverOaken',
 				'C30085',
-				'JingleRiver',
-				''
+				'JingleRiver'
 			],
 			[
 				'shubs',
@@ -318,8 +321,7 @@ class CreditsState extends MusicBeatState
 				'Additional Programmer of Psych Engine',
 				'https://twitter.com/yoshubs',
 				'279ADC',
-				'JingleShubs',
-				''
+				'JingleShubs'
 			],
 			[''],
 			['Former Engine Members'],
@@ -329,8 +331,7 @@ class CreditsState extends MusicBeatState
 				'Ex-Programmer of Psych Engine',
 				'https://twitter.com/bbsub3',
 				'389A58',
-				'JingleBB',
-				''
+				'JingleBB'
 			],
 			[''],
 			['Engine Contributors'],
@@ -340,7 +341,6 @@ class CreditsState extends MusicBeatState
 				'Composer of Psync and Tea Time\nMade the Dialogue Sounds',
 				'https://twitter.com/flicky_i',
 				'AA32FE',
-				'',
 				''
 			],
 			[
@@ -349,7 +349,6 @@ class CreditsState extends MusicBeatState
 				'Chart Editor\'s Sound Waveform base',
 				'https://twitter.com/gedehari',
 				'FF9300',
-				'',
 				''
 			],
 			[
@@ -358,7 +357,6 @@ class CreditsState extends MusicBeatState
 				'.MP4 Video Loader Extension',
 				'https://twitter.com/polybiusproxy',
 				'FFEAA6',
-				'',
 				''
 			],
 			[
@@ -367,7 +365,6 @@ class CreditsState extends MusicBeatState
 				'Note Splash Animations',
 				'https://twitter.com/Keoiki_',
 				'FFFFFF',
-				'',
 				''
 			],
 			[
@@ -376,7 +373,6 @@ class CreditsState extends MusicBeatState
 				'Spritemap Texture Support',
 				'https://twitter.com/Smokey_5_',
 				'4D5DBD',
-				'',
 				''
 			],
 			[''],
@@ -387,7 +383,6 @@ class CreditsState extends MusicBeatState
 				"Programmer of Friday Night Funkin'",
 				'https://twitter.com/ninja_muffin99',
 				'F73838',
-				'',
 				''
 			],
 			[
@@ -396,7 +391,6 @@ class CreditsState extends MusicBeatState
 				"Animator of Friday Night Funkin'",	
 				'https://twitter.com/PhantomArcade3K',
 				'FFBB1B',
-				'',
 				''
 			],
 			[
@@ -405,7 +399,6 @@ class CreditsState extends MusicBeatState
 				"Artist of Friday Night Funkin'",
 				'https://twitter.com/evilsk8r',
 				'53E52C',
-				'',
 				''
 			],
 			[
@@ -414,7 +407,6 @@ class CreditsState extends MusicBeatState
 				"Composer of Friday Night Funkin'",
 				'https://twitter.com/kawaisprite',
 				'6475F3',
-				'',
 				''
 			]
 		];
@@ -452,12 +444,6 @@ class CreditsState extends MusicBeatState
 				iconArray.push(icon);
 				add(icon);
 				Paths.currentModDirectory = '';
-
-				var portrait:AttachedSprite = new AttachedSprite('credits/portraits/' + creditsStuff[i][6]);
-				portrait.x += 1090;
-				portrait.y += 400;
-				portArray.push(portrait);
-				//add(portrait);
 
 				if(curSelected == -1) curSelected = i;
 			}
@@ -568,6 +554,31 @@ class CreditsState extends MusicBeatState
 				}
 			}
 		}
+
+		noPortrait = [
+			'ShadowMario',
+			'RiverOaken',
+			'shubs',
+			'bb-panzu',
+			'iFlicky',
+			'SqirraRNG',
+			'PolybiusProxy',
+			'Keoiki',
+			'Smokey',
+			'ninjamuffin99',
+			'PhantomArcade',
+			'evilsk8r',
+			'kawaisprite'
+		];
+		/*person = hasPortrait[curSelected];
+		portSpr.loadGraphic(Paths.image('credits/portraits/' + person));
+
+		if (hasPortrait.contains(person)) {
+			portSpr.visible = true;
+		} else {
+			portSpr.visible = false;
+		}*/
+
 		super.update(elapsed);
 	}
 
