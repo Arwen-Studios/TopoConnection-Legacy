@@ -178,12 +178,14 @@ class MainMenuState extends MusicBeatState
 		super.create();
 
 		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+		textBG.scrollFactor.set();
 		textBG.alpha = 0.6;
 		add(textBG);
 
 		var leText:String = "Press CTRL to open the Gameplay Changers Menu.";
 		var size:Int = 18;
-		if(ClientPrefs.freePlaying) {
+		if (ClientPrefs.freePlaying)
+		{
 			leText = "Hold SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu.";
 			size = 16;
 		}
@@ -235,7 +237,7 @@ class MainMenuState extends MusicBeatState
 				changeItem(1);
 			}
 
-			if(FlxG.keys.justPressed.CONTROL)
+			if (FlxG.keys.justPressed.CONTROL)
 			{
 				persistentUpdate = false;
 				openSubState(new GameplayChangersSubstate());
@@ -289,10 +291,11 @@ class MainMenuState extends MusicBeatState
 										PlayState.storyDifficulty = curDifficulty;
 
 										/*var diffic = CoolUtil.difficulties[2][1];
-										if (diffic == null) 
-											diffic = '';*/
-										
-										PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase()/* + diffic*/, PlayState.storyPlaylist[0].toLowerCase());
+											if (diffic == null) 
+												diffic = ''; */
+
+										PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() /* + diffic*/,
+											PlayState.storyPlaylist[0].toLowerCase());
 										PlayState.storyWeek = 1;
 										PlayState.campaignScore = 0;
 										PlayState.campaignMisses = 0;
@@ -302,7 +305,8 @@ class MainMenuState extends MusicBeatState
 											FlxG.sound.music.volume = 0;
 											FreeplayState.destroyFreeplayVocals();
 										});
-										if (FlxG.keys.pressed.SHIFT) {
+										if (FlxG.keys.pressed.SHIFT)
+										{
 											MusicBeatState.switchState(new FreeplayState());
 										}
 									#if MODS_ALLOWED
