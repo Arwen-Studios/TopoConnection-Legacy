@@ -4150,7 +4150,6 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.hellRatings)
 					songMisses++;
 				health -= 0.2;
-				msText.color = FlxColor.RED;
 				if (!note.ratingDisabled)
 					shits++;
 				doRatingTween(5);
@@ -4160,7 +4159,6 @@ class PlayState extends MusicBeatState
 				score = 100;
 				if (ClientPrefs.hellRatings)
 					health -= 0.06;
-				msText.color = FlxColor.ORANGE;
 				if (!note.ratingDisabled)
 					bads++;
 				doRatingTween(4);
@@ -4168,21 +4166,18 @@ class PlayState extends MusicBeatState
 				totalNotesHit += 0.75;
 				note.ratingMod = 0.75;
 				score = 200;
-				msText.color = FlxColor.GREEN;
 				if (!note.ratingDisabled)
 					goods++;
 				doRatingTween(3);
 			case "sick": // sick
 				totalNotesHit += 0.98;
 				note.ratingMod = 0.98;
-				msText.color = FlxColor.CYAN;
 				if (!note.ratingDisabled)
 					sicks++;
 				doRatingTween(2);
 			case "perfect": // perf
 				totalNotesHit += 1;
 				note.ratingMod = 1;
-				msText.color = FlxColor.fromRGB(255, 0, 54);
 				if (!note.ratingDisabled)
 					perfs++;
 				doRatingTween(1);
@@ -4191,6 +4186,7 @@ class PlayState extends MusicBeatState
 		msText.text = Std.string(Std.int(Conductor.ms)) + "ms" + (cpuControlled ? " (BOT)" : "");
 		msText.size = 12;
 		msText.cameras = [camGame];
+		msText.color = FlxColor.WHITE;
 
 		if (ClientPrefs.ratingPos == "Fixed")
 		{
