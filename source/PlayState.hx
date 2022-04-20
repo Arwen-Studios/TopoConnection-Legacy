@@ -4186,7 +4186,7 @@ class PlayState extends MusicBeatState
 		msText.text = Std.string(Std.int(Conductor.ms)) + "ms" + (cpuControlled ? " (BOT)" : "");
 		msText.size = 12;
 		msText.cameras = [camGame];
-		msText.color = FlxColor.WHITE;
+		msText.color = FlxColor.BLACK;
 
 		if (ClientPrefs.ratingPos == "Fixed")
 		{
