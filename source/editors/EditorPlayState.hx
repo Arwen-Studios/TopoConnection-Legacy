@@ -151,6 +151,7 @@ class EditorPlayState extends MusicBeatState
 		tipText.scrollFactor.set();
 		add(tipText);
 		FlxG.mouse.visible = false;
+		FlxG.mouse.useSystemCursor = true;
 
 		//sayGo();
 		if(!ClientPrefs.controllerMode)

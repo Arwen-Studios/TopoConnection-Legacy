@@ -2,7 +2,7 @@
 	"song": {
 		"player1": "bf-tc",
 		"songName": "Seamless",
-		"player2": "gf",
+		"player2": "nxxty",
 		"notes": [
 			{
 				"endTime": 1454.54545454545,
@@ -8028,7 +8028,6 @@
 		"validScore": true,
 		"speed": 2.7,
 		"events": [],
-		"gfVersion": "gf",
 		"eventObjects": [
 			{
 				"type": "BPM Change",

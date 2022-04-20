@@ -202,7 +202,6 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.sound.music.volume = 0;
 					PlayState.changedDifficulty = true;
 					PlayState.chartingMode = false;
-					FlxG.mouse.visible = false;
 					return;
 				}
 
@@ -213,7 +212,6 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Resume":
-					FlxG.mouse.visible = false;
 					close();
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
@@ -285,7 +283,6 @@ class PauseSubState extends MusicBeatSubstate
 		{
 			MusicBeatState.resetState();
 		}
-		FlxG.mouse.visible = false;
 	}
 
 	override function destroy()
@@ -380,7 +377,6 @@ class PauseSubState extends MusicBeatSubstate
         PlayState.deathCounter = 0;
         PlayState.seenCutscene = false;
         MusicBeatState.switchState(new options.OptionsState());
-        FlxG.mouse.visible = false;
         playStateToOp = true;
 		options.OptionsState.cameFromPause = true;
         FlxG.sound.playMusic(Paths.music(Main.menuSong));

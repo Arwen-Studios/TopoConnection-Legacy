@@ -281,6 +281,7 @@ class ChartingState extends MusicBeatState
 			curSection = _song.notes.length - 1;
 
 		FlxG.mouse.visible = true;
+		FlxG.mouse.useSystemCursor = true;
 		// FlxG.save.bind('funkin', 'ninjamuffin99');
 
 		tempBpm = _song.bpm;
