@@ -16,6 +16,7 @@ import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import lime.app.Application;
 import Achievements;
 import editors.MasterEditorMenu;
@@ -175,6 +176,23 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		super.create();
+
+		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+		textBG.alpha = 0.6;
+		add(textBG);
+
+		var leText:String = "Press CTRL to open the Gameplay Changers Menu.";
+		var size:Int = 18;
+		if(ClientPrefs.freePlaying) {
+			leText = "Hold SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu.";
+			size = 16;
+		}
+		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
+		text.setFormat(Paths.font(Std.string(Main.gameFont)), size, FlxColor.WHITE, CENTER);
+		text.color = TitleState.blammedLightsColors[0];
+		text.scrollFactor.set();
+		add(text);
+		blammableObjects.push(text);
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
@@ -188,6 +206,7 @@ class MainMenuState extends MusicBeatState
 	#end
 
 	var selectedSomethin:Bool = false;
+	var curDifficulty:Int = 3;
 
 	override function update(elapsed:Float)
 	{
@@ -214,6 +233,12 @@ class MainMenuState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
+			}
+
+			if(FlxG.keys.justPressed.CONTROL)
+			{
+				persistentUpdate = false;
+				openSubState(new GameplayChangersSubstate());
 			}
 
 			if (controls.BACK)
@@ -258,9 +283,28 @@ class MainMenuState extends MusicBeatState
 								switch (daChoice)
 								{
 									case 'play':
-										MusicBeatState.switchState(new StoryMenuState());
-									case 'freeplay':
-										MusicBeatState.switchState(new FreeplayState());
+										PlayState.storyPlaylist = ["Purple Red", "Protocol", "Citriky", "Seamless", "Wannacry"];
+										PlayState.isStoryMode = true;
+										PlayState.seenCutscene = false;
+										PlayState.storyDifficulty = curDifficulty;
+
+										/*var diffic = CoolUtil.difficulties[2][1];
+										if (diffic == null) 
+											diffic = '';*/
+										
+										PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase()/* + diffic*/, PlayState.storyPlaylist[0].toLowerCase());
+										PlayState.storyWeek = 1;
+										PlayState.campaignScore = 0;
+										PlayState.campaignMisses = 0;
+										new FlxTimer().start(0.5, function(tmr:FlxTimer)
+										{
+											LoadingState.loadAndSwitchState(new PlayState());
+											FlxG.sound.music.volume = 0;
+											FreeplayState.destroyFreeplayVocals();
+										});
+										if (FlxG.keys.pressed.SHIFT) {
+											MusicBeatState.switchState(new FreeplayState());
+										}
 									#if MODS_ALLOWED
 									case 'mods':
 										MusicBeatState.switchState(new ModsMenuState());

@@ -1,0 +1,39 @@
+{
+	"song": {
+		"speed": 2.7,
+		"stage": "stage",
+		"player1": "bf",
+		"player2": "gf",
+		"player3": null,
+		"events": [
+			[
+				69818.1818181819,
+				[
+					[
+						"Change Scroll Speed",
+						"0.6",
+						""
+					]
+				]
+			],
+			[
+				106363.636363636,
+				[
+					[
+						"Change Scroll Speed",
+						"1.2",
+						"1,5"
+					]
+				]
+			]
+		],
+		"notes": [],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": "gf",
+		"bpm": 165,
+		"arrowSkin": null,
+		"needsVoices": true,
+		"song": "seamless"
+	}
+}

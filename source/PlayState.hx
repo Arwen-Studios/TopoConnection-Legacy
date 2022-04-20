@@ -626,7 +626,7 @@ class PlayState extends MusicBeatState
 				bg.screenCenter();
 				add(bg);
 
-				var purp:FlxSprite = new FlxSprite(-140, -30);
+				var purp:FlxSprite = new FlxSprite(-2400, -30);
 				purp.frames = Paths.getSparrowAtlas('topoworld/bg-w1');
 				purp.animation.addByPrefix('scrolling', "purp", 24);
 				purp.animation.play('scrolling', true);
