@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.display.FlxBackdrop;
 import Achievements;
 import DialogueBoxPsych;
 import FunkinLua;
@@ -54,13 +55,13 @@ import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
 
 using StringTools;
+
 #if desktop
 import Discord.DiscordClient;
 #end
 #if sys
 import sys.FileSystem;
 #end
-
 
 class PlayState extends MusicBeatState
 {
@@ -147,15 +148,18 @@ class PlayState extends MusicBeatState
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
 	public var combo:Int = 0;
+
 	private var totalCombo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
+
 	public var healthBar:FlxBar;
 
 	var songPercent:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
 	private var timeBarOV:AttachedSprite;
+
 	public var timeBar:FlxBar;
 
 	public var perfs:Int = 0;
@@ -230,7 +234,10 @@ class PlayState extends MusicBeatState
 
 	// topoworld BG
 	public var vignette:FlxSprite;
-	public var purp:BGSprite;
+
+	// public var purp:BGSprite;
+	// FOR THE PURP DONT TOUCH IT MF -ANGRY LUIS >:(
+	var purp:FlxBackdrop;
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -477,13 +484,14 @@ class PlayState extends MusicBeatState
 					stageCurtains.updateHitbox();
 					add(stageCurtains);
 				}
-				case 'mall': //Week 5 - Cocoa, Eggnog
+			case 'mall': // Week 5 - Cocoa, Eggnog
 				var bg:BGSprite = new BGSprite('christmas/bgWalls', -1000, -500, 0.2, 0.2);
 				bg.setGraphicSize(Std.int(bg.width * 0.8));
 				bg.updateHitbox();
 				add(bg);
 
-				if(!ClientPrefs.lowQuality) {
+				if (!ClientPrefs.lowQuality)
+				{
 					upperBoppers = new BGSprite('christmas/upperBop', -240, -90, 0.33, 0.33, ['Upper Crowd Bob']);
 					upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.85));
 					upperBoppers.updateHitbox();
@@ -510,7 +518,7 @@ class PlayState extends MusicBeatState
 				CoolUtil.precacheSound('Lights_Shut_off');
 				GameOverSubstate.characterName = 'vsilva';
 
-			case 'mallEvil': //Week 5 - Winter Horrorland
+			case 'mallEvil': // Week 5 - Winter Horrorland
 				var bg:BGSprite = new BGSprite('christmas/evilBG', -400, -500, 0.2, 0.2);
 				bg.setGraphicSize(Std.int(bg.width * 0.8));
 				bg.updateHitbox();
@@ -622,7 +630,8 @@ class PlayState extends MusicBeatState
 				}
 			case 'white-space': // Chapter 1 - Week 1
 				var songName:String = Paths.formatToSongPath(SONG.song);
-				var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), songName == 'purple-red' ? FlxColor.BLACK : FlxColor.WHITE);
+				var bg:FlxSprite = new FlxSprite(0,
+					0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), songName == 'purple-red' ? FlxColor.BLACK : FlxColor.WHITE);
 				bg.screenCenter();
 				add(bg);
 
@@ -634,6 +643,11 @@ class PlayState extends MusicBeatState
 				purp.setGraphicSize(Std.int(purp.width * 2));
 				add(purp);
 
+				/*purp = new FlxBackdrop(Paths.image('topoworld/bg-w1real'), 0.2, 0.2, true, true); // i will kill someone
+					purp.setGraphicSize(Std.int(purp.width * 2));
+					// purp.alpha = 0.5;
+					add(purp); */
+
 				var upperThingy:BGSprite = new BGSprite('topoworld/bruh', -640, -200, 0.9, 0.9);
 				upperThingy.setGraphicSize(Std.int(upperThingy.width * 1.1));
 				add(upperThingy);
@@ -641,7 +655,7 @@ class PlayState extends MusicBeatState
 				var purpGround:BGSprite = new BGSprite('topoworld/ground', -640, -150, 0.9, 0.9);
 				purpGround.updateHitbox();
 				add(purpGround);
-				
+
 			case 'windowsxp': // Bimbo
 				var bg:BGSprite = new BGSprite('bimbo/bemvindoaoinferno', -600, -200, 0.9, 0.9);
 				bg.setGraphicSize(Std.int(bg.width * 2.5));
@@ -659,7 +673,7 @@ class PlayState extends MusicBeatState
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
 			add(limo);
-		
+
 		add(dadGroup);
 		add(boyfriendGroup);
 
@@ -968,7 +982,7 @@ class PlayState extends MusicBeatState
 
 			case 'cocoa': // Secret Song
 				timeBar.createFilledBar(0xFFE78EE6, 0xFF353535);
-				
+
 			default:
 				timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		}
@@ -1091,7 +1105,8 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font(Std.string(Main.gameFont)), (ClientPrefs.accuracyDisplay ? 16 : 20), FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font(Std.string(Main.gameFont)), (ClientPrefs.accuracyDisplay ? 16 : 20), FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
+			FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
@@ -1100,7 +1115,8 @@ class PlayState extends MusicBeatState
 		//
 		ratingTxtGroup = new FlxTypedGroup<FlxText>();
 		ratingTxtGroup.visible = !ClientPrefs.hideHud && ClientPrefs.showJC;
-		for (i in 0...7) {
+		for (i in 0...7)
+		{
 			var ratingTxt = new FlxText(20, FlxG.height * 0.5 - 8 + (16 * (i - 2)), FlxG.width, "", 16);
 			ratingTxt.setFormat(Paths.font(Main.gameFont), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			ratingTxt.scrollFactor.set();
@@ -1736,7 +1752,7 @@ class PlayState extends MusicBeatState
 						upperBoppers.dance(true);
 
 					bottomBoppers.dance(true);
-					//santa.dance(true);
+					// santa.dance(true);
 				}
 
 				switch (swagCounter)
@@ -1917,7 +1933,8 @@ class PlayState extends MusicBeatState
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
-		if (!isBossSong) {
+		if (!isBossSong)
+		{
 			FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 			FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		}
@@ -2580,6 +2597,9 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+			case 'white-space':
+			/*if (purp != null)
+			purp.x -= 0.45 / (ClientPrefs.framerate / 60); */
 			case 'schoolEvil':
 				if (!ClientPrefs.lowQuality && bgGhouls.animation.curAnim.finished)
 				{
@@ -2730,7 +2750,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(combo > totalCombo)
+		if (combo > totalCombo)
 			totalCombo = combo;
 
 		// bimbo floating thing
@@ -2743,7 +2763,7 @@ class PlayState extends MusicBeatState
 		Made scoreTxt a little bit
 		easier to work with
 		- BeastlyGhost
-		*/
+	 */
 
 		var divider:String = ' - ';
 		scoreTxt.text = 'Score: ${songScore}';
@@ -2776,9 +2796,11 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		for (i in 0...ratingTxtGroup.members.length) {
+		for (i in 0...ratingTxtGroup.members.length)
+		{
 			var rating = ratingTxtGroup.members[i];
-			switch (i) {
+			switch (i)
+			{
 				case 0:
 					rating.text = 'Highest Combo: $totalCombo';
 				case 1:
@@ -2816,9 +2838,9 @@ class PlayState extends MusicBeatState
 			&& !practiceMode
 			&& !ClientPrefs.debugMode)
 		{
-				PlayState.isStoryMode = false;
-				PlayState.SONG = Song.loadFromJson('deez-nuts-hard', 'deez-nuts'); // preventing a crash
-				LoadingState.loadAndSwitchState(new PlayState());					// until we have the new song
+			PlayState.isStoryMode = false;
+			PlayState.SONG = Song.loadFromJson('deez-nuts-hard', 'deez-nuts'); // preventing a crash
+			LoadingState.loadAndSwitchState(new PlayState()); // until we have the new song
 		}
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter)
 			&& !endingSong
@@ -2830,17 +2852,11 @@ class PlayState extends MusicBeatState
 			LoadingState.loadAndSwitchState(new ClassReggie());
 			ClassReggie.reggieCounter++;
 		}
-		if (songName != "cocoa"
-			&& FlxG.keys.justPressed.SIX
-			&& !endingSong
-			&& !inCutscene
-			&& !cpuControlled
-			&& !practiceMode
-			&& !ClientPrefs.debugMode)
+		if (songName != "cocoa" && FlxG.keys.justPressed.SIX && !endingSong && !inCutscene && !cpuControlled && !practiceMode && !ClientPrefs.debugMode)
 		{
-				PlayState.isStoryMode = false;
-				PlayState.SONG = Song.loadFromJson('cocoa-hard', 'cocoa');
-				LoadingState.loadAndSwitchState(new PlayState());
+			PlayState.isStoryMode = false;
+			PlayState.SONG = Song.loadFromJson('cocoa-hard', 'cocoa');
+			LoadingState.loadAndSwitchState(new PlayState());
 		}
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
@@ -3075,9 +3091,19 @@ class PlayState extends MusicBeatState
 					}
 				}
 
-				if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
+				if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote && !dad.stunned && !daNote.hitCausesMiss)
 				{
 					opponentNoteHit(daNote);
+				}
+
+				if (Conductor.songPosition > noteKillOffset + daNote.strumTime) // kill the notes that opponent dont presses
+				{
+					if (!daNote.mustPress && daNote.ignoreNote && daNote.hitCausesMiss && daNote.tooLate) // emagine reusing the same code in another project :kubeB:
+					{
+						daNote.kill();
+						notes.remove(daNote, true);
+						daNote.destroy();
+					}
 				}
 
 				if (daNote.mustPress && cpuControlled)
@@ -4021,7 +4047,7 @@ class PlayState extends MusicBeatState
 				{
 					CustomFadeTransition.nextCamera = null;
 				}
-				if(!ClientPrefs.freePlaying)
+				if (!ClientPrefs.freePlaying)
 					MusicBeatState.switchState(new MainMenuState());
 				else
 					MusicBeatState.switchState(new FreeplayState());
@@ -4107,7 +4133,8 @@ class PlayState extends MusicBeatState
 		var daRating:String = Conductor.judgeNote(note, noteDiff);
 		var msText:FlxText = null;
 
-		if (daRating != null) {
+		if (daRating != null)
+		{
 			msText = new FlxText(0, 0, 0, 0);
 			msText.setFormat(Paths.font("pixel.otf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
@@ -4120,10 +4147,10 @@ class PlayState extends MusicBeatState
 				score = 50;
 				if (ClientPrefs.hellRatings)
 					songMisses++;
-					health -= 0.2;
+				health -= 0.2;
 				msText.color = FlxColor.RED;
 				if (!note.ratingDisabled)
-					shits++;	
+					shits++;
 				doRatingTween(5);
 			case "bad": // bad
 				totalNotesHit += 0.5;
@@ -4208,7 +4235,7 @@ class PlayState extends MusicBeatState
 			daRating = 'good'
 		else if (combo > 4)
 			daRating = 'bad';
-		*/
+	 */
 
 		var pixelShitPart1:String = "";
 		var pixelShitPart2:String = '';
@@ -4378,16 +4405,19 @@ class PlayState extends MusicBeatState
 		});
 	}
 
-	function doRatingTween(ind:Int = 0) {
+	function doRatingTween(ind:Int = 0)
+	{
 		if (ClientPrefs.scoreZoom)
 		{
-			if (ratingTxtTweens[ind] != null) {
+			if (ratingTxtTweens[ind] != null)
+			{
 				ratingTxtTweens[ind].cancel();
 			}
 			ratingTxtGroup.members[ind].scale.x = 1.02;
 			ratingTxtGroup.members[ind].scale.y = 1.02;
 			ratingTxtTweens[ind] = FlxTween.tween(ratingTxtGroup.members[ind].scale, {x: 1, y: 1}, 0.2, {
-				onComplete: function(twn:FlxTween) {
+				onComplete: function(twn:FlxTween)
+				{
 					ratingTxtTweens[ind] = null;
 				}
 			});
@@ -4972,7 +5002,8 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.noteSplashes && note != null)
 		{
 			var strum:StrumNote = playerStrums.members[note.noteData];
-			if (note.hitByOpponent) strum = opponentStrums.members[note.noteData];
+			if (note.hitByOpponent)
+				strum = opponentStrums.members[note.noteData];
 			if (strum != null)
 			{
 				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
@@ -5224,7 +5255,8 @@ class PlayState extends MusicBeatState
 		}
 
 		// setting stepHit stuff
-		if(curStep == lastStepHit) {
+		if (curStep == lastStepHit)
+		{
 			return;
 		}
 
@@ -5232,7 +5264,7 @@ class PlayState extends MusicBeatState
 		{
 			FlxTween.tween(songAuthor, {x: 0}, 2.6, {ease: FlxEase.expoOut});
 		}
-		
+
 		if (curStep == 32)
 		{
 			FlxTween.tween(songAuthor, {x: -500}, 2.6, {
@@ -5361,7 +5393,7 @@ class PlayState extends MusicBeatState
 
 				if (heyTimer <= 0)
 					bottomBoppers.dance(true);
-				//santa.dance(true);
+			// santa.dance(true);
 
 			case 'limo':
 				if (!ClientPrefs.lowQuality)
@@ -5585,7 +5617,8 @@ class PlayState extends MusicBeatState
 							switch (weekName)
 							{
 								case 'week1':
-									if (achievementName == 'week1_opponent') {
+									if (achievementName == 'week1_opponent')
+									{
 										unlock = true;
 									}
 							}
