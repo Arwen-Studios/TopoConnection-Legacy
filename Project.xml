@@ -2,7 +2,11 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': Topo Connection" file="TopoConnection" packageName="com.shadowmario.psychengine" package="com.shadowmario.psychengine" main="Main" version="0.2.7" company="ShadowMario" />
+	<app title="Topo Connection" packageName="com.seamless-industries.topoconnection" package="com.seamless-industries.topoconnection" main="Main" version="0.2.7" company="TopoWorld" />
+	<app file="INIT_TOPO_WIN" if="windows" />
+	<app file="INIT_TOPO_APP" if="linux" />
+	<app file="INIT_TOPO_MAC" if="mac" />
+	<app file="INIT_TOPO_APP" if="android" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />

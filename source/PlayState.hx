@@ -629,9 +629,8 @@ class PlayState extends MusicBeatState
 					add(bg);
 				}
 			case 'white-space': // Chapter 1 - Week 1
-				var songName:String = Paths.formatToSongPath(SONG.song);
 				var bg:FlxSprite = new FlxSprite(0,
-					0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), songName == 'purple-red' ? FlxColor.BLACK : FlxColor.WHITE);
+					0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.WHITE);
 				bg.screenCenter();
 				add(bg);
 
@@ -951,7 +950,7 @@ class PlayState extends MusicBeatState
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
-		add(grpNoteSplashes);
+		//add(grpNoteSplashes);
 
 		if (ClientPrefs.timeBarType == 'Song Name')
 		{
@@ -961,10 +960,13 @@ class PlayState extends MusicBeatState
 
 		switch (songName)
 		{
-			case 'purple-red' | 'seamless' | 'citriky': // Chapter 1 - Week 1
+			case 'purple-red':
+				timeBar.createFilledBar(0x00000000, 0xFFFF0036);
+				
+			case 'protocol' | 'citriky' | 'seamless': 
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
 
-			case 'wannacry' | 'protocol': // Chapter 1 - Boss
+			case 'wannacry':
 				isBossSong = true;
 				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
 

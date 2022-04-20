@@ -42,12 +42,12 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.onChange = onChangeAutoPause;
 		addOption(option);
 
-		var option:Option = new Option('Note Splashes',
-			"If unchecked, hitting \"Sick!\" notes won't show particles.",
+		/*var option:Option = new Option('Note Splashes',
+			"If unchecked, hitting \"Perfect!\" notes won't show particles.",
 			'noteSplashes',
 			'bool',
 			true);
-		addOption(option);
+		addOption(option);*/
 
 		var option:Option = new Option('Opaque Holds',
 			"If checked, holds won't have any transparency.",
