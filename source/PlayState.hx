@@ -4144,7 +4144,7 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.hellRatings)
 					songMisses++;
 				health -= 0.2;
-				msText.color = FlxColor.RED;
+				msText.color = FlxColor.fromRGB(42,23,23,255);
 				if (!note.ratingDisabled)
 					shits++;
 				doRatingTween(5);
@@ -4154,7 +4154,7 @@ class PlayState extends MusicBeatState
 				score = 100;
 				if (ClientPrefs.hellRatings)
 					health -= 0.06;
-				msText.color = FlxColor.ORANGE;
+				msText.color = FlxColor.fromRGB(0,129,97,255);
 				if (!note.ratingDisabled)
 					bads++;
 				doRatingTween(4);
@@ -4162,21 +4162,21 @@ class PlayState extends MusicBeatState
 				totalNotesHit += 0.75;
 				note.ratingMod = 0.75;
 				score = 200;
-				msText.color = FlxColor.GREEN;
+				msText.color = FlxColor.fromRGB(54,0,255,255);
 				if (!note.ratingDisabled)
 					goods++;
 				doRatingTween(3);
 			case "sick": // sick
 				totalNotesHit += 0.98;
 				note.ratingMod = 0.98;
-				msText.color = FlxColor.CYAN;
+				msText.color = FlxColor.fromRGB(255,0,234,255);
 				if (!note.ratingDisabled)
 					sicks++;
 				doRatingTween(2);
 			case "perfect": // perf
 				totalNotesHit += 1;
 				note.ratingMod = 1;
-				msText.color = FlxColor.fromRGB(255, 0, 54);
+				msText.color = FlxColor.fromRGB(255,0,102,255);
 				if (!note.ratingDisabled)
 					perfs++;
 				doRatingTween(1);
