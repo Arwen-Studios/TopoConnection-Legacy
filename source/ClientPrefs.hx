@@ -33,7 +33,7 @@ class ClientPrefs {
 	public static var opaqueHolds:Bool = true;
 	public static var laneOpacity:Float = 0;
 	public static var bgAlpha:Float = 0;
-	public static var debugMode:Bool = true;
+	public static var debugMode:Bool = false;
 	public static var autoPause:Bool = true;
 	public static var accuracyDisplay:Bool = true;
 	public static var camFollow:Bool = true;
@@ -42,7 +42,7 @@ class ClientPrefs {
 	public static var hellRatings:Bool = true;
 	public static var ratingPos:String = "World";
 	public static var showJC:Bool = true;
-	public static var freePlaying:Bool = true;
+	public static var freePlaying:Bool = false;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',

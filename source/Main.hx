@@ -38,11 +38,11 @@ class Main extends Sprite
 	{
 		super();
 
-		//#if debug
+		#if debug
 		ClientPrefs.debugMode = true;
-		//#else
-		//ClientPrefs.debugMode = false;
-		//#end
+		#else
+		ClientPrefs.debugMode = false;
+		#end
 
 		if (stage != null)
 		{
