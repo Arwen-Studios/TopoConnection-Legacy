@@ -105,7 +105,7 @@ class CreditsState extends MusicBeatState
 			[
 				'BeastlyMaxx',
 				'maxx',
-				"Director, Musician\n" + '"' + "i DON'T KNOW WHAT TO SAY" + '"',
+				"Director, Musician\"\ni DONT KNOW WHAT TO SAY",
 				'https://twitter.com/BeastlyMaxxVivi',
 				'353535',
 				'Maxx_Sound',
