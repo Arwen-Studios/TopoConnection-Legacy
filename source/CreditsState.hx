@@ -224,7 +224,7 @@ class CreditsState extends MusicBeatState
 				'juliano',
 				'Made da funny songs\n"hi I make bimbo."',
 				'https://twitter.com/JulianoIts',
-				'0d2146',
+				'1c2080',
 				'Juliano_Sound',
 				'juliano'
 			],
