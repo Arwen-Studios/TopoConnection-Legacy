@@ -61,7 +61,7 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", "Options Menu", null);
 		#end
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('optionsDesat'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
 
@@ -72,7 +72,7 @@ class OptionsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		var titleText:Alphabet = new Alphabet(0, 0, "General", true, false, 0, 0.6);
+		/*var titleText:Alphabet = new Alphabet(0, 0, "General", true, false, 0, 0.6);
 		titleText.x += 60;
 		titleText.y += 90;
 		titleText.alpha = 0.4;
@@ -82,7 +82,7 @@ class OptionsState extends MusicBeatState
 		titleNotice.x += 70;
 		titleNotice.y += 40;
 		titleNotice.alpha = 0.4;
-		add(titleNotice);
+		add(titleNotice);*/
 
 		for (i in 0...options.length)
 		{
