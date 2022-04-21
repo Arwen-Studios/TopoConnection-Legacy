@@ -241,6 +241,7 @@ class PlayState extends MusicBeatState
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
+	public var comboBreaks:Int = 0;
 	public var scoreTxt:FlxText;
 	public var isBossSong:Bool = false;
 
@@ -4645,6 +4646,10 @@ class PlayState extends MusicBeatState
 				note.destroy();
 			}
 		});
+		if (combo > 9) {
+			comboBreaks++;
+			//trace('Combo Breaks: ' + comboBreaks);
+		}
 		combo = 0;
 		doRatingTween(6);
 
@@ -4709,15 +4714,19 @@ class PlayState extends MusicBeatState
 			{
 				gf.playAnim('sad');
 			}
+			if (!endingSong)
+			{
+				songMisses++;
+				if (combo > 9) {
+					comboBreaks++;
+					//trace('Combo Breaks: ' + comboBreaks);
+				}
+			}
 			combo = 0;
 			doRatingTween(6);
 
 			if (!practiceMode)
 				songScore -= 10;
-			if (!endingSong)
-			{
-				songMisses++;
-			}
 			totalPlayed++;
 			RecalculateRating();
 
@@ -5493,6 +5502,7 @@ class PlayState extends MusicBeatState
 	{
 		setOnLuas('score', songScore);
 		setOnLuas('misses', songMisses);
+		setOnLuas('comboBreaks', comboBreaks);
 		setOnLuas('hits', songHits);
 
 		var ret:Dynamic = callOnLuas('onRecalculateRating', []);
