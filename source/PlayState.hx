@@ -187,7 +187,6 @@ class PlayState extends MusicBeatState
 	public var opponentChart:Bool = false;
 
 	public var botplaySine:Float = 0;
-	public var botplayTxt:FlxText;
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
@@ -1100,10 +1099,10 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
-		if (!ClientPrefs.accuracyDisplay) {
-			scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
-		} else {
+		if (ClientPrefs.accuracyDisplay || cpuControlled) {
 			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
+		} else {
+			scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
 		}
 
 		scoreTxt.setFormat(Paths.font(Std.string(Main.gameFont)), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
@@ -1126,22 +1125,6 @@ class PlayState extends MusicBeatState
 		add(ratingTxtGroup);
 		//
 
-		botplayTxt = new FlxText(395, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
-		if (ClientPrefs.downScroll)
-			botplayTxt.y = timeBarBG.y - 78;
-		if (ClientPrefs.middleScroll)
-		{
-			if (ClientPrefs.downScroll)
-				botplayTxt.y = botplayTxt.y - 78;
-			else
-				botplayTxt.y = botplayTxt.y + 78;
-		}
-		botplayTxt.setFormat(Paths.font(Std.string(Main.gameFont)), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		botplayTxt.scrollFactor.set();
-		botplayTxt.borderSize = 2;
-		botplayTxt.visible = cpuControlled;
-		add(botplayTxt);
-
 		var dark:FlxSprite = new FlxSprite(FlxG.width * -0.5, FlxG.height * -0.5).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		dark.alpha = ClientPrefs.bgAlpha;
 		dark.scrollFactor.set(0, 0);
@@ -1156,7 +1139,6 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
-		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeBarOV.cameras = [camHUD];
@@ -2782,6 +2764,11 @@ class PlayState extends MusicBeatState
 				scoreTxt.text += divider + '${ratingName}';
 		}
 
+		if (cpuControlled)
+		{
+			scoreTxt.text = "{BOTPLAY}";
+		}
+
 		if (isStoryMode)
 		{
 			detailsText = WeekData.getCurrentWeek().weekName + " - " + scoreTxt.text;
@@ -2791,10 +2778,10 @@ class PlayState extends MusicBeatState
 			detailsText = scoreTxt.text;
 		}
 
-		if (botplayTxt.visible)
+		if (scoreTxt.visible && cpuControlled)
 		{
 			botplaySine += 180 * elapsed;
-			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
+			scoreTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
 		for (i in 0...ratingTxtGroup.members.length)
