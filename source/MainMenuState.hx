@@ -278,6 +278,7 @@ class MainMenuState extends MusicBeatState
 									case 'awards':
 										MusicBeatState.switchState(new AchievementsMenuState());
 									case 'credits':
+										FreeplayState.destroyFreeplayVocals();
 										MusicBeatState.switchState(new CreditsState());
 									case 'options':
 										options.OptionsState.cameFromPause = false;

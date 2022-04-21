@@ -232,7 +232,8 @@ class PlayState extends MusicBeatState
 	var bgGhouls:BGSprite;
 
 	// topoworld BG
-	public var vignette:FlxSprite;
+	var vignette:FlxSprite;
+	var bgBlack:FlxSprite;
 
 	// public var purp:BGSprite;
 	// FOR THE PURP DONT TOUCH IT MF -ANGRY LUIS >:(
@@ -302,13 +303,22 @@ class PlayState extends MusicBeatState
 	private var keysArray:Array<Dynamic>;
 
 	// stores the last combo objects in an array
-	public static var lastCombo:Array<FlxSprite> = [];
+	var lastCombo:Array<FlxSprite> = [];
 
 	// floating
 	private var floating:Float = 0;
 
 	override public function create()
 	{
+		/*
+			before you ask, yes, there is a Opponent Mode feature coded in
+			however we ain't gonna use it for the mod
+			if you wish to play the mod as the opponent, be aware that not everything is properly optimized
+			for playing as the opponent
+			uncomment line 85 on GameplayChangersSubstate and you're good to go
+			-BeastlyGhost
+		*/
+					
 		Paths.clearStoredMemory();
 
 		// for lua
@@ -398,6 +408,8 @@ class PlayState extends MusicBeatState
 			{
 				case 'purple-red' | 'seamless' | 'wannacry' | 'citriky' | 'protocol':
 					curStage = 'white-space';
+				case 'cocoa':
+					curStage = 'mall';
 				default:
 					curStage = 'stage';
 			}
@@ -627,6 +639,11 @@ class PlayState extends MusicBeatState
 					0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.WHITE);
 				bg.screenCenter();
 				add(bg);
+				bgBlack = new FlxSprite(0,
+					0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
+				bgBlack.screenCenter();
+				bgBlack.visible = false;
+				add(bgBlack);
 
 				var purp:FlxSprite = new FlxSprite(-2400, -30);
 				purp.frames = Paths.getSparrowAtlas('topoworld/bg-w1');
@@ -681,13 +698,13 @@ class PlayState extends MusicBeatState
 				vignette.y = 0;
 				vignette.updateHitbox();
 				vignette.cameras = [camOther];
+				vignette.alpha = 0.6;
 				add(vignette);
 			}
 			var dark:FlxSprite = new FlxSprite(FlxG.width * -0.5, FlxG.height * -0.5).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 			dark.alpha = 0.3;
 			dark.scrollFactor.set(0, 0);
 			add(dark);
-			vignette.alpha = 0.6;
 		}
 
 		if (curStage == 'spooky')
@@ -791,10 +808,6 @@ class PlayState extends MusicBeatState
 		{
 			switch (curStage)
 			{
-				case 'limo':
-					gfVersion = 'gf-car';
-				case 'mall' | 'mallEvil':
-					gfVersion = 'gf-christmas';
 				case 'school' | 'schoolEvil':
 					gfVersion = 'gf-pixel';
 				default:
@@ -2767,7 +2780,7 @@ class PlayState extends MusicBeatState
 
 		if (cpuControlled)
 		{
-			scoreTxt.text = "{BOTPLAY}";
+			scoreTxt.text = "BOTPLAY";
 		}
 
 		if (isStoryMode)
@@ -5432,6 +5445,36 @@ class PlayState extends MusicBeatState
 			lightningStrikeShit();
 		}
 		lastBeatHit = curBeat;
+
+		if (curSong.toLowerCase() == 'seamless')
+		{
+			switch (curBeat)
+			{
+				case 192:
+					bgBlack.visible = true;
+				
+				case 292:
+					bgBlack.visible = false;
+			}
+		}
+
+		if (curSong.toLowerCase() == 'wannacry')
+		{
+			if (curBeat % 3 >= 0)
+				health -= 0.06;
+
+			if (curBeat % 6 >= 329)
+				health -= 0.01;
+
+			if (curBeat % 2 >= 455)
+				health -= 0.04;
+
+			if (curBeat % 2 >= 591)
+				health -= 0.05;
+
+			if (curBeat % 2 >= 847)
+				health -= 0.06;
+		}
 
 		setOnLuas('curBeat', curBeat); // DAWGG?????
 		callOnLuas('onBeatHit', []);
