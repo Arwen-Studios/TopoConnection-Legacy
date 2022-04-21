@@ -96,21 +96,7 @@ class Ratings extends MusicBeatState
         ['Spooky!', 1], //90%-99%
         ['Amazing!!', 1] //100%
     ];
-
-    // Ratings for "Lazy"
-    public static var lazyRatings:Array<Dynamic> = [
-        ['', 0.2], //0%-19%
-        ['', 0.4], //20%-39%
-        ['', 0.5], //40%-49%
-        ['', 0.6], //50%-59%
-        ['', 0.69], //60%-68%
-        ['Fanic', 0.7], //69%
-        ['', 0.8], //70%-79%
-        ['', 0.9], //80%-89%
-        ['', 1], //90%-99%
-        ['', 1] //100%
-    ];
-
+    
     // Ratings for "Brainstorm"
     public static var chipRatings:Array<Dynamic> = [
         ['go see a doctor you dumbass', 0.2], //0%-19%
