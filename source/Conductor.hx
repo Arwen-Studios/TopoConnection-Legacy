@@ -40,15 +40,15 @@ class Conductor
 			ClientPrefs.perfWindow,
 			ClientPrefs.sickWindow,
 			ClientPrefs.goodWindow,
-			ClientPrefs.badWindow/*,
-			ClientPrefs.shitWindow*/
+			ClientPrefs.badWindow,
+			ClientPrefs.shitWindow
 		];
 		var windowNames:Array<String> = [
 			'perfect',
 			'sick',
 			'good',
-			'bad'/*,
-			'shit'*/
+			'bad',
+			'shit'
 		];
 
 		ms = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
@@ -60,7 +60,7 @@ class Conductor
 				return windowNames[i];
 			}
 		}
-		return 'shit';
+		return 'miss';
 	}
 
 	public static function getBPMChange(time:Float){

@@ -374,8 +374,6 @@ class PauseSubState extends MusicBeatSubstate
 
 	function goToOptions()
     {
-        PlayState.deathCounter = 0;
-        PlayState.seenCutscene = false;
         MusicBeatState.switchState(new options.OptionsState());
         playStateToOp = true;
 		options.OptionsState.cameFromPause = true;

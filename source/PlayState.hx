@@ -1100,8 +1100,13 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font(Std.string(Main.gameFont)), (ClientPrefs.accuracyDisplay ? 16 : 20), FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
+		if (!ClientPrefs.accuracyDisplay) {
+			scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
+		} else {
+			scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
+		}
+
+		scoreTxt.setFormat(Paths.font(Std.string(Main.gameFont)), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
 			FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
@@ -4137,13 +4142,24 @@ class PlayState extends MusicBeatState
 
 		switch (daRating)
 		{
+			case "miss": // miss
+				totalNotesHit += 0;
+				note.ratingMod = 0;
+				vocals.volume = 0;
+				songScore -= 15;
+				if (ClientPrefs.hellRatings) {
+					health -= 0.6;
+				} else {
+					health -= 0.3;
+				}
+				noteMiss(note);
 			case "shit": // shit
 				totalNotesHit += 0;
 				note.ratingMod = 0;
 				score = 50;
-				if (ClientPrefs.hellRatings)
-					songMisses++;
-				health -= 0.2;
+				if (ClientPrefs.hellRatings) {
+					health -= 0.2;
+				}
 				msText.color = FlxColor.fromRGB(42,23,23,255);
 				if (!note.ratingDisabled)
 					shits++;
@@ -4275,7 +4291,7 @@ class PlayState extends MusicBeatState
 		msText.acceleration.y = 600;
 		msText.velocity.y -= 150;
 		msText.size = 20;
-		msText.visible = (!ClientPrefs.hideHud && showMilliseconds);
+		msText.visible = (ClientPrefs.accuracyDisplay && !ClientPrefs.hideHud && showMilliseconds);
 
 		lastCombo.push(comboSpr);
 		lastCombo.push(msText);
