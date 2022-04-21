@@ -4146,7 +4146,7 @@ class PlayState extends MusicBeatState
 				totalNotesHit += 0;
 				note.ratingMod = 0;
 				vocals.volume = 0;
-				songScore -= 15;
+				score -= 15;
 				if (ClientPrefs.hellRatings) {
 					health -= 0.6;
 				} else {
