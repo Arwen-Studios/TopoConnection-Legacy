@@ -242,6 +242,7 @@ class PlayState extends MusicBeatState
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
+	public var ghostMisses:Int = 0;
 	public var comboBreaks:Int = 0;
 	public var scoreTxt:FlxText;
 	public var isBossSong:Bool = false;
@@ -1129,7 +1130,7 @@ class PlayState extends MusicBeatState
 		//
 		ratingTxtGroup = new FlxTypedGroup<FlxText>();
 		ratingTxtGroup.visible = !ClientPrefs.hideHud && ClientPrefs.showJC;
-		for (i in 0...7)
+		for (i in 0...8)
 		{
 			var ratingTxt = new FlxText(20, FlxG.height * 0.5 - 8 + (16 * (i - 2)), FlxG.width, "", 16);
 			ratingTxt.setFormat(Paths.font(Main.gameFont), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -2757,10 +2758,10 @@ class PlayState extends MusicBeatState
 		}
 
 		/*
-		Made scoreTxt a little bit
-		easier to work with
-		- BeastlyGhost
-	 */
+			Made scoreTxt a little bit
+			easier to work with
+			- BeastlyGhost
+		*/
 
 		var divider:String = ' - ';
 		scoreTxt.text = 'Score: ${songScore}';
@@ -2817,6 +2818,8 @@ class PlayState extends MusicBeatState
 					rating.text = 'Shit: $bads';
 				case 6:
 					rating.text = 'Miss: $songMisses';
+				/*case 7:
+					rating.text = 'Ghost Miss: $ghostMisses';*/
 			}
 		}
 
@@ -4713,15 +4716,17 @@ class PlayState extends MusicBeatState
 	{
 		if (!boyfriend.stunned)
 		{
+			if (ClientPrefs.ghostTapping)
+			{
+				ghostMisses++;
+				return;
+			}
 			health -= 0.05 * healthLoss;
 			if (instakillOnMiss)
 			{
 				vocals.volume = 0;
 				doDeathCheck(true);
 			}
-
-			if (ClientPrefs.ghostTapping)
-				return;
 
 			if (combo > 5 && gf != null && gf.animOffsets.exists('sad'))
 			{
