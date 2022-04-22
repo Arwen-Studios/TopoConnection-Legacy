@@ -5638,8 +5638,6 @@ class PlayState extends MusicBeatState
 								case 'week1':
 									if (achievementName == 'week1_nomiss')
 									{
-										ClientPrefs.freePlaying = true;
-										ClientPrefs.saveSettings();
 										unlock = true;
 									}
 							}
@@ -5709,6 +5707,8 @@ class PlayState extends MusicBeatState
 							&& ClientPrefs.accuracyDisplay
 							&& ratingPercent > 0.9)
 						{
+							ClientPrefs.freePlaying = true;
+							ClientPrefs.saveSettings();
 							unlock = true;
 						}
 				}

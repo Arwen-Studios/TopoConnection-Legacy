@@ -19,7 +19,7 @@ class Achievements {
 		],
 		[
 			"a New Connection",
-			"Beat Week 1 on Hard with no Misses.\n(Unlocks Freeplay)",
+			"Beat Week 1 on Hard with no Misses.",
 			'week1_nomiss',
 			false
 		],
@@ -67,7 +67,7 @@ class Achievements {
 		],
 		[
 			"Bimbo",
-			"Beat 'Bimbo' with an Accuracy Percent higher than 89%.",
+			"Beat 'Bimbo' with an Accuracy Percent higher than 89%.\n(Unlocks Freeplay)",
 			'bimbo',
 			true
 		],

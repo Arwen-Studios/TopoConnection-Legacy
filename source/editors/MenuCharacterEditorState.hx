@@ -66,7 +66,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		add(grpWeekCharacters);
 
 		txtOffsets = new FlxText(20, 10, 0, "[0, 0]", 32);
-		txtOffsets.setFormat(Std.string(Main.gameFont), 32, FlxColor.WHITE, CENTER);
+		txtOffsets.setFormat(Std.string(Main.sysgameFont), 32, FlxColor.WHITE, CENTER);
 		txtOffsets.alpha = 0.7;
 		add(txtOffsets);
 
