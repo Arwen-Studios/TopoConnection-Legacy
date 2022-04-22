@@ -4053,7 +4053,8 @@ class PlayState extends MusicBeatState
 					CustomFadeTransition.nextCamera = null;
 				}
 				if (!ClientPrefs.freePlaying)
-					MusicBeatState.switchState(new MainMenuState());
+					MusicBeatState.switchState(new CreditsState());
+					//MusicBeatState.switchState(new MainMenuState());
 				else
 					MusicBeatState.switchState(new FreeplayState());
 				FlxG.sound.playMusic(Paths.music(Main.menuSong));
@@ -5465,20 +5466,8 @@ class PlayState extends MusicBeatState
 
 		if (curSong.toLowerCase() == 'wannacry')
 		{
-			if (curBeat % 3 >= 0)
-				health -= 0.06;
-
-			if (curBeat % 6 >= 329)
-				health -= 0.01;
-
-			if (curBeat % 2 >= 455)
-				health -= 0.04;
-
-			if (curBeat % 2 >= 591)
-				health -= 0.05;
-
-			if (curBeat % 2 >= 847)
-				health -= 0.06;
+			if (curBeat % 4 >= 0)
+				health -= 0.02;
 		}
 
 		setOnLuas('curBeat', curBeat); // DAWGG?????
