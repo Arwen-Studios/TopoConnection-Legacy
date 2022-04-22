@@ -173,11 +173,11 @@ class CreditsState extends MusicBeatState
 				'yoshi'
 			],
 			[
-				'Loopy',
+				'LoopiPie',
 				'loopiii',
 				'External Art and Resources\n"they forgot about me but i\'m here"',
 				'https://twitter.com/oSuOk3',
-				'ff0062',
+				'ff5656',
 				'Loopy_Sound',
 				'loopiii'
 			],
@@ -222,7 +222,7 @@ class CreditsState extends MusicBeatState
 			[
 				'BeastlyShiny',
 				'shiny',
-				"Nxxty's Voice Actor\n" + '"' + "meow meow meow meow meow meow" + '"',
+				"Nxxty's Voice Actor\n\"meow meow meow meow meow meow" + '"',
 				'https://twitter.com/shinyshyni_',
 				'c5c5c5',
 				'Shiny_Sound',
@@ -256,6 +256,15 @@ class CreditsState extends MusicBeatState
 				'9c2323',
 				'Gazozoz_Sound',
 				'gazozoz'
+			],
+			[
+				'Luca',
+				'luca',
+				'Coder\n"*boo-womp*"',
+				'https://twitter.com/lucabio545?t=pGC6DDvaF7gJz07pWXYPcQ&s=09',
+				'ebe610',
+				'Luca_Sound',
+				'luca'
 			],
 			[''],
 			['Charters'],

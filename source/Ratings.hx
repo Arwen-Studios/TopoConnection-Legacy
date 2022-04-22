@@ -44,6 +44,18 @@ class Ratings extends MusicBeatState
         ['Perfect!!', 1] //100%
     ];
 
+    // Forever Engine Ratings
+    public static var foreverRatings:Array<Dynamic> = [
+		["F", 0.2], // 65%
+		["E", 0.3], // 70%
+		["D", 0.4], // 75%
+		["C", 0.7], // 80%
+		["B", 0.8], // 85%
+		["A", 0.9], // 90%
+		["S", 1], // 99.9%
+		["S+", 1] // 100%
+	];
+
     // Ratings for "Nuzlocke"
     public static var nuzlockeRatings:Array<Dynamic> = [
         ['Whited out!', 0.2], //0%-19%

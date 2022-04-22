@@ -2763,7 +2763,7 @@ class PlayState extends MusicBeatState
 			- BeastlyGhost
 		*/
 
-		var divider:String = ' - ';
+		var divider:String = ' // ';
 		scoreTxt.text = 'Score: ${songScore}';
 
 		if (ClientPrefs.accuracyDisplay)
