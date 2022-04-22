@@ -173,6 +173,15 @@ class CreditsState extends MusicBeatState
 				'yoshi'
 			],
 			[
+				'Loopy',
+				'loopiii',
+				'External Art and Resources\n"they forgot about me but i\'m here"',
+				'https://twitter.com/oSuOk3',
+				'ff0062',
+				'Loopy_Sound',
+				'loopiii'
+			],
+			[
 				'Suok',
 				'suok',
 				'Spriter, Animator\n"*starts beatboxing in Pennywise*"',
@@ -222,7 +231,7 @@ class CreditsState extends MusicBeatState
 			[
 				'JulianoBeta',
 				'juliano',
-				'Made da funny songs\n"hi I make bimbo."',
+				'Made da funny songs\n"r.i.p probleminha triplo"',
 				'https://twitter.com/JulianoIts',
 				'1c2080',
 				'Juliano_Sound',

@@ -5468,6 +5468,11 @@ class PlayState extends MusicBeatState
 		{
 			if (curBeat % 4 >= 0)
 				health -= 0.02;
+
+			/*switch (curBeat)
+			{
+				
+			}*/
 		}
 
 		setOnLuas('curBeat', curBeat); // DAWGG?????

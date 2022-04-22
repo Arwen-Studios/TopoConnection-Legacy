@@ -111,7 +111,7 @@ class TitleState extends MusicBeatState
 		#if CHECK_FOR_UPDATES
 		if(!closedState) {
 			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/BeastlyGhost/TopoConnection-Updates/main/version.txt");
+			var http = new haxe.Http("https://raw.githubusercontent.com/BeastlyGhost/Psych-TopoConnection-Source/main/gitVersion.txt");
 			
 			http.onData = function (data:String)
 			{
