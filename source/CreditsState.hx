@@ -176,7 +176,7 @@ class CreditsState extends MusicBeatState
 				'LoopiPie',
 				'loopiii',
 				'External Art and Resources\n"they forgot about me but i\'m here"',
-				'https://twitter.com/oSuOk3',
+				'https://twitter.com/oopyBoo',
 				'ff5656',
 				'Loopy_Sound',
 				'loopiii'
