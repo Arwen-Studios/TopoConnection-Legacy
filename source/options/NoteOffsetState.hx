@@ -88,7 +88,7 @@ class NoteOffsetState extends MusicBeatState
 		add(boyfriend);
 
 		var dark:FlxSprite = new FlxSprite(FlxG.width * -0.5, FlxG.height * -0.5).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-		dark.alpha = ClientPrefs.bgAlpha;
+		dark.alpha = 0.3;
 		dark.scrollFactor.set(0, 0);
 		add(dark);
 

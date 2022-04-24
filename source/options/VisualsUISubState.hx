@@ -31,8 +31,17 @@ class VisualsUISubState extends BaseOptionsMenu
 {
 	public function new()
 	{
-		title = 'Visuals and UI';
-		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
+		title = 'Appearance';
+		rpcTitle = 'Appearance Menu'; //for Discord Rich Presence
+
+		var option:Option = new Option('Anti-Aliasing',
+			'If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.',
+			'globalAntialiasing',
+			'bool',
+			true);
+		option.showBoyfriend = true;
+		option.onChange = onChangeAntiAliasing; //Changing onChange is only needed if you want to make a special interaction after it changes the value
+		addOption(option);
 
 		var option:Option = new Option('Auto Pause',
 			'If checked, pauses the game when unfocused.',
@@ -80,26 +89,40 @@ class VisualsUISubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		/*var option:Option = new Option('Note Splashes',
+		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Perfect!\" notes won't show particles.",
 			'noteSplashes',
 			'bool',
 			true);
-		addOption(option);*/
+		addOption(option);
 
-		var option:Option = new Option('Opaque Holds',
-			"If checked, holds won't have any transparency.",
+		var option:Option = new Option('Opaque Sustains',
+			"If checked, sustain notes will become completely opaque.",
 			'opaqueHolds',
 			'bool',
 			true);
 		addOption(option);
 
-		var option:Option = new Option('Score Text Zoom on Hit',
-			"If unchecked, disables the Score text zooming\neverytime you hit a note.",
+		var option:Option = new Option('HUD Bopping on Hit',
+			"If unchecked, disables HUD Zooming\neverytime you hit a note.",
 			'scoreZoom',
 			'bool',
 			true);
 		addOption(option);
+
+		#if !html5 //Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
+		var option:Option = new Option('Framerate',
+			"Pretty self explanatory, isn't it?",
+			'framerate',
+			'int',
+			60);
+		addOption(option);
+
+		option.minValue = 60;
+		option.maxValue = 240;
+		option.displayFormat = '%v FPS';
+		option.onChange = onChangeFramerate;
+		#end
 
 		var option:Option = new Option('Health Bar Opacity',
 			'How much opaque should the health bar and icons be.',
@@ -137,6 +160,14 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
+		var option:Option = new Option('Stage Quality:',
+			"Determine the Stage Quality here\nLow often means many defining elements will be missing\nShit often means almost everything will, not limited by only half of those elements.",
+			'stageQuality',
+			'string',
+			'High',
+			['High', 'Low', 'Shit']);
+		addOption(option);
+
 		var option:Option = new Option('Pause Screen Song:',
 			"What song do you prefer for the Pause Screen?",
 			'pauseMusic',
@@ -170,6 +201,40 @@ class VisualsUISubState extends BaseOptionsMenu
 		FlxG.autoPause = ClientPrefs.autoPause;
 	}
 
+	function onChangeAntiAliasing()
+	{
+		for (sprite in members)
+		{
+			var sprite:Dynamic = sprite; //Make it check for FlxSprite instead of FlxBasic
+			var sprite:FlxSprite = sprite; //Don't judge me ok
+			if(sprite != null && (sprite is FlxSprite) && !(sprite is FlxText)) {
+				sprite.antialiasing = ClientPrefs.globalAntialiasing;
+			}
+		}
+	}
+
+	#if !mobile
+	function onChangeFPSCounter()
+	{
+		if(Main.fpsVar != null)
+			Main.fpsVar.visible = ClientPrefs.showFPS;
+	}
+	#end
+
+	function onChangeFramerate()
+	{
+		if(ClientPrefs.framerate > FlxG.drawFramerate)
+		{
+			FlxG.updateFramerate = ClientPrefs.framerate;
+			FlxG.drawFramerate = ClientPrefs.framerate;
+		}
+		else
+		{
+			FlxG.drawFramerate = ClientPrefs.framerate;
+			FlxG.updateFramerate = ClientPrefs.framerate;
+		}
+	}
+
 	var changedMusic:Bool = false;
 	function onChangePauseMusic()
 	{
@@ -186,12 +251,4 @@ class VisualsUISubState extends BaseOptionsMenu
 		if(changedMusic) FlxG.sound.playMusic(Paths.music(Main.menuSong));
 		super.destroy();
 	}
-
-	#if !mobile
-	function onChangeFPSCounter()
-	{
-		if(Main.fpsVar != null)
-			Main.fpsVar.visible = ClientPrefs.showFPS;
-	}
-	#end
 }

@@ -467,14 +467,16 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'stage': // Week 1
-				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
-				add(bg);
+				if (ClientPrefs.stageQuality != 'Shit') {
+					var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
+					add(bg);
+				}
 
 				var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
 				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 				stageFront.updateHitbox();
 				add(stageFront);
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					var stageLight:BGSprite = new BGSprite('stage_light', -125, -100, 0.9, 0.9);
 					stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
@@ -492,12 +494,14 @@ class PlayState extends MusicBeatState
 					add(stageCurtains);
 				}
 			case 'mall': // Week 5 - Cocoa, Eggnog
-				var bg:BGSprite = new BGSprite('christmas/bgWalls', -1000, -500, 0.2, 0.2);
-				bg.setGraphicSize(Std.int(bg.width * 0.8));
-				bg.updateHitbox();
-				add(bg);
+				if (ClientPrefs.stageQuality != 'Shit') {
+					var bg:BGSprite = new BGSprite('christmas/bgWalls', -1000, -500, 0.2, 0.2);
+					bg.setGraphicSize(Std.int(bg.width * 0.8));
+					bg.updateHitbox();
+					add(bg);
+				}
 
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					upperBoppers = new BGSprite('christmas/upperBop', -240, -90, 0.33, 0.33, ['Upper Crowd Bob']);
 					upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.85));
@@ -526,10 +530,12 @@ class PlayState extends MusicBeatState
 				GameOverSubstate.characterName = 'vsilva';
 
 			case 'mallEvil': // Week 5 - Winter Horrorland
-				var bg:BGSprite = new BGSprite('christmas/evilBG', -400, -500, 0.2, 0.2);
-				bg.setGraphicSize(Std.int(bg.width * 0.8));
-				bg.updateHitbox();
-				add(bg);
+				if (ClientPrefs.stageQuality != 'Shit') {
+					var bg:BGSprite = new BGSprite('christmas/evilBG', -400, -500, 0.2, 0.2);
+					bg.setGraphicSize(Std.int(bg.width * 0.8));
+					bg.updateHitbox();
+					add(bg);
+				}
 
 				var evilTree:BGSprite = new BGSprite('christmas/evilTree', 300, -300, 0.2, 0.2);
 				add(evilTree);
@@ -557,7 +563,7 @@ class PlayState extends MusicBeatState
 				bgStreet.antialiasing = false;
 
 				var widShit = Std.int(bgSky.width * 6);
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					var fgTrees:BGSprite = new BGSprite('weeb/weebTreesBack', repositionShit + 170, 130, 0.9, 0.9);
 					fgTrees.setGraphicSize(Std.int(widShit * 0.8));
@@ -574,7 +580,7 @@ class PlayState extends MusicBeatState
 				add(bgTrees);
 				bgTrees.antialiasing = false;
 
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					var treeLeaves:BGSprite = new BGSprite('weeb/petals', repositionShit, -40, 0.85, 0.85, ['PETALS ALL'], true);
 					treeLeaves.setGraphicSize(widShit);
@@ -593,7 +599,7 @@ class PlayState extends MusicBeatState
 				bgStreet.updateHitbox();
 				bgTrees.updateHitbox();
 
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					bgGirls = new BackgroundGirls(-100, 190);
 					bgGirls.scrollFactor.set(0.9, 0.9);
@@ -608,13 +614,13 @@ class PlayState extends MusicBeatState
 				GameOverSubstate.endSoundName = 'gameOverEnd-pixel';
 				GameOverSubstate.characterName = 'bf-pixel-dead';
 
-				/*if(!ClientPrefs.lowQuality) { //Does this even do something?
+				/*if(ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit') { //Does this even do something?
 					var waveEffectBG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 3, 2);
 					var waveEffectFG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 5, 2);
 				}*/
 				var posX = 400;
 				var posY = 200;
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					var bg:BGSprite = new BGSprite('weeb/animatedEvilSchool', posX, posY, 0.8, 0.9, ['background 2'], true);
 					bg.scale.set(6, 6);
@@ -659,9 +665,11 @@ class PlayState extends MusicBeatState
 					// purp.alpha = 0.5;
 					add(purp); */
 
-				var upperThingy:BGSprite = new BGSprite('topoworld/bruh', -640, -200, 0.9, 0.9);
-				upperThingy.setGraphicSize(Std.int(upperThingy.width * 1.1));
-				add(upperThingy);
+				if (ClientPrefs.stageQuality != 'Shit') {
+					var upperThingy:BGSprite = new BGSprite('topoworld/bruh', -640, -200, 0.9, 0.9);
+					upperThingy.setGraphicSize(Std.int(upperThingy.width * 1.1));
+					add(upperThingy);
+				}
 
 				var purpGround:BGSprite = new BGSprite('topoworld/ground', -640, -150, 0.9, 0.9);
 				purpGround.updateHitbox();
@@ -690,7 +698,7 @@ class PlayState extends MusicBeatState
 
 		if (curStage == 'white-space')
 		{
-			if (vignette == null && !ClientPrefs.lowQuality)
+			if (vignette == null && ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 			{
 				vignette = new FlxSprite().loadGraphic(Paths.image('topoworld/vinagrete'));
 				vignette.width = 1280;
@@ -958,7 +966,7 @@ class PlayState extends MusicBeatState
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
-		//add(grpNoteSplashes);
+		add(grpNoteSplashes);
 
 		if (ClientPrefs.timeBarType == 'Song Name')
 		{
@@ -1746,7 +1754,7 @@ class PlayState extends MusicBeatState
 				// head bopping for bg characters on Mall
 				if (curStage == 'mall')
 				{
-					if (!ClientPrefs.lowQuality)
+					if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 						upperBoppers.dance(true);
 
 					bottomBoppers.dance(true);
@@ -2599,7 +2607,7 @@ class PlayState extends MusicBeatState
 			/*if (purp != null)
 			purp.x -= 0.45 / (ClientPrefs.framerate / 60); */
 			case 'schoolEvil':
-				if (!ClientPrefs.lowQuality && bgGhouls.animation.curAnim.finished)
+				if (bgGhouls.animation.curAnim.finished && ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					bgGhouls.visible = false;
 				}
@@ -2616,7 +2624,7 @@ class PlayState extends MusicBeatState
 				}
 				phillyCityLights.members[curLight].alpha -= (Conductor.crochet / 1000) * FlxG.elapsed * 1.5;
 			case 'limo':
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					grpLimoParticles.forEach(function(spr:BGSprite)
 					{
@@ -2763,7 +2771,7 @@ class PlayState extends MusicBeatState
 			- BeastlyGhost
 		*/
 
-		var divider:String = ' // ';
+		var divider:String = ' - ';
 		scoreTxt.text = 'Score: ${songScore}';
 
 		if (ClientPrefs.accuracyDisplay)
@@ -3555,7 +3563,7 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Trigger BG Ghouls':
-				if (curStage == 'schoolEvil' && !ClientPrefs.lowQuality)
+				if (curStage == 'schoolEvil' && ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					bgGhouls.dance(true);
 					bgGhouls.visible = true;
@@ -5140,7 +5148,7 @@ class PlayState extends MusicBeatState
 	function lightningStrikeShit():Void
 	{
 		FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
-		if (!ClientPrefs.lowQuality)
+		if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 			halloweenBG.animation.play('halloweem bg lightning strike');
 
 		lightningStrikeBeat = curBeat;
@@ -5178,7 +5186,7 @@ class PlayState extends MusicBeatState
 
 	function killHenchmen():Void
 	{
-		if (!ClientPrefs.lowQuality && ClientPrefs.violence && curStage == 'limo')
+		if (ClientPrefs.violence && curStage == 'limo' && ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 		{
 			if (limoKillingState < 1)
 			{
@@ -5396,13 +5404,13 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'school':
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					bgGirls.dance();
 				}
 
 			case 'mall':
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					upperBoppers.dance(true);
 				}
@@ -5412,7 +5420,7 @@ class PlayState extends MusicBeatState
 			// santa.dance(true);
 
 			case 'limo':
-				if (!ClientPrefs.lowQuality)
+				if (ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
 					grpLimoDancers.forEach(function(dancer:BackgroundDancer)
 					{
@@ -5697,7 +5705,7 @@ class PlayState extends MusicBeatState
 							}
 						}
 					case 'toastie':
-						if (/*ClientPrefs.framerate <= 60 &&*/ ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing)
+						if (/*ClientPrefs.framerate <= 60 &&*/ ClientPrefs.stageQuality != 'Shit' && !ClientPrefs.globalAntialiasing)
 						{
 							unlock = true;
 						}
