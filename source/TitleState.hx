@@ -81,6 +81,7 @@ class TitleState extends MusicBeatState
 	public var titleJSON:TitleData;
 	
 	public static var updateVersion:String = '';
+	public static var changelog:String = '';
 
 	override public function create():Void
 	{
@@ -116,6 +117,9 @@ class TitleState extends MusicBeatState
 			http.onData = function (data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
+				// thx Kade.
+				changelog = data.substring(data.indexOf('-'), data.length);
+
 				var curVersion:String = MainMenuState.topoVer.trim();
 				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
 				if(updateVersion != curVersion) {

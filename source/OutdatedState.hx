@@ -24,15 +24,19 @@ class OutdatedState extends MusicBeatState
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"
-			I'm sorry, but it seems like
-			We aren't able to connect, due to the fact you have a older version (" + MainMenuState.topoVer + "),
+			"Connection Failed!
+			your game version is currently outdated (" + MainMenuState.topoVer + "),
 			please update to " + TitleState.updateVersion + "!
-			Press ESCAPE to ignore this.
+
+			\nWhat's new:\n\n"
+			+ TitleState.changelog +
+			"
 			\n
+			Press ESCAPE to ignore and continue anyway
 			Thank you for your time!
 			",
 			32);
+		warnText.x += 30;
 		warnText.setFormat(Std.string(Main.sysgameFont), 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);

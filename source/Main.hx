@@ -18,7 +18,7 @@ class Main extends Sprite
 	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
-	var skipSplash:Bool = false; // Whether to skip the flixel splash screen that appears in release mode.
+	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 
 	public static var fpsVar:FPS;
@@ -27,6 +27,20 @@ class Main extends Sprite
 	public static var menuSong:String = "topoMenu";
 	public static var gameFont:String = "mode-seven.ttf";
 	public static var sysgameFont:String = "ModeSeven";
+
+	/*
+		Lembrete pros tradutores: é recomendado trocar as variáveis de fonte para estas
+		
+		public static var gameFont:String = "vcr.ttf";
+		public static var sysgameFont:String = "VCR OSD Mono";
+
+		pois estás fontes tem acentos para que você(s)
+		possam trabalhar com menos dor de cabeça quanto a textos acentuados
+
+		no futuro, espero conseguir modificar a Mode Seven ou ao menos
+		achar uma fonte similar que possua acentos, obrigado pelo seu tempo
+		- BeastlyGhost
+	*/
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
