@@ -110,7 +110,7 @@ class CreditsState extends MusicBeatState
 			[
 				'BeastlyMaxx',
 				'maxx',
-				"Director, Musician\"\ni DONT KNOW WHAT TO SAY",
+				"Director, Musician\n\"i DONT KNOW WHAT TO SAY" + '"',
 				'https://twitter.com/BeastlyMaxxVivi',
 				'353535',
 				'Maxx_Sound',
@@ -157,7 +157,7 @@ class CreditsState extends MusicBeatState
 			[
 				'BeastlyMudoku',
 				'mudoku',
-				"Sprite Artist\"\nI don't owe you anything",
+				"Sprite Artist\n\"I don't owe you anything" + '"',
 				'https://twitter.com/Mudoku__',
 				'80ffa1',
 				'Shiny_Sound',
@@ -166,7 +166,7 @@ class CreditsState extends MusicBeatState
 			[
 				'BeastlyYoshi',
 				'yoshi',
-				"Background Artist\"\nIt's a crime to use amen break, whoever does it will go to hell immediately.",
+				"Background Artist\n\"It's a crime to use amen break, whoever does it will go to hell immediately." + '"',
 				'https://twitter.com/yoshizitosNG',
 				'481874',
 				'Yoshi_Sound',
@@ -231,7 +231,7 @@ class CreditsState extends MusicBeatState
 			[
 				'JulianoBeta',
 				'juliano',
-				'Made da funny songs\n"r.i.p probleminha triplo"',
+				'Made da funny songs\n"r.i.p triple trouble"',
 				'https://twitter.com/JulianoIts',
 				'1c2080',
 				'Juliano_Sound',
@@ -242,7 +242,7 @@ class CreditsState extends MusicBeatState
 			[
 				'Luis com "S"',
 				'luis',
-				"Coder\"\nI'm lazy AF",
+				"Coder\n\"I'm lazy AF" + '"',
 				'https://twitter.com/Luis_comS_10',
 				'c29c6e',
 				'Luis_Sound',
@@ -251,7 +251,7 @@ class CreditsState extends MusicBeatState
 			[
 				'Gazozoz',
 				'gazozoz',
-				'Coder, Animator\n"How does this affect the ECONOMY?"',
+				'Coder, Animator\n"How does this affect O GREMIO?"',
 				'https://twitter.com/Gazozoz_',
 				'9c2323',
 				'Gazozoz_Sound',
@@ -320,7 +320,7 @@ class CreditsState extends MusicBeatState
 			[
 				'Shadow Mario',
 				'shadowmario',
-				'Main Programmer of Psych Engine',
+				'Main Programmer of Psych Engine\n"WikiHow: How to handle fame."',
 				'https://twitter.com/Shadow_Mario_',
 				'444444',
 				'JingleShadow'

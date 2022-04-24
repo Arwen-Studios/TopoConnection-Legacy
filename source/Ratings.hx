@@ -6,8 +6,6 @@ package;
     Psych Engine only works properly with arrays
     although I could just make a better system, this should work for now
 
-    check PlayState.hx
-    line: 4661
     - BeastlyGhost
 */
 
@@ -46,14 +44,14 @@ class Ratings extends MusicBeatState
 
     // Forever Engine Ratings
     public static var foreverRatings:Array<Dynamic> = [
-		["F", 0.2], // 65%
-		["E", 0.3], // 70%
-		["D", 0.4], // 75%
-		["C", 0.7], // 80%
-		["B", 0.8], // 85%
-		["A", 0.9], // 90%
-		["S", 1], // 99.9%
-		["S+", 1] // 100%
+        ["F", 0.2], // 65%
+        ["E", 0.3], // 70%
+        ["D", 0.4], // 75%
+        ["C", 0.7], // 80%
+        ["B", 0.8], // 85%
+        ["A", 0.9], // 90%
+        ["S", 1], // 99.9%
+        ["S+", 1] // 100%
 	];
 
     // Ratings for "Nuzlocke"
@@ -70,7 +68,7 @@ class Ratings extends MusicBeatState
         ['Legendary!!', 1] //100%
     ];
 
-    // Ratings for "Bimbo"
+    // Ratings for "Bimbo / Deez Nuts"
     public static var bimboRatings:Array<Dynamic> = [
         ["A", 0.401], // 40%
         ["AA", 0.6], // 59%
