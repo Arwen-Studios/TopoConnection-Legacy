@@ -26,7 +26,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var topoVer:String = '1.0c';
+	public static var topoVer:String = '1.0p';
 	public static var psychEngineVersion:String = '0.5.2h'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
