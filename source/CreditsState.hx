@@ -100,220 +100,229 @@ class CreditsState extends MusicBeatState
 			['Topo Connection Team'],
 			[
 				'NxtVithor',
-				'vito',
+				'os-cara/vito',
 				'Project Lead and Designer\n"I love the person down below."',
 				'https://twitter.com/NxtVithor',
 				'e78ee6',
 				'Vithor_Sound',
-				'vito'
+				'os-cara/ports/vito'
 			],
 			[
 				'BeastlyMaxx',
-				'maxx',
+				'os-cara/maxx',
 				"Director, Musician\n\"i DONT KNOW WHAT TO SAY" + '"',
 				'https://twitter.com/BeastlyMaxxVivi',
 				'353535',
 				'Maxx_Sound',
-				'maxx'
+				'os-cara/ports/maxx'
 			],
 			[
 				'BeastlyChip',
-				'chip',
+				'os-cara/chip',
 				'Director, Musician\n"Hold my amen breaks"',
 				'https://twitter.com/BeastlyChip',
 				'e295ff',
 				'Chip_Sound',
-				'chip'
+				'os-cara/ports/chip'
 			],
 			[
 				'BeastlyGhost',
-				'ghost',
+				'os-cara/ghost',
 				'Director, Coder\n"Just happy to be here!"',
 				'https://twitter.com/Fan_de_RPG',
 				'00ffbf',
 				'Ghost_Sound',
-				'ghost'
+				'os-cara/ports/ghost'
 			],
 			[
 				'LazyBudd',
-				'lazy',
+				'os-cara/lazy',
 				'Director, Musician\n"I love sex"',
 				'https://twitter.com/DaLazy_Composer',
 				'a529e0',
 				'Lazy_Sound',
-				'lazy'
+				'os-cara/ports/lazy'
 			],
 			[
 				'Senshi_Z',
-				'senshi',
+				'os-cara/senshi',
 				'Director, Musician\n"dislexia."',
 				'https://twitter.com/Senshi_Z12',
 				'bbffb1',
 				'Senshi_Sound',
-				'senshi'
+				'os-cara/ports/senshi'
 			],
 			[''],
 			['Artists'],
 			[
 				'BeastlyMudoku',
-				'mudoku',
+				'os-cara/mudoku',
 				"Sprite Artist\n\"I don't owe you anything" + '"',
 				'https://twitter.com/Mudoku__',
 				'80ffa1',
 				'Shiny_Sound',
-				'shiny'
+				'os-cara/ports/shiny'
 			],
 			[
 				'BeastlyYoshi',
-				'yoshi',
+				'os-cara/yoshi',
 				"Background Artist\n\"It's a crime to use amen break, whoever does it will go to hell immediately." + '"',
 				'https://twitter.com/yoshizitosNG',
 				'481874',
 				'Yoshi_Sound',
-				'yoshi'
+				'os-cara/ports/yoshi'
 			],
 			[
 				'LoopiPie',
-				'loopiii',
+				'os-cara/loopiii',
 				'External Art and Resources\n"they forgot about me but i\'m here"',
 				'https://twitter.com/oopyBoo',
 				'ff5656',
 				'Loopy_Sound',
-				'loopiii'
+				'os-cara/ports/loopiii'
 			],
 			[
 				'Suok',
-				'suok',
+				'os-cara/suok',
 				'Spriter, Animator\n"*starts beatboxing in Pennywise*"',
 				'https://twitter.com/oSuOk3',
 				'ff0062',
 				'Suok_Sound',
-				'suok'
+				'os-cara/ports/suok'
 			],
 			[
 				'Brycee',
-				'brycee',
+				'os-cara/brycee',
 				'Spriter\n"You should never ask Vithor if he likes ass."',
 				'https://twitter.com/Bryceegay',
 				'aa6abb',
 				'Brycee_Sound',
-				'brycee'
+				'os-cara/ports/brycee'
 			],
 			[
 				'AquaStrikr',
-				'aqua',
+				'os-cara/aqua',
 				'Spriter, Judgement Designer\n"agoti rip-off"',
 				'https://twitter.com/aqua_strikr',
 				'd4d4d4',
 				'Aqua_Sound',
-				'aqua'
+				'os-cara/ports/aqua'
 			],
 			[
 				'NaferNightmare',
-				'nafer',
+				'os-cara/nafer',
 				'Animator, made the Cutscenes\n"exactly like my balls, get it?"',
 				'https://twitter.com/NaferNightmare',
 				'ffb600',
 				'Nafer_Sound',
-				'nafer'
+				'os-cara/ports/nafer'
 			],
 			[''],
 			['Sound and Music Designer'],
 			[
 				'BeastlyShiny',
-				'shiny',
+				'os-cara/shiny',
 				"Nxxty's Voice Actor\n\"meow meow meow meow meow meow" + '"',
 				'https://twitter.com/shinyshyni_',
 				'c5c5c5',
 				'Shiny_Sound',
-				'shiny'
+				'os-cara/ports/shiny'
 			],
 			[
 				'JulianoBeta',
-				'juliano',
+				'os-cara/juliano',
 				'Made da funny songs\n"r.i.p triple trouble"',
 				'https://twitter.com/JulianoIts',
 				'1c2080',
 				'Juliano_Sound',
-				'juliano'
+				'os-cara/ports/juliano'
 			],
 			[''],
 			['Coders'],
 			[
 				'Luis com "S"',
-				'luis',
+				'os-cara/luis',
 				"Coder\n\"I'm lazy AF" + '"',
 				'https://twitter.com/Luis_comS_10',
 				'c29c6e',
 				'Luis_Sound',
-				'luis'
+				'os-cara/ports/luis'
 			],
 			[
 				'Gazozoz',
-				'gazozoz',
+				'os-cara/gazozoz',
 				'Coder, Animator\n"How does this affect O GREMIO?"',
 				'https://twitter.com/Gazozoz_',
 				'9c2323',
 				'Gazozoz_Sound',
-				'gazozoz'
+				'os-cara/ports/gazozoz'
 			],
 			[
 				'Luca',
-				'luca',
+				'os-cara/luca',
 				'Coder\n"*boo-womp*"',
 				'https://twitter.com/lucabio545?t=pGC6DDvaF7gJz07pWXYPcQ&s=09',
 				'ebe610',
 				'Luca_Sound',
-				'luca'
+				'os-cara/ports/luca'
 			],
 			[''],
 			['Charters'],
 			[
 				'Mathesu',
-				'matt',
+				'os-cara/matt',
 				'Charter\n"I can chart you"',
 				'https://twitter.com/MattPogg',
 				'2c2c2c',
 				'Matt_Sound',
-				'matt'
+				'os-cara/ports/matt'
 			],
 			[''],
 			['Special Thanks'],
 			[
 				'Blueballs Incident',
-				'bbincident',
+				'special-thx/bbincident',
 				'Our biggest inspiration for this mod\nNxt (AKA Vithor) just loves this mod and so we credited it!',
 				'https://gamebanana.com/mods/293462',
 				'e1e4a1',
 				'BBIncident_Sound',
-				'trollge'
+				'special-thx/ports/trollge'
 			],
 			[
 				"Hypno's Lullaby",
-				'lullaby',
+				'special-thx/lullaby',
 				"One of our inspirations for this mod, this one is actually\none of Ghost's personal favorites.",
 				'https://gamebanana.com/mods/332345',
 				'F5E54B',
 				'Hypno_Sound',
-				'hypno'
+				'special-thx/ports/hypno'
 			],
 			[
 				"B3 Remixed",
-				'B3',
+				'special-thx/B3',
 				"Thanks for being one of the best remix mods out there\nour Nom cover wouldn't exist without this mod!\n(Nxt loves this song lmao!!!!!!).",
 				'https://gamebanana.com/mods/332345',
 				'55fa57',
 				'B3_Sound',
-				'b3'
+				'special-thx/B3'
 			],
 			[
 				'Arrow Funk',
-				'arrowfunk',
+				'special-thx/arrowfunk',
 				'Overhaul, a great mod made by some pretty awesome people, I recommend it.',
 				'https://gamejolt.com/games/arrowfunk/646058',
 				'52A4FF',
 				'ArrowFunk_Sound',
-				'arrowfunk'
+				'special-thx/ports/arrowfunk'
+			],
+			[
+				'NebulaZorua',
+				'special-thx/nebula',
+				"Made the Code used for the in-game modifiers.\nthey didn't really work on this mod but I wanted to credit them regardless\nIcon is from FNF: D-Sides. (I ALSO RECOMMEND THIS MOD!!!)",
+				'https://twitter.com/Nebula_Zorua',
+				'B300B3',
+				'Placeholder_Sound', // reminder that *I should find/make a sound for him!!!!*
+				'special-thx/ports/nebula'
 			],
 			[''],
 			['Psych Engine Team'],
