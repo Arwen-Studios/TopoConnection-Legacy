@@ -47,8 +47,6 @@ class OptionsState extends MusicBeatState
 		switch(label) {
 			case 'Controls':
 				openSubState(new options.ControlsSubState());
-			case 'Graphics':
-				openSubState(new options.GraphicsSettingsSubState());
 			case 'Appearance':
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
