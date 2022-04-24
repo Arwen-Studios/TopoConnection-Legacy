@@ -1,5 +1,5 @@
 1.0p
--Reorganized Options
--Note Splashes (being worked on, but they are there!)
--Stage Quality Option
--Appreciating more People who helped us with the mod (Credits are still WIP!!)
+- Reorganized Options
+- Note Splashes (being worked on, but they are there!)
+- Stage Quality Option
+- Appreciating more People who helped us with the mod (Credits are still WIP!!)
