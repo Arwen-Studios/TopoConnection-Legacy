@@ -1,4 +1,4 @@
-1.0p
+1.0d
 -Reorganized Options
 -Note Splashes (being worked on, but they are there!)
 -Stage Quality Option
