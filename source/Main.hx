@@ -25,22 +25,8 @@ class Main extends Sprite
 
 	// global menu song and game font
 	public static var menuSong:String = "topoMenu";
-	public static var gameFont:String = "mode-seven.ttf";
-	public static var sysgameFont:String = "ModeSeven";
-
-	/*
-		Lembrete pros tradutores: é recomendado trocar as variáveis de fonte para estas
-		
-		public static var gameFont:String = "vcr.ttf";
-		public static var sysgameFont:String = "VCR OSD Mono";
-
-		pois estás fontes tem acentos para que você(s)
-		possam trabalhar com menos dor de cabeça quanto a textos acentuados
-
-		no futuro, espero conseguir modificar a Mode Seven ou ao menos
-		achar uma fonte similar que possua acentos, obrigado pelo seu tempo
-		- BeastlyGhost
-	*/
+	public static var gameFont:String = "ProFontWindows.ttf";
+	public static var sysgameFont:String = "ProFontWindows";
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
