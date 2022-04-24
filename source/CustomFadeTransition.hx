@@ -22,13 +22,16 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	var transBlack:FlxSprite;
 	var transGradient:FlxSprite;
 
-	public function new(duration:Float, isTransIn:Bool) {
+	public function new(duration:Float, isTransIn:Bool)
+	{
 		super();
 
 		this.isTransIn = isTransIn;
+
 		var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
 		var width:Int = Std.int(FlxG.width / zoom);
 		var height:Int = Std.int(FlxG.height / zoom);
+
 		transGradient = FlxGradient.createGradientFlxSprite(width, height, (isTransIn ? [0x0, FlxColor.BLACK] : [FlxColor.BLACK, 0x0]));
 		transGradient.scrollFactor.set();
 		add(transGradient);
@@ -66,7 +69,8 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		nextCamera = null;
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		if(isTransIn) {
 			transBlack.y = transGradient.y + transGradient.height;
 		} else {
@@ -80,7 +84,8 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		}
 	}
 
-	override function destroy() {
+	override function destroy()
+	{
 		if(leTween != null) {
 			finishCallback();
 			leTween.cancel();

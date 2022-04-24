@@ -30,7 +30,7 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Visuals and UI',/* 'Note Colors', */'Note Delay and Combo'];
+	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Visuals and UI',/* 'Note Colors', */'Note Delay and Combo', 'Exit to the Main Menu'];
 	public static var cameFromPause:Bool = false;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
@@ -50,6 +50,8 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.NotesSubState());
 			case 'Note Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
+			case 'Exit to the Main Menu':
+				MusicBeatState.switchState(new MainMenuState());
 		}
 	}
 
