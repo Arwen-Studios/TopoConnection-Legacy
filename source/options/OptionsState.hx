@@ -59,6 +59,8 @@ class OptionsState extends MusicBeatState
 			case 'Adjust Offset':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 			case 'Exit to the Main Menu':
+				cameFromPause = false;
+				PauseSubState.playStateToOp = false;
 				MusicBeatState.switchState(new MainMenuState());
 		}
 	}
