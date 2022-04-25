@@ -2782,7 +2782,7 @@ class PlayState extends MusicBeatState
 				scoreTxt.text += divider + 'Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%';
 
 			if (ratingFC != '')
-				scoreTxt.text += divider + '{${ratingFC}} ${ratingName}';
+				scoreTxt.text += divider + '[${ratingFC}] ${ratingName}';
 			else
 				scoreTxt.text += divider + '${ratingName}';
 		}
@@ -5559,14 +5559,14 @@ class PlayState extends MusicBeatState
 			// Rating FC
 			ratingFC = "";
 			if (perfs > 0)
-				ratingFC = "***"; // Triple Star Grade
+				ratingFC = "PFC"; // Perfect Full Comboe
 			if (sicks > 0)
-				ratingFC = "**"; // Double Star Grade
+				ratingFC = "SFC"; // Sick Full Comboe
 			if (goods > 0)
-				ratingFC = "*"; // Single Star Grade
-			if (bads > 0)
+				ratingFC = "GFC"; // Good Full Comboe
+			if (bads > 0 || shits > 0)
 				ratingFC = "FC"; // Full Combo
-			if (shits > 0 || songMisses > 0)
+			if (songMisses > 0)
 				ratingFC = "";
 		}
 		setOnLuas('rating', ratingPercent);
