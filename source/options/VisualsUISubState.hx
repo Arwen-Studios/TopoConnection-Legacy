@@ -51,27 +51,6 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.onChange = onChangeAutoPause;
 		addOption(option);
 
-		var option:Option = new Option('Camera Movement',
-			"If unchecked, the camera won't move every time you or the opponent hits a note.",
-			'camFollow',
-			'bool',
-			true);
-		addOption(option);
-
-		var option:Option = new Option('Camera Zooms',
-			"If unchecked, the camera won't zoom in on a beat hit.",
-			'camZooms',
-			'bool',
-			true);
-		addOption(option);
-
-		var option:Option = new Option('Flashing Lights',
-			"Uncheck this if you're sensitive to flashing lights!",
-			'flashing',
-			'bool',
-			true);
-		addOption(option);
-
 		#if !mobile
 		var option:Option = new Option('FPS Counter',
 			'If unchecked, hides FPS Counter.',

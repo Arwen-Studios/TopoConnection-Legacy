@@ -3388,161 +3388,121 @@ class PlayState extends MusicBeatState
 					value = 1;
 				gfSpeed = value;
 
-			case 'Blammed Lights':
-				var lightId:Int = Std.parseInt(value1);
-				if (Math.isNaN(lightId))
-					lightId = 0;
+				if(ClientPrefs.flashing) {
+					var lightId:Int = Std.parseInt(value1);
+					if(Math.isNaN(lightId)) lightId = 0;
 
-				var chars:Array<Character> = [boyfriend, gf, dad];
-				if (lightId > 0 && curLightEvent != lightId)
-				{
-					if (lightId > 5)
-						lightId = FlxG.random.int(1, 5, [curLightEvent]);
+					if(lightId > 0 && curLightEvent != lightId) {
+						if(lightId > 5) lightId = FlxG.random.int(1, 5, [curLightEvent]);
 
-					var color:Int = 0xffffffff;
-					switch (lightId)
-					{
-						case 1: // Blue
-							color = 0xff31a2fd;
-						case 2: // Green
-							color = 0xff31fd8c;
-						case 3: // Pink
-							color = 0xfff794f7;
-						case 4: // Red
-							color = 0xfff96d63;
-						case 5: // Orange
-							color = 0xfffba633;
-					}
-					curLightEvent = lightId;
-
-					if (blammedLightsBlack.alpha == 0)
-					{
-						if (blammedLightsBlackTween != null)
-						{
-							blammedLightsBlackTween.cancel();
+						var color:Int = 0xffffffff;
+						switch(lightId) {
+							case 1: //Blue
+								color = 0xff31a2fd;
+							case 2: //Green
+								color = 0xff31fd8c;
+							case 3: //Pink
+								color = 0xfff794f7;
+							case 4: //Red
+								color = 0xfff96d63;
+							case 5: //Orange
+								color = 0xfffba633;
 						}
-						blammedLightsBlackTween = FlxTween.tween(blammedLightsBlack, {alpha: 1}, 1, {
-							ease: FlxEase.quadInOut,
-							onComplete: function(twn:FlxTween)
-							{
-								blammedLightsBlackTween = null;
-							}
-						});
+						curLightEvent = lightId;
 
-						for (char in chars)
-						{
-							if (char.colorTween != null)
-							{
-								char.colorTween.cancel();
+						if(blammedLightsBlack.alpha == 0) {
+							if(blammedLightsBlackTween != null) {
+								blammedLightsBlackTween.cancel();
 							}
-							char.colorTween = FlxTween.color(char, 1, FlxColor.WHITE, color, {
-								onComplete: function(twn:FlxTween)
-								{
-									char.colorTween = null;
-								},
-								ease: FlxEase.quadInOut
+							blammedLightsBlackTween = FlxTween.tween(blammedLightsBlack, {alpha: 1}, 1, {ease: FlxEase.quadInOut,
+								onComplete: function(twn:FlxTween) {
+									blammedLightsBlackTween = null;
+								}
+							});
+
+							var chars:Array<Character> = [boyfriend, gf, dad];
+							for (i in 0...chars.length) {
+								if(chars[i].colorTween != null) {
+									chars[i].colorTween.cancel();
+								}
+								chars[i].colorTween = FlxTween.color(chars[i], 1, FlxColor.WHITE, color, {onComplete: function(twn:FlxTween) {
+									chars[i].colorTween = null;
+								}, ease: FlxEase.quadInOut});
+							}
+						} else {
+							if(blammedLightsBlackTween != null) {
+								blammedLightsBlackTween.cancel();
+							}
+							blammedLightsBlackTween = null;
+							blammedLightsBlack.alpha = 1;
+
+							var chars:Array<Character> = [boyfriend, gf, dad];
+							for (i in 0...chars.length) {
+								if(chars[i].colorTween != null) {
+									chars[i].colorTween.cancel();
+								}
+								chars[i].colorTween = null;
+							}
+							dad.color = color;
+							boyfriend.color = color;
+							gf.color = color;
+						}
+						
+						if(curStage == 'philly') {
+							if(phillyCityLightsEvent != null) {
+								phillyCityLightsEvent.forEach(function(spr:BGSprite) {
+									spr.visible = false;
+								});
+								phillyCityLightsEvent.members[lightId - 1].visible = true;
+								phillyCityLightsEvent.members[lightId - 1].alpha = 1;
+							}
+						}
+					} else {
+						if(blammedLightsBlack.alpha != 0) {
+							if(blammedLightsBlackTween != null) {
+								blammedLightsBlackTween.cancel();
+							}
+							blammedLightsBlackTween = FlxTween.tween(blammedLightsBlack, {alpha: 0}, 1, {ease: FlxEase.quadInOut,
+								onComplete: function(twn:FlxTween) {
+									blammedLightsBlackTween = null;
+								}
 							});
 						}
-					}
-					else
-					{
-						if (blammedLightsBlackTween != null)
-						{
-							blammedLightsBlackTween.cancel();
-						}
-						blammedLightsBlackTween = null;
-						blammedLightsBlack.alpha = 1;
 
-						for (char in chars)
-						{
-							if (char.colorTween != null)
-							{
-								char.colorTween.cancel();
-							}
-							char.colorTween = null;
-						}
-						dad.color = color;
-						boyfriend.color = color;
-						if (gf != null)
-							gf.color = color;
-					}
-
-					if (curStage == 'philly')
-					{
-						if (phillyCityLightsEvent != null)
-						{
-							phillyCityLightsEvent.forEach(function(spr:BGSprite)
-							{
+						if(curStage == 'philly') {
+							phillyCityLights.forEach(function(spr:BGSprite) {
 								spr.visible = false;
 							});
-							phillyCityLightsEvent.members[lightId - 1].visible = true;
-							phillyCityLightsEvent.members[lightId - 1].alpha = 1;
-						}
-					}
-				}
-				else
-				{
-					if (blammedLightsBlack.alpha != 0)
-					{
-						if (blammedLightsBlackTween != null)
-						{
-							blammedLightsBlackTween.cancel();
-						}
-						blammedLightsBlackTween = FlxTween.tween(blammedLightsBlack, {alpha: 0}, 1, {
-							ease: FlxEase.quadInOut,
-							onComplete: function(twn:FlxTween)
-							{
-								blammedLightsBlackTween = null;
-							}
-						});
-					}
-
-					if (curStage == 'philly')
-					{
-						phillyCityLights.forEach(function(spr:BGSprite)
-						{
-							spr.visible = false;
-						});
-						phillyCityLightsEvent.forEach(function(spr:BGSprite)
-						{
-							spr.visible = false;
-						});
-
-						var memb:FlxSprite = phillyCityLightsEvent.members[curLightEvent - 1];
-						if (memb != null)
-						{
-							memb.visible = true;
-							memb.alpha = 1;
-							if (phillyCityLightsEventTween != null)
-								phillyCityLightsEventTween.cancel();
-
-							phillyCityLightsEventTween = FlxTween.tween(memb, {alpha: 0}, 1, {
-								onComplete: function(twn:FlxTween)
-								{
-									phillyCityLightsEventTween = null;
-								},
-								ease: FlxEase.quadInOut
+							phillyCityLightsEvent.forEach(function(spr:BGSprite) {
+								spr.visible = false;
 							});
-						}
-					}
 
-					for (char in chars)
-					{
-						if (char.colorTween != null)
-						{
-							char.colorTween.cancel();
-						}
-						char.colorTween = FlxTween.color(char, 1, char.color, FlxColor.WHITE, {
-							onComplete: function(twn:FlxTween)
-							{
-								char.colorTween = null;
-							},
-							ease: FlxEase.quadInOut
-						});
-					}
+							var memb:FlxSprite = phillyCityLightsEvent.members[curLightEvent - 1];
+							if(memb != null) {
+								memb.visible = true;
+								memb.alpha = 1;
+								if(phillyCityLightsEventTween != null)
+									phillyCityLightsEventTween.cancel();
 
-					curLight = 0;
-					curLightEvent = 0;
+								phillyCityLightsEventTween = FlxTween.tween(memb, {alpha: 0}, 1, {onComplete: function(twn:FlxTween) {
+									phillyCityLightsEventTween = null;
+								}, ease: FlxEase.quadInOut});
+							}
+						}
+
+						var chars:Array<Character> = [boyfriend, gf, dad];
+						for (i in 0...chars.length) {
+							if(chars[i].colorTween != null) {
+								chars[i].colorTween.cancel();
+							}
+							chars[i].colorTween = FlxTween.color(chars[i], 1, chars[i].color, FlxColor.WHITE, {onComplete: function(twn:FlxTween) {
+								chars[i].colorTween = null;
+							}, ease: FlxEase.quadInOut});
+						}
+
+						curLight = 0;
+						curLightEvent = 0;
+					}
 				}
 
 			case 'Kill Henchmen':
@@ -3639,25 +3599,23 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Screen Shake':
-				var valuesArray:Array<String> = [value1, value2];
-				var targetsArray:Array<FlxCamera> = [camGame, camHUD];
-				for (i in 0...targetsArray.length)
+				if(ClientPrefs.camShake)
 				{
-					var split:Array<String> = valuesArray[i].split(',');
-					var duration:Float = 0;
-					var intensity:Float = 0;
-					if (split[0] != null)
-						duration = Std.parseFloat(split[0].trim());
-					if (split[1] != null)
-						intensity = Std.parseFloat(split[1].trim());
-					if (Math.isNaN(duration))
-						duration = 0;
-					if (Math.isNaN(intensity))
-						intensity = 0;
+						var valuesArray:Array<String> = [value1, value2];
+						var targetsArray:Array<FlxCamera> = [camGame, camHUD];
+						for (i in 0...targetsArray.length) {
+							var split:Array<String> = valuesArray[i].split(',');
+							var duration:Float = 0;
+							var intensity:Float = 0;
+							if(split[0] != null) duration = Std.parseFloat(split[0].trim());
+							if(split[1] != null) intensity = Std.parseFloat(split[1].trim());
+							if(Math.isNaN(duration)) duration = 0;
+							if(Math.isNaN(intensity)) intensity = 0;
 
-					if (duration > 0 && intensity != 0)
-					{
-						targetsArray[i].shake(intensity, duration);
+						if(duration > 0 && intensity != 0)
+						{
+							targetsArray[i].shake(intensity, duration);
+						}
 					}
 				}
 

@@ -31,6 +31,7 @@ using StringTools;
 class OptionsState extends MusicBeatState
 {
 	var options:Array<String> = [
+		'Accessibility',
 		'Adjust Offset',
 		'Appearance',
 		'Controls',
@@ -45,6 +46,8 @@ class OptionsState extends MusicBeatState
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
+			case 'Accessibility':
+				openSubState(new options.AccessibilitySubState());
 			case 'Controls':
 				openSubState(new options.ControlsSubState());
 			case 'Appearance':
@@ -53,7 +56,7 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Note Colors':
 				openSubState(new options.NotesSubState());
-			case 'Adjust Combo':
+			case 'Adjust Offset':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 			case 'Exit to the Main Menu':
 				MusicBeatState.switchState(new MainMenuState());
