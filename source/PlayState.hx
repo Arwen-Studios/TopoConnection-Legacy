@@ -980,11 +980,11 @@ class PlayState extends MusicBeatState
 				timeBar.createFilledBar(0x00000000, 0xFFFF0036);
 				
 			case 'protocol' | 'citriky' | 'seamless': 
-				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
+				timeBar.createGradientBar([0x88222222], [0xFFFF00E4, 0xFFFF0036], 1, 90, true, 0xFF000000);
 
 			case 'wannacry':
 				isBossSong = true;
-				timeBar.createFilledBar(0xFFFF00E4, 0xFFFF0036);
+				timeBar.createGradientBar([0x88222222], [0xFFFF00E4, 0xFFFF0036], 1, 90, true, 0xFF000000);
 
 			case 'bimbo' | 'deez-nuts': // Secret Song
 				timeBar.createFilledBar(FlxColor.BLACK, FlxColor.YELLOW);
