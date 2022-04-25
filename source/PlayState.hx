@@ -1128,7 +1128,7 @@ class PlayState extends MusicBeatState
 			scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
 		}
 
-		scoreTxt.setFormat(Paths.font(Std.string(Main.gameFont)), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
+		scoreTxt.setFormat(Paths.font(Std.string(Main.gameFont)), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
 			FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
@@ -1141,7 +1141,7 @@ class PlayState extends MusicBeatState
 		for (i in 0...8)
 		{
 			var ratingTxt = new FlxText(20, FlxG.height * 0.5 - 8 + (16 * (i - 2)), FlxG.width, "", 16);
-			ratingTxt.setFormat(Paths.font(Main.gameFont), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			ratingTxt.setFormat(Paths.font(Main.gameFont), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			ratingTxt.scrollFactor.set();
 			ratingTxtGroup.add(ratingTxt);
 		}

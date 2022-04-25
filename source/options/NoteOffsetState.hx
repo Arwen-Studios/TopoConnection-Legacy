@@ -459,15 +459,15 @@ class NoteOffsetState extends MusicBeatState
 			switch(i)
 			{
 				case 0: dumbTexts.members[i].text = 'Rating Offset:';
-				case 1: dumbTexts.members[i].text = '{' + ClientPrefs.comboOffset[0] + ', ' + ClientPrefs.comboOffset[1] + '} - Use the Arrow Keys or the Mouse to Move';
+				case 1: dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[0] + ', ' + ClientPrefs.comboOffset[1] + '] - Use the Arrow Keys or the Mouse to Move';
 
 				case 2: dumbTexts.members[i].text = 'Numbers Offset:';
-				case 3: dumbTexts.members[i].text = '{' + ClientPrefs.comboOffset[2] + ', ' + ClientPrefs.comboOffset[3] + '} - Use WASD or the Mouse to Move';
+				case 3: dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[2] + ', ' + ClientPrefs.comboOffset[3] + '] - Use WASD or the Mouse to Move';
 
 				case 4: dumbTexts.members[i].text = '\n';
 
 				case 5: dumbTexts.members[i].text = 'Combo Sprite Offset:';
-				case 6: dumbTexts.members[i].text = '{' + ClientPrefs.comboOffset[4] + ', ' + ClientPrefs.comboOffset[5] + '} - Use IJKL to Move\n\nHold SHIFT to move faster.';
+				case 6: dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[4] + ', ' + ClientPrefs.comboOffset[5] + '] - Use IJKL to Move\n\nHold SHIFT to move faster.';
 			}
 		}
 	}
