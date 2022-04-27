@@ -59,7 +59,7 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.NotesSubState());
 			case 'Adjust Offset':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
-			case 'Gamejolt Settings':
+			case 'Gamejolt':
 				MusicBeatState.switchState(new GameJoltLogin());
 		}
 	}
