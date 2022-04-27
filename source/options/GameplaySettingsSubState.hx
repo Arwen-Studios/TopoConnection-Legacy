@@ -62,12 +62,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('Disable Modcharts',
+		/*var option:Option = new Option('Disable Modcharts',
 			'If checked, will disable song-specific Note Effects\nalso known as Easy Mode, Pussy Mode, Skill Issue Mode, etc.',
 			'pussyMode',
 			'bool',
 			false);
-		addOption(option);
+		addOption(option);*/
 
 		var option:Option = new Option('Disable Reset Button',
 			"If checked, pressing Reset won't do anything.",
@@ -104,13 +104,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
-
-		/*var option:Option = new Option('Share Status on Gamejolt',
-			"If unchecked, Game Awards, Total Score and Leaderboard information\nwon't be saved on Gamejolt.",
-			'shareOptionOrSomething',
-			'bool',
-			true);
-		addOption(option);*/
 
 		var option:Option = new Option('Hitsound Volume',
 			'Funny notes does \"Tick!\" when you hit them."',
