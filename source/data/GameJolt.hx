@@ -313,7 +313,7 @@ class GameJoltInfo extends FlxSubState
     -BeastlyGhost*/
 
     public static var textArray:Array<String> = [
-        'Sup!',
+        'Sup ' + Main.getUsername() + '!',
         "How u doin'?",
         "uh, boo, I guess.",
         "nuts.",
