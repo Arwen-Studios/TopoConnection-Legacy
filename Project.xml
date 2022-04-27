@@ -6,7 +6,7 @@
 	<app file="INIT_TOPO_WIN" if="windows" />
 	<app file="INIT_TOPO_APP" if="linux" />
 	<app file="INIT_TOPO_MAC" if="mac" />
-	<app file="INIT_TOPO_APP" if="android" />
+	<app file="TopoConnection" if="android" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
@@ -61,6 +61,11 @@
 		<assets path="assets/secrets" rename="assets" exclude="*.ogg" if="web"/>
 		<assets path="assets/secrets" rename="assets" exclude="*.mp3"  unless="web"/>
 	</section>
+
+	<!-- FOR GAMEJOLT INTEGRATION -->
+	<haxelib name="tentools" />
+	<haxelib name="systools" />
+	<ndll name="systools" haxelib="systools" />
 
 	<!-- DONT ENABLE THIS -->
 	<define name="CHECK_FOR_UPDATES"/>

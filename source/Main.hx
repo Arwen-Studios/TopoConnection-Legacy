@@ -1,5 +1,7 @@
 package;
 
+import data.GameJolt.GameJoltAPI;
+import data.GameJolt.GJToastManager;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
@@ -28,7 +30,21 @@ class Main extends Sprite
 	public static var gameFont:String = "ProFontWindows.ttf";
 	public static var sysgameFont:String = "ProFontWindows";
 
+	// for Gamejolt Toasts
+	public static var gjToastManager:GJToastManager;
+
 	// You can pretty much ignore everything from here on - your code should go in your states.
+
+	function getUsername() {
+        var envs = Sys.environment();
+        if (envs.exists("USERNAME")) {
+            return envs["USERNAME"];
+        }
+        if (envs.exists("USER")) {
+            return envs["USER"];
+        }    
+        return null;
+    }
 
 	public static function main():Void
 	{
@@ -100,5 +116,8 @@ class Main extends Sprite
 		#if html5
 		FlxG.mouse.visible = false;
 		#end
+
+		gjToastManager = new GJToastManager();
+		addChild(gjToastManager);
 	}
 }

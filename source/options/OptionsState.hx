@@ -3,6 +3,7 @@ package options;
 #if desktop
 import Discord.DiscordClient;
 #end
+import data.GameJolt;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -35,9 +36,9 @@ class OptionsState extends MusicBeatState
 		'Adjust Offset',
 		'Appearance',
 		'Controls',
-		'Gameplay',
+		'Gamejolt Settings',
+		'Gameplay'
 		/*'Note Colors',*/
-		'Exit to the Main Menu'
 	];
 	public static var cameFromPause:Bool = false;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -58,10 +59,8 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.NotesSubState());
 			case 'Adjust Offset':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
-			case 'Exit to the Main Menu':
-				cameFromPause = false;
-				PauseSubState.playStateToOp = false;
-				MusicBeatState.switchState(new MainMenuState());
+			case 'Gamejolt Settings':
+				MusicBeatState.switchState(new GameJoltLogin());
 		}
 	}
 

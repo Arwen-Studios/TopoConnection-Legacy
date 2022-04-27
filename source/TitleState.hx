@@ -1,5 +1,8 @@
 package;
 
+import data.GameJolt.GameJoltAPI;
+import data.GameJolt.GameJoltLogin;
+import data.GameJolt.GJToastManager;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
@@ -151,8 +154,13 @@ class TitleState extends MusicBeatState
 		super.create();
 
 		FlxG.save.bind('funkin', 'ninjamuffin99');
+
 		ClientPrefs.loadPrefs();
 		Highscore.load();
+
+		// Connect to Gamejolt
+		GameJoltAPI.connect();
+		GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
 
 		// IGNORE THIS!!!
 		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));

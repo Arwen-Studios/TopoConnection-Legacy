@@ -105,6 +105,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		/*var option:Option = new Option('Share Status on Gamejolt',
+			"If unchecked, Game Awards, Total Score and Leaderboard information\nwon't be saved on Gamejolt.",
+			'shareOptionOrSomething',
+			'bool',
+			true);
+		addOption(option);*/
+
 		var option:Option = new Option('Hitsound Volume',
 			'Funny notes does \"Tick!\" when you hit them."',
 			'hitsoundVolume',

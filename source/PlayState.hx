@@ -1,6 +1,7 @@
 package;
 
 import flixel.addons.display.FlxBackdrop;
+import data.GameJolt.GameJoltAPI;
 import Achievements;
 import DialogueBoxPsych;
 import FunkinLua;
@@ -5605,6 +5606,7 @@ class PlayState extends MusicBeatState
 									if (achievementName == 'week1_nomiss')
 									{
 										unlock = true;
+										//GameJoltAPI.getTrophy(ID);
 									}
 							}
 						}
@@ -5624,6 +5626,7 @@ class PlayState extends MusicBeatState
 									if (achievementName == 'week1_opponent')
 									{
 										unlock = true;
+										//GameJoltAPI.getTrophy(ID);
 									}
 							}
 						}
@@ -5631,21 +5634,25 @@ class PlayState extends MusicBeatState
 						if (ClientPrefs.accuracyDisplay && ratingPercent < 0.3 && !practiceMode)
 						{
 							unlock = true;
+							//GameJoltAPI.getTrophy(ID);
 						}
 					case 'ur_good':
 						if (ClientPrefs.accuracyDisplay && ratingPercent >= 1 && !usedPractice)
 						{
 							unlock = true;
+							//GameJoltAPI.getTrophy(ID);
 						}
 					case 'oversinging':
 						if (boyfriend.holdTimer >= 10 && !usedPractice)
 						{
 							unlock = true;
+							//GameJoltAPI.getTrophy(ID);
 						}
 					case 'hype':
 						if (!boyfriendIdled && !usedPractice)
 						{
 							unlock = true;
+							//GameJoltAPI.getTrophy(ID);
 						}
 					case 'two_keys':
 						if (!usedPractice)
@@ -5660,15 +5667,17 @@ class PlayState extends MusicBeatState
 							if (howManyPresses <= 2)
 							{
 								unlock = true;
+								//GameJoltAPI.getTrophy(ID);
 							}
 						}
 					case 'toastie':
 						if (/*ClientPrefs.framerate <= 60 &&*/ ClientPrefs.stageQuality != 'Shit' && !ClientPrefs.globalAntialiasing)
 						{
 							unlock = true;
+							//GameJoltAPI.getTrophy(ID);
 						}
 					case 'bimbo':
-						if (Paths.formatToSongPath(SONG.song) == 'bimbo'
+						if (Paths.formatToSongPath(SONG.song) == 'deez-nuts'
 							&& !usedPractice
 							&& ClientPrefs.accuracyDisplay
 							&& ratingPercent > 0.9)
@@ -5676,6 +5685,7 @@ class PlayState extends MusicBeatState
 							ClientPrefs.freePlaying = true;
 							ClientPrefs.saveSettings();
 							unlock = true;
+							//GameJoltAPI.getTrophy(ID);
 						}
 				}
 

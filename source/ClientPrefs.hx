@@ -167,7 +167,6 @@ class ClientPrefs {
 		FlxG.save.data.showJC = showJC;
 		FlxG.save.data.freePlaying = freePlaying;
 		FlxG.save.data.camShake = camShake;
-	
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
