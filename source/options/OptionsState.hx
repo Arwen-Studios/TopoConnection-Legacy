@@ -36,7 +36,7 @@ class OptionsState extends MusicBeatState
 		'Adjust Offset',
 		'Appearance',
 		'Controls',
-		'Gamejolt Settings',
+		'Gamejolt',
 		'Gameplay'
 		/*'Note Colors',*/
 	];
