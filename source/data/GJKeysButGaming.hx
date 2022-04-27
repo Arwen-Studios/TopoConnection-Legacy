@@ -2,8 +2,8 @@
 
 package data;
 
-class GJKeys
+class GJKeysButGaming
 {
-    public static var id:Int = 	;
+    public static var id:Int = 	-1; // dumb.
     public static var key:String = "";
 }
