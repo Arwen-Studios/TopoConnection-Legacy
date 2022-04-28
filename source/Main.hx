@@ -35,7 +35,8 @@ class Main extends Sprite
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
-	public static function getUsername() {
+	public static function getUsername()
+	{
         var envs = Sys.environment();
         if (envs.exists("USERNAME")) {
             return envs["USERNAME"];

@@ -1,5 +1,8 @@
 package;
 
+import data.GameJolt.GameJoltAPI;
+import data.GameJolt.GameJoltLogin;
+import data.GameJolt.GJToastManager;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
@@ -37,9 +40,9 @@ import lime.app.Application;
 import openfl.Assets;
 
 using StringTools;
+
 typedef TitleData =
 {
-	
 	titlex:Float,
 	titley:Float,
 	startx:Float,
@@ -49,6 +52,7 @@ typedef TitleData =
 	backgroundSprite:String,
 	bpm:Int
 }
+
 class TitleState extends MusicBeatState
 {
 	public static var instance:TitleState;
@@ -226,6 +230,8 @@ class TitleState extends MusicBeatState
 
 	function startIntro()
 	{
+		GameJoltAPI.connect();
+		GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
 		if (!initialized)
 		{
 			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
@@ -383,7 +389,6 @@ class TitleState extends MusicBeatState
 			skipIntro();
 		else
 			initialized = true;
-
 		// credGroup.add(credTextShit);
 	}
 
