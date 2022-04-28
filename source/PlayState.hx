@@ -3253,55 +3253,38 @@ class PlayState extends MusicBeatState
 
 	public var isDead:Bool = false; // Don't mess with this on Lua!!!
 
-	function doDeathCheck(?skipHealthCheck:Bool = false)
-	{
+	function doDeathCheck(?skipHealthCheck:Bool = false) {
 		if (((skipHealthCheck && instakillOnMiss) || health <= 0) && !practiceMode && !isDead)
 		{
-			var ret:Dynamic = callOnLuas('onGameOver', [ClientPrefs.getGameplaySetting('noFail', false)]);
-			if (ret != FunkinLua.Function_Stop)
-			{
-				if (ClientPrefs.getGameplaySetting('noFail', false))
-				{
-					deathCounter++;
-					allowScoring = false;
-					isDead = true; // I'M.. DEAAADDD..
-					FlxG.sound.play(Paths.sound(GameOverSubstate.deathSoundName));
-					healthBar.visible = false;
-					healthBar.alpha = 0;
-					iconP1.visible = false;
-					iconP2.visible = false;
-					return false; // yea you DID die but the game should keep going n shit so like
+			var ret:Dynamic = callOnLuas('onGameOver', []);
+			if(ret != FunkinLua.Function_Stop) {
+				boyfriend.stunned = true;
+				deathCounter++;
+
+				paused = true;
+
+				vocals.stop();
+				FlxG.sound.music.stop();
+
+				persistentUpdate = false;
+				persistentDraw = false;
+				for (tween in modchartTweens) {
+					tween.active = true;
 				}
-				else
-				{
-					boyfriend.stunned = true;
-					deathCounter++;
-
-					paused = true;
-
-					vocals.stop();
-					FlxG.sound.music.stop();
-
-					persistentUpdate = false;
-					persistentDraw = false;
-					for (tween in modchartTweens)
-					{
-						tween.active = true;
-					}
-					for (timer in modchartTimers)
-					{
-						timer.active = true;
-					}
-					openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0],
-						boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
-
-					#if desktop
-					// Game Over doesn't get his own variable because it's only used here
-					DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-					#end
-					isDead = true;
-					return true;
+				for (timer in modchartTimers) {
+					timer.active = true;
 				}
+				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
+
+				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+
+				#if desktop
+				// Game Over doesn't get his own variable because it's only used here
+				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				#end
+				isDead = true;
+				return true;
+
 			}
 		}
 		return false;

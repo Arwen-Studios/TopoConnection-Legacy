@@ -65,7 +65,6 @@ class ClientPrefs {
 		'opponentplay' => false,
 
 		// difficulty modifiers
-		'noFail' => false, // you cannot die
 		'noHolds' => false, // removes all holds from the chart
 		'noChords' => false, // removes all jumps, hands, and quads from the chart
 		'jackThreshold' => '16th',
