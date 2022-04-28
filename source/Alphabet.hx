@@ -384,7 +384,7 @@ class AlphaCharacter extends FlxSprite
 
 	public static var numbers:String = "1234567890";
 
-	public static var symbols:String = "|~#$%()[]*+-:;<=>@^_.,'!?/\\";
+	public static var symbols:String = "|~#$%()[]*+-:;<=>@^_.,'!?¿/\\";
 
 	public var row:Int = 0;
 
@@ -426,6 +426,8 @@ class AlphaCharacter extends FlxSprite
 				animation.addByPrefix(letter, 'APOSTRAPHIE bold', 24);
 			case "?":
 				animation.addByPrefix(letter, 'QUESTION MARK bold', 24);
+			case "¿":
+				animation.addByPrefix(letter, 'FLIPPED QUESTION MARK bold', 24);
 			case "!":
 				animation.addByPrefix(letter, 'EXCLAMATION POINT bold', 24);
 			case "(":
@@ -503,6 +505,8 @@ class AlphaCharacter extends FlxSprite
 				y -= 50;
 			case "?":
 				animation.addByPrefix(letter, 'question mark', 24);
+			case "¿":
+				animation.addByPrefix(letter, 'FLIPPED question mark', 24);
 			case "!":
 				animation.addByPrefix(letter, 'exclamation point', 24);
 			case ",":

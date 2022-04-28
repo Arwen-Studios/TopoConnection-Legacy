@@ -2922,6 +2922,34 @@ class PlayState extends MusicBeatState
 			(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 0;
 		}
 
+		if (iconP1.animation.frames == 3) {
+			if (healthBar.percent < 20)
+				(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 1;
+			else if (healthBar.percent > 80)
+				(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 2;
+			else
+				(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 0;
+		} else {
+			if (healthBar.percent < 20)
+				(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 1;
+			else
+				(opponentChart ? iconP2 : iconP1).animation.curAnim.curFrame = 0;
+		}
+
+		if (iconP2.animation.frames == 3) {
+			if (healthBar.percent > 80)
+				(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 1;
+			else if (healthBar.percent < 20)
+				(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 2;
+			else 
+				(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 0;
+		} else {
+			if (healthBar.percent > 80)
+				(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 1;
+			else 
+				(opponentChart ? iconP1 : iconP2).animation.curAnim.curFrame = 0;
+		}
+
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene && ClientPrefs.debugMode)
 		{
 			persistentUpdate = false;

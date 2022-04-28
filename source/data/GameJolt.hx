@@ -72,9 +72,9 @@ class GameJoltAPI // Connects to tentools.api.FlxGameJolt
     public static function connect() 
     {
         trace("Grabbing API keys...");
-        GJApi.init(Std.int(GJKeysButGaming.id), Std.string(GJKeysButGaming.key), function(data:Bool){
+        GJApi.init(Std.int(GJKeys.id), Std.string(GJKeys.key), function(data:Bool){
             #if debug
-            Main.gjToastManager.createToast(GameJoltInfo.imagePath, "Game " + (data ? "authenticated!" : "not authenticated..."), (!data ? "If you are a developer, check GJKeys.hx\nMake sure the id and key are formatted correctly!" : "Yay!"), false);
+            Main.gjToastManager.createToast(GameJoltInfo.imagePath, "Game " + (data ? "Authenticated!" : "Not Authenticated!"), (!data ? "If you are a developer, check GJKeys.hx\nMake sure the id and key are formatted correctly!" : "Scores and Awards will be saved on Gamejolt (if allowed)!"), false);
             #end
         });
     }
@@ -95,7 +95,7 @@ class GameJoltAPI // Connects to tentools.api.FlxGameJolt
                 trace("token:"+in2);
                 if(v)
                     {
-                        Main.gjToastManager.createToast(GameJoltInfo.imagePath, in1 + " signed in!", "Time: " + Date.now() + "\nGame ID: " + GJKeysButGaming.id + "\nScore Submitting: " + (GameJoltAPI.leaderboardToggle ? "Enabled" : "Disabled"), false);
+                        Main.gjToastManager.createToast(GameJoltInfo.imagePath, in1 + " signed in!", "Time: " + Date.now() + "\nGame ID: " + GJKeys.id + "\nScore Submitting: " + (GameJoltAPI.leaderboardToggle ? "Enabled" : "Disabled"), false);
                         trace("User authenticated!");
                         FlxG.save.data.gjUser = in1;
                         FlxG.save.data.gjToken = in2;
@@ -281,7 +281,7 @@ class GameJoltInfo extends FlxSubState
     * 
     * Example: Paths.getLibraryPath("images/stepmania-icon.png")
     */
-    public static var imagePath:String = "assets/shared/images/gamejoltIcons/nxxty"; 
+    public static var imagePath:String = Paths.getLibraryPath("images/gamejoltIcons/nxxty"); 
 
     /* Other things that shouldn't be messed with are below this line! */
 
@@ -313,7 +313,11 @@ class GameJoltInfo extends FlxSubState
     -BeastlyGhost*/
 
     public static var textArray:Array<String> = [
+        #if desktop
         'Sup ' + Main.getUsername() + '!',
+        #elseif mac
+        'Sup Mac User!',
+        #end
         "How u doin'?",
         "uh, boo, I guess.",
         "nuts.",
@@ -398,7 +402,7 @@ class GameJoltLogin extends MusicBeatSubstate
         funnyText = new FlxText(5, FlxG.height - 40, 0, GameJoltInfo.textArray[FlxG.random.int(0, GameJoltInfo.textArray.length - 1)]+ " -BeastlyGhost", 12);
         add(funnyText);
 
-        versionText = new FlxText(5, FlxG.height - 22, 0, "Game ID: " + GJKeysButGaming.id + " API: " + GameJoltInfo.version, 12);
+        versionText = new FlxText(5, FlxG.height - 22, 0, "Game ID: " + GJKeys.id + " API: " + GameJoltInfo.version, 12);
         add(versionText);
 
         loginTexts = new FlxTypedGroup<FlxText>(2);
@@ -584,7 +588,7 @@ class GameJoltLogin extends MusicBeatSubstate
 class GJToastManager extends Sprite
 {
     public static var ENTER_TIME:Float = 0.5;
-    public static var DISPLAY_TIME:Float = 1.0;
+    public static var DISPLAY_TIME:Float = 5.0;
     public static var LEAVE_TIME:Float = 0.5;
     public static var TOTAL_TIME:Float = ENTER_TIME + DISPLAY_TIME + LEAVE_TIME;
 

@@ -1,5 +1,8 @@
 package;
 
+import data.GameJolt.GameJoltAPI;
+import data.GameJolt.GameJoltLogin;
+import data.GameJolt.GJToastManager;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -174,6 +177,10 @@ class MainMenuState extends MusicBeatState
 			}
 		}
 		#end
+
+		// Connect to Gamejolt
+		GameJoltAPI.connect();
+		GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
 
 		super.create();
 	}
