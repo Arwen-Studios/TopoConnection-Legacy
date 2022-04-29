@@ -13,6 +13,21 @@
 						"Change Scroll Speed",
 						"0.6",
 						""
+					],
+					[
+						"Add Camera Zoom",
+						"0.6",
+						"0.2"
+					],
+					[
+						"Change Character",
+						"bf",
+						"bf-tc-seamless"
+					],
+					[
+						"Change Character",
+						"dad",
+						"nxxty-seamless"
 					]
 				]
 			],
@@ -23,6 +38,21 @@
 						"Change Scroll Speed",
 						"1.2",
 						"1,5"
+					],
+					[
+						"Add Camera Zoom",
+						"0.6",
+						"0.2"
+					],
+					[
+						"Change Character",
+						"bf",
+						"bf-tc"
+					],
+					[
+						"Change Character",
+						"dad",
+						"nxxty"
 					]
 				]
 			]

@@ -1,5 +1,8 @@
 package;
 
+import data.GameJolt.GameJoltAPI;
+import data.GameJolt.GameJoltLogin;
+import data.GameJolt.GJToastManager;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
@@ -19,7 +22,7 @@ import openfl.display.BitmapData;
 import sys.FileSystem;
 import sys.io.File;
 #end
-import options.GraphicsSettingsSubState;
+import options.VisualsUISubState;
 //import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
@@ -37,9 +40,9 @@ import lime.app.Application;
 import openfl.Assets;
 
 using StringTools;
+
 typedef TitleData =
 {
-	
 	titlex:Float,
 	titley:Float,
 	startx:Float,
@@ -49,6 +52,7 @@ typedef TitleData =
 	backgroundSprite:String,
 	bpm:Int
 }
+
 class TitleState extends MusicBeatState
 {
 	public static var instance:TitleState;
@@ -70,7 +74,7 @@ class TitleState extends MusicBeatState
 
 	#if TITLE_SCREEN_EASTER_EGG
 	var easterEggKeys:Array<String> = [
-		'SHADOW', 'RIVER', 'SHUBS', 'BBPANZU', 'OSUOK'
+		'SHADOW', 'RIVER', 'SHUBS', 'BBPANZU'
 	];
 	var allowedKeys:String = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	var easterEggKeysBuffer:String = '';
@@ -81,6 +85,7 @@ class TitleState extends MusicBeatState
 	public var titleJSON:TitleData;
 	
 	public static var updateVersion:String = '';
+	public static var changelog:String = '';
 
 	override public function create():Void
 	{
@@ -111,11 +116,14 @@ class TitleState extends MusicBeatState
 		#if CHECK_FOR_UPDATES
 		if(!closedState) {
 			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/BeastlyGhost/FNF-TopoConnection-Source/main/gitVersion.txt");
+			var http = new haxe.Http("https://raw.githubusercontent.com/BeastlyGhost/Psych-TopoConnection-Source/main/gitVersion.txt");
 			
 			http.onData = function (data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
+				// thx Kade.
+				changelog = data.substring(data.indexOf('-'), data.length);
+
 				var curVersion:String = MainMenuState.topoVer.trim();
 				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
 				if(updateVersion != curVersion) {
@@ -147,6 +155,7 @@ class TitleState extends MusicBeatState
 		super.create();
 
 		FlxG.save.bind('funkin', 'ninjamuffin99');
+
 		ClientPrefs.loadPrefs();
 		Highscore.load();
 
@@ -221,6 +230,8 @@ class TitleState extends MusicBeatState
 
 	function startIntro()
 	{
+		GameJoltAPI.connect();
+		GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
 		if (!initialized)
 		{
 			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
@@ -274,7 +285,7 @@ class TitleState extends MusicBeatState
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
-		// logoBl.screenCenter();
+		logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
 		swagShader = new ColorSwap();
@@ -300,10 +311,6 @@ class TitleState extends MusicBeatState
 				gfDance.frames = Paths.getSparrowAtlas('BBBump');
 				gfDance.animation.addByIndices('danceLeft', 'BB Title Bump', [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], "", 24, false);
 				gfDance.animation.addByIndices('danceRight', 'BB Title Bump', [27, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "", 24, false);
-			case 'OSUOK':
-				gfDance.frames = Paths.getSparrowAtlas('SuokBump');
-				gfDance.animation.addByPrefix('danceLeft', 'Suok Title Bump', 24, false);
-				gfDance.animation.addByPrefix('danceRight', 'Suok Title Bump', 24, false);
 			#end
 
 			default:
@@ -316,7 +323,7 @@ class TitleState extends MusicBeatState
 		}
 		gfDance.antialiasing = ClientPrefs.globalAntialiasing;
 		
-		add(gfDance);
+		//add(gfDance);
 		gfDance.shader = swagShader.shader;
 		add(logoBl);
 		logoBl.shader = swagShader.shader;
@@ -382,7 +389,6 @@ class TitleState extends MusicBeatState
 			skipIntro();
 		else
 			initialized = true;
-
 		// credGroup.add(credTextShit);
 	}
 

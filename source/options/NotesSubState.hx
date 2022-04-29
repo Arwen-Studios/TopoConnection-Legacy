@@ -48,8 +48,7 @@ class NotesSubState extends MusicBeatSubstate
 	{
 		super();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = FlxColor.CYAN;
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('optionsDesat'));
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
@@ -74,7 +73,7 @@ class NotesSubState extends MusicBeatSubstate
 			}
 
 			var note:FlxSprite = new FlxSprite(posX, yPos);
-			note.frames = Paths.getSparrowAtlas('noteskins/Default');
+			note.frames = Paths.getSparrowAtlas('noteskins/opponent/boyfriend');
 			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
 			note.animation.addByPrefix('idle', animations[i]);
 			note.animation.play('idle');

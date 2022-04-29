@@ -200,17 +200,13 @@ class StoryMenuState extends MusicBeatState
 		changeWeek();
 		changeDifficulty();
 
-		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
-		textBG.alpha = 0.6;
-		add(textBG);
-
 		var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score.";
 		var size:Int = 18;
 		if(ClientPrefs.freePlaying) {
 			leText = "Press SHIFT to Access the Freeplay Menu / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score.";
 			size = 16;
 		}
-		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
+		var text:FlxText = new FlxText(0, FlxG.height - 22, FlxG.width, leText, size);
 		text.setFormat(Paths.font(Std.string(Main.gameFont)), size, FlxColor.WHITE, CENTER);
 		text.color = TitleState.blammedLightsColors[0];
 		text.scrollFactor.set();
@@ -234,7 +230,7 @@ class StoryMenuState extends MusicBeatState
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 30, 0, 1)));
 		if(Math.abs(intendedScore - lerpScore) < 10) lerpScore = intendedScore;
 
-		scoreText.text = "WEEK SCORE:" + lerpScore;
+		scoreText.text = "SCORE:" + lerpScore;
 
 		// FlxG.watch.addQuick('font', scoreText.font);
 

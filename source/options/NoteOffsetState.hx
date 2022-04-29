@@ -1,5 +1,6 @@
 package options;
 
+import flixel.addons.display.FlxBackdrop;
 import flixel.util.FlxStringUtil;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -24,6 +25,7 @@ class NoteOffsetState extends MusicBeatState
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 
+	var purp:FlxBackdrop;
 	var coolText:FlxText;
 	var rating:FlxSprite;
 	var comboNums:FlxSpriteGroup;
@@ -66,30 +68,27 @@ class NoteOffsetState extends MusicBeatState
 
 		// Stage
 		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.WHITE);
-		var crt:BGSprite = new BGSprite('topoworld/crt-effect', -600, -200, 0.9, 0.9);
-		var purp:BGSprite = new BGSprite('topoworld/purp', -600, -200, 0.9, 0.9);
 		add(bg);
-		add(purp);
 
-		purp.setGraphicSize(Std.int(bg.width * 1.1));
-		crt.setGraphicSize(Std.int(bg.width * 1.1));
-		crt.alpha = 0.2;
+		var purp:FlxSprite = new FlxSprite(-2400, -30);
+		purp.frames = Paths.getSparrowAtlas('topoworld/bg-w1');
+		purp.animation.addByPrefix('scrolling', "purp", 24);
+		purp.animation.play('scrolling', true);
+		purp.scrollFactor.set(0.9, 0.9);
+		purp.setGraphicSize(Std.int(purp.width * 2));
+		add(purp);
 
 		bg.screenCenter(XY);
 		purp.screenCenter(XY);
-		crt.screenCenter(XY);
 
 		// Characters
-		boyfriend = new Character(770, 100, 'bf', true);
+		boyfriend = new Character(770, 100, 'bf-tc', true);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
 		add(boyfriend);
 
-		// Layers
-		add(crt);
-
 		var dark:FlxSprite = new FlxSprite(FlxG.width * -0.5, FlxG.height * -0.5).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-		dark.alpha = ClientPrefs.bgAlpha;
+		dark.alpha = 0.3;
 		dark.scrollFactor.set(0, 0);
 		add(dark);
 
@@ -460,15 +459,15 @@ class NoteOffsetState extends MusicBeatState
 			switch(i)
 			{
 				case 0: dumbTexts.members[i].text = 'Rating Offset:';
-				case 1: dumbTexts.members[i].text = '{' + ClientPrefs.comboOffset[0] + ', ' + ClientPrefs.comboOffset[1] + '} - Use the Arrow Keys or the Mouse to Move';
+				case 1: dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[0] + ', ' + ClientPrefs.comboOffset[1] + '] - Use the Arrow Keys or the Mouse to Move';
 
 				case 2: dumbTexts.members[i].text = 'Numbers Offset:';
-				case 3: dumbTexts.members[i].text = '{' + ClientPrefs.comboOffset[2] + ', ' + ClientPrefs.comboOffset[3] + '} - Use WASD or the Mouse to Move';
+				case 3: dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[2] + ', ' + ClientPrefs.comboOffset[3] + '] - Use WASD or the Mouse to Move';
 
 				case 4: dumbTexts.members[i].text = '\n';
 
 				case 5: dumbTexts.members[i].text = 'Combo Sprite Offset:';
-				case 6: dumbTexts.members[i].text = '{' + ClientPrefs.comboOffset[4] + ', ' + ClientPrefs.comboOffset[5] + '} - Use IJKL to Move\n\nHold SHIFT to move faster.';
+				case 6: dumbTexts.members[i].text = '[' + ClientPrefs.comboOffset[4] + ', ' + ClientPrefs.comboOffset[5] + '] - Use IJKL to Move\n\nHold SHIFT to move faster.';
 			}
 		}
 	}
@@ -498,5 +497,6 @@ class NoteOffsetState extends MusicBeatState
 
 		changeModeText.text = changeModeText.text.toUpperCase();
 		FlxG.mouse.visible = onComboMenu;
+		FlxG.mouse.useSystemCursor = true;
 	}
 }

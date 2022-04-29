@@ -3,6 +3,7 @@ package options;
 #if desktop
 import Discord.DiscordClient;
 #end
+import data.GameJolt;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -30,7 +31,15 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Controls', 'Graphics', 'Gameplay', 'Visuals and UI', 'Note Colors', 'Note Delay and Combo'];
+	var options:Array<String> = [
+		'Accessibility',
+		'Adjust Offset',
+		'Appearance',
+		'Controls',
+		'Gamejolt',
+		'Gameplay'
+		/*'Note Colors',*/
+	];
 	public static var cameFromPause:Bool = false;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
@@ -38,18 +47,20 @@ class OptionsState extends MusicBeatState
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
+			case 'Accessibility':
+				openSubState(new options.AccessibilitySubState());
 			case 'Controls':
 				openSubState(new options.ControlsSubState());
-			case 'Graphics':
-				openSubState(new options.GraphicsSettingsSubState());
-			case 'Visuals and UI':
+			case 'Appearance':
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Note Colors':
 				openSubState(new options.NotesSubState());
-			case 'Note Delay and Combo':
+			case 'Adjust Offset':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
+			case 'Gamejolt':
+				MusicBeatState.switchState(new GameJoltLogin());
 		}
 	}
 
@@ -61,7 +72,7 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", "Options Menu", null);
 		#end
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('optionsDesat'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
 
@@ -72,7 +83,7 @@ class OptionsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		var titleText:Alphabet = new Alphabet(0, 0, "General", true, false, 0, 0.6);
+		/*var titleText:Alphabet = new Alphabet(0, 0, "General", true, false, 0, 0.6);
 		titleText.x += 60;
 		titleText.y += 90;
 		titleText.alpha = 0.4;
@@ -82,7 +93,7 @@ class OptionsState extends MusicBeatState
 		titleNotice.x += 70;
 		titleNotice.y += 40;
 		titleNotice.alpha = 0.4;
-		add(titleNotice);
+		add(titleNotice);*/
 
 		for (i in 0...options.length)
 		{

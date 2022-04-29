@@ -13,7 +13,7 @@ class ClientPrefs {
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
-	public static var lowQuality:Bool = false;
+	public static var stageQuality:String = 'High';
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
@@ -43,6 +43,7 @@ class ClientPrefs {
 	public static var ratingPos:String = "World";
 	public static var showJC:Bool = true;
 	public static var freePlaying:Bool = false;
+	public static var camShake:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -64,7 +65,6 @@ class ClientPrefs {
 		'opponentplay' => false,
 
 		// difficulty modifiers
-		'noFail' => false, // you cannot die
 		'noHolds' => false, // removes all holds from the chart
 		'noChords' => false, // removes all jumps, hands, and quads from the chart
 		'jackThreshold' => '16th',
@@ -123,7 +123,7 @@ class ClientPrefs {
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
-		FlxG.save.data.lowQuality = lowQuality;
+		FlxG.save.data.stageQuality = stageQuality;
 		FlxG.save.data.framerate = framerate;
 		//FlxG.save.data.cursing = cursing;
 		//FlxG.save.data.violence = violence;
@@ -165,7 +165,7 @@ class ClientPrefs {
 		FlxG.save.data.ratingPos = ratingPos;
 		FlxG.save.data.showJC = showJC;
 		FlxG.save.data.freePlaying = freePlaying;
-	
+		FlxG.save.data.camShake = camShake;
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
@@ -197,8 +197,8 @@ class ClientPrefs {
 		if(FlxG.save.data.noteSplashes != null) {
 			noteSplashes = FlxG.save.data.noteSplashes;
 		}
-		if(FlxG.save.data.lowQuality != null) {
-			lowQuality = FlxG.save.data.lowQuality;
+		if(FlxG.save.data.stageQuality != null) {
+			stageQuality = FlxG.save.data.stageQuality;
 		}
 		if(FlxG.save.data.framerate != null) {
 			framerate = FlxG.save.data.framerate;
@@ -316,6 +316,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.freePlaying != null) {
 			freePlaying = FlxG.save.data.freePlaying;
+		}
+		if(FlxG.save.data.camShake != null) {
+			camShake = FlxG.save.data.camShake;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{

@@ -6,8 +6,6 @@ package;
     Psych Engine only works properly with arrays
     although I could just make a better system, this should work for now
 
-    check PlayState.hx
-    line: 4661
     - BeastlyGhost
 */
 
@@ -44,6 +42,18 @@ class Ratings extends MusicBeatState
         ['Perfect!!', 1] //100%
     ];
 
+    // Forever Engine Ratings
+    public static var foreverRatings:Array<Dynamic> = [
+        ["F", 0.2], // 65%
+        ["E", 0.3], // 70%
+        ["D", 0.4], // 75%
+        ["C", 0.7], // 80%
+        ["B", 0.8], // 85%
+        ["A", 0.9], // 90%
+        ["S", 1], // 99.9%
+        ["S+", 1] // 100%
+	];
+
     // Ratings for "Nuzlocke"
     public static var nuzlockeRatings:Array<Dynamic> = [
         ['Whited out!', 0.2], //0%-19%
@@ -58,7 +68,7 @@ class Ratings extends MusicBeatState
         ['Legendary!!', 1] //100%
     ];
 
-    // Ratings for "Bimbo"
+    // Ratings for "Bimbo / Deez Nuts"
     public static var bimboRatings:Array<Dynamic> = [
         ["A", 0.401], // 40%
         ["AA", 0.6], // 59%
@@ -96,21 +106,7 @@ class Ratings extends MusicBeatState
         ['Spooky!', 1], //90%-99%
         ['Amazing!!', 1] //100%
     ];
-
-    // Ratings for "Lazy"
-    public static var lazyRatings:Array<Dynamic> = [
-        ['', 0.2], //0%-19%
-        ['', 0.4], //20%-39%
-        ['', 0.5], //40%-49%
-        ['', 0.6], //50%-59%
-        ['', 0.69], //60%-68%
-        ['Fanic', 0.7], //69%
-        ['', 0.8], //70%-79%
-        ['', 0.9], //80%-89%
-        ['', 1], //90%-99%
-        ['', 1] //100%
-    ];
-
+    
     // Ratings for "Brainstorm"
     public static var chipRatings:Array<Dynamic> = [
         ['go see a doctor you dumbass', 0.2], //0%-19%

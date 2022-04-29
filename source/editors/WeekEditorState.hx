@@ -56,7 +56,7 @@ class WeekEditorState extends MusicBeatState
 
 	override function create() {
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
-		txtWeekTitle.setFormat(Std.string(Main.gameFont), 32, FlxColor.WHITE, RIGHT);
+		txtWeekTitle.setFormat(Std.string(Main.sysgameFont), 32, FlxColor.WHITE, RIGHT);
 		txtWeekTitle.alpha = 0.7;
 		
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
@@ -114,6 +114,7 @@ class WeekEditorState extends MusicBeatState
 		reloadAllShit();
 
 		FlxG.mouse.visible = true;
+		FlxG.mouse.useSystemCursor = true;
 
 		super.create();
 	}

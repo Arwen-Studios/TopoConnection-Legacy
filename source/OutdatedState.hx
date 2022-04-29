@@ -24,14 +24,17 @@ class OutdatedState extends MusicBeatState
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"I'm sorry, but it seems like   \n
-			We aren't able to connect, due to the fact you have a older version (" + MainMenuState.topoVer + "),\n
-			please update to " + TitleState.updateVersion + "!\n
-			Press ESCAPE to ignore this.\n
-			\n
-			Thank you for your time!",
+			"Connection Failed\nyour game version is currently outdated (" + MainMenuState.topoVer + "),
+			please update to " + TitleState.updateVersion + "!
+			\nWhat's new:\n\n"
+			+ TitleState.changelog +
+			"
+			Press ESCAPE to ignore and continue anyway
+			Thank you for your time!
+			",
 			32);
-		warnText.setFormat(Std.string(Main.gameFont), 32, FlxColor.WHITE, CENTER);
+		warnText.x += 30;
+		warnText.setFormat(Std.string(Main.sysgameFont), 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
 	}
@@ -41,7 +44,7 @@ class OutdatedState extends MusicBeatState
 		if(!leftState) {
 			if (controls.ACCEPT) {
 				leftState = true;
-				CoolUtil.browserLoad("*link do GJ*");
+				CoolUtil.browserLoad("https://gamejolt.com/games/Topoconection/694837");
 			}
 			else if(controls.BACK) {
 				leftState = true;

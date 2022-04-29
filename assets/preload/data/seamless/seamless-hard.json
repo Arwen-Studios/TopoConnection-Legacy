@@ -1,9 +1,8 @@
 {
 	"song": {
-		"player1": "bf",
-		"songId": "sameless",
-		"songName": "rawsong",
-		"player2": "gf",
+		"player1": "bf-tc",
+		"songName": "Seamless",
+		"player2": "nxxty",
 		"notes": [
 			{
 				"endTime": 1454.54545454545,
@@ -8025,11 +8024,10 @@
 			}
 		],
 		"offset": 0,
-		"song": "seamless",
+		"song": "Seamless",
 		"validScore": true,
 		"speed": 2.7,
 		"events": [],
-		"gfVersion": "gf",
 		"eventObjects": [
 			{
 				"type": "BPM Change",
@@ -8038,10 +8036,8 @@
 				"name": "0SM"
 			}
 		],
-		"chartVersion": "KE1",
 		"needsVoices": true,
-		"stage": "stage",
-		"bpm": 165,
-		"noteStyle": "normal"
+		"stage": "white-space",
+		"bpm": 165
 	}
 }

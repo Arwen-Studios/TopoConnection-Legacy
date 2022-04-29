@@ -48,23 +48,30 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
-		var option:Option = new Option('Harsh Judgements',
-			"If unchecked, any judgement worse than 'Good' won't drain health.",
-			'hellRatings',
+		var option:Option = new Option('Centered Receptors',
+			'If checked, your note receptors get centered.\nalso known as "Middlescroll" or "Centered Notefield"',
+			'middleScroll',
 			'bool',
-			true);
-		addOption(option);
-		
-		var option:Option = new Option('Judgement Counter',
-			"If unchecked, the number of judgments you got on a song will not be shown.",
-			'showJC',
-			'bool',
-			true);
+			false);
 		addOption(option);
 
 		var option:Option = new Option('Controller Mode',
 			'Check this if you want to play with\na controller instead of using your Keyboard.',
 			'controllerMode',
+			'bool',
+			false);
+		addOption(option);
+
+		/*var option:Option = new Option('Disable Modcharts',
+			'If checked, will disable song-specific Note Effects\nalso known as Easy Mode, Pussy Mode, Skill Issue Mode, etc.',
+			'pussyMode',
+			'bool',
+			false);
+		addOption(option);*/
+
+		var option:Option = new Option('Disable Reset Button',
+			"If checked, pressing Reset won't do anything.",
+			'noReset',
 			'bool',
 			false);
 		addOption(option);
@@ -77,20 +84,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false); //Default value
 		addOption(option);
 
-		var option:Option = new Option('Disable Modcharts',
-			'If checked, will disable song-specific Note Effects\nalso known as Easy Mode, Pussy Mode, Skill Issue Mode, etc.',
-			'pussyMode',
-			'bool',
-			false);
-		addOption(option);
-
-		var option:Option = new Option('Middlescroll',
-			'If checked, your notes get centered.',
-			'middleScroll',
-			'bool',
-			false);
-		addOption(option);
-
 		var option:Option = new Option('Ghost Tapping',
 			"If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.",
 			'ghostTapping',
@@ -98,11 +91,18 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
-		var option:Option = new Option('Disable Reset Button',
-			"If checked, pressing Reset won't do anything.",
-			'noReset',
+		var option:Option = new Option('Harsh Judgements',
+			"If unchecked, any judgement worse than 'Good' won't drain health.",
+			'hellRatings',
 			'bool',
-			false);
+			true);
+		addOption(option);
+		
+		var option:Option = new Option('Judgement Counter',
+			"If unchecked, the number of judgments you got on a song will not be shown.",
+			'showJC',
+			'bool',
+			true);
 		addOption(option);
 
 		var option:Option = new Option('Hitsound Volume',
@@ -172,7 +172,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.maxValue = 180;
 		addOption(option);
 
-		/*
 		var option:Option = new Option('Shit Hit Window',
 			'Changes the amount of time you have\nfor hitting a "Shit" in milliseconds.',
 			'shitWindow',
@@ -183,7 +182,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.minValue = 36;
 		option.maxValue = 270;
 		addOption(option);
-		*/
 
 		var option:Option = new Option('Safe Frames',
 			'Changes how many frames you have for\nhitting a note earlier or late.',

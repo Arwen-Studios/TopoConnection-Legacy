@@ -2,14 +2,14 @@
 	"storyName": "a New Connection.",
 	"difficulties": "Hard",
 	"hideFreeplay": false,
-	"weekBackground": "",
+	"weekBackground": "white-space",
 	"weekBefore": "",
 	"startUnlocked": true,
 	"hideStoryMode": false,
 	"weekCharacters": [
 		"",
-		"bf",
-		"gf"
+		"",
+		""
 	],
 	"songs": [
 		[

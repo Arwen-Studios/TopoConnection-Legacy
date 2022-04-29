@@ -202,6 +202,7 @@ class CharacterEditorState extends MusicBeatState
 		UI_characterbox.selected_tab_id = 'Character';
 
 		FlxG.mouse.visible = true;
+		FlxG.mouse.useSystemCursor = true;
 		reloadCharacterOptions();
 
 		super.create();

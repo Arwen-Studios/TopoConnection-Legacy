@@ -1,0 +1,79 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				109,
+				390
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				100,
+				410
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				240,
+				320
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				120,
+				390
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				160,
+				360
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Right",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/blammed/SeamlessNxxty",
+	"position": [
+		80,
+		400
+	],
+	"healthicon": "nxxty",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		0,
+		168
+	],
+	"camera_position": [
+		-180,
+		-260
+	],
+	"noteSkin": "noteskins/opponent/Nxxty",
+	"sing_duration": 4,
+	"scale": 1
+}

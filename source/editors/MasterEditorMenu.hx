@@ -81,6 +81,7 @@ class MasterEditorMenu extends MusicBeatState
 		changeSelection();
 
 		FlxG.mouse.visible = false;
+		FlxG.mouse.useSystemCursor = true;
 		super.create();
 	}
 
