@@ -29,6 +29,10 @@ jobs:
         with:
           haxe-version: 4.2.0
       # Runs a set of commands using the runners shell
+      - name: Install Linux Deps
+        run: |
+        sudo apt-get install libvlc-dev
+        sudo apt-get install libvlccore-dev
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
