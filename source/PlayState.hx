@@ -78,6 +78,7 @@ class PlayState extends MusicBeatState
 	public var modchartTimers:Map<String, FlxTimer> = new Map<String, FlxTimer>();
 	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
 	public var modchartTexts:Map<String, ModchartText> = new Map<String, ModchartText>();
+	public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
 	public var shader_chromatic_abberation:ChromaticAberrationEffect;
 	public var camGameShaders:Array<ShaderEffect> = [];
 	public var camHUDShaders:Array<ShaderEffect> = [];
@@ -160,7 +161,7 @@ class PlayState extends MusicBeatState
 
 	private var totalCombo:Int = 0;
 
-	private var healthBarBG:AttachedSprite;
+	private var healthBarBG:FlxSprite;
 
 	public var healthBar:FlxBar;
 
@@ -1094,16 +1095,15 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		moveCameraSection(0);
 
-		healthBarBG = new AttachedSprite(isBossSong ? "bossHealth" : "healthBar");
-		healthBarBG.y = FlxG.height * 0.875;
+		var barY = FlxG.height * 0.875;
+		if (ClientPrefs.downScroll)
+			barY = 64;
+
+		healthBarBG = new FlxSprite(0, barY).makeGraphic(isBossSong ? 1000 : 600, 20, FlxColor.BLACK);
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
-		healthBarBG.xAdd = -4;
-		healthBarBG.yAdd = -4;
 		add(healthBarBG);
-		if (ClientPrefs.downScroll)
-			healthBarBG.y = 0.11 * FlxG.height;
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, (opponentChart ? LEFT_TO_RIGHT : RIGHT_TO_LEFT), Std.int(healthBarBG.width - 8),
 			Std.int(healthBarBG.height - 8), this, 'health', 0, 2);
@@ -1112,7 +1112,6 @@ class PlayState extends MusicBeatState
 		healthBar.visible = !ClientPrefs.hideHud;
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
 		add(healthBar);
-		healthBarBG.sprTracker = healthBar;
 
 		songAuthor = new AttachedSprite('songPorts/' + curSong);
 		songAuthor.scrollFactor.set();
