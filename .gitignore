@@ -5,8 +5,8 @@ art/build_x32-officialrelease.bat
 art/build_x64-officialrelease.bat
 art/test_x64-debug-officialrelease.bat
 
-### Gamejolt API Key
-source/data/GJKeys.hx
+### Gamejolt Dependencies
+source/data/*
 
 ### VS Code
 export/*
