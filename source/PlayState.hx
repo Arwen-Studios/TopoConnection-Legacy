@@ -1,7 +1,9 @@
 package;
 
 import flixel.addons.display.FlxBackdrop;
+#if GAMEJOLT_ALLOWED
 import data.GameJolt.GameJoltAPI;
+#end
 import Achievements;
 import DialogueBoxPsych;
 import FunkinLua;

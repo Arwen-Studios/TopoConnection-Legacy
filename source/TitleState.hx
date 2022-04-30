@@ -1,8 +1,10 @@
 package;
 
+#if GAMEJOLT_ALLOWED
 import data.GameJolt.GameJoltAPI;
 import data.GameJolt.GameJoltLogin;
 import data.GameJolt.GJToastManager;
+#end
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
@@ -230,8 +232,10 @@ class TitleState extends MusicBeatState
 
 	function startIntro()
 	{
+		#if GAMEJOLT_ALLOWED
 		GameJoltAPI.connect();
 		GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
+		#end
 		if (!initialized)
 		{
 			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
