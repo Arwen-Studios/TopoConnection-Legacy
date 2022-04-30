@@ -2888,26 +2888,15 @@ class PlayState extends MusicBeatState
 			dad.y += Math.sin(floating);
 		}
 
-		/*
-		Made scoreTxt a little bit
-		easier to work with
-		- BeastlyGhost
-	 */
+		var songAccuracy = Highscore.floorDecimal(ratingPercent * 100, 2);
 
-		var divider:String = ' - ';
 		scoreTxt.text = 'Score: ${songScore}';
-
 		if (ClientPrefs.accuracyDisplay)
 		{
-			if (ratingName == '?')
-				scoreTxt.text += divider + 'Accuracy: 0%';
-			else
-				scoreTxt.text += divider + 'Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%';
-
 			if (ratingFC != '')
-				scoreTxt.text += divider + '[${ratingFC}] ${ratingName}';
+				scoreTxt.text = 'Score: $songScore - Accuracy: $songAccuracy - [$ratingFC] $ratingName';
 			else
-				scoreTxt.text += divider + '${ratingName}';
+				scoreTxt.text = 'Score: $songScore - Accuracy: $songAccuracy - $ratingName';
 		}
 
 		if (cpuControlled)
@@ -2915,6 +2904,7 @@ class PlayState extends MusicBeatState
 			scoreTxt.text = "BOTPLAY";
 		}
 
+		#if desktop
 		if (isStoryMode)
 		{
 			detailsText = WeekData.getCurrentWeek().weekName + " - " + scoreTxt.text;
@@ -2923,6 +2913,7 @@ class PlayState extends MusicBeatState
 		{
 			detailsText = scoreTxt.text;
 		}
+		#end
 
 		if (scoreTxt.visible && cpuControlled)
 		{
