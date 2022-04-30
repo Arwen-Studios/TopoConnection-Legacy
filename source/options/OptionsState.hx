@@ -1,8 +1,9 @@
 package options;
 
-#if desktop
+#if DISCORD_FEATURE
 import Discord.DiscordClient;
 #end
+
 #if GAMEJOLT_ALLOWED
 import data.GameJolt;
 #end
@@ -82,7 +83,7 @@ class OptionsState extends MusicBeatState
 	var selectorRight:Alphabet;
 
 	override function create() {
-		#if desktop
+		#if DISCORD_FEATURE
 		DiscordClient.changePresence("In the Menus", "Options Menu", null);
 		#end
 

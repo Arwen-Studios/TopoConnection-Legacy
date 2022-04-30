@@ -1,6 +1,6 @@
 package;
 
-#if desktop
+#if DISCORD_FEATURE
 import Discord.DiscordClient;
 #end
 import flash.text.TextField;
@@ -29,7 +29,7 @@ class AchievementsMenuState extends MusicBeatState
 	private var descBox:FlxSprite;
 
 	override function create() {
-		#if desktop
+		#if DISCORD_FEATURE
 		DiscordClient.changePresence("In the Menus", "Achievements Menu", null);
 		#end
 

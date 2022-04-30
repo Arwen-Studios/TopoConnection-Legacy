@@ -1,6 +1,6 @@
 package;
 
-#if desktop
+#if DISCORD_FEATURE
 import Discord.DiscordClient;
 #end
 import flash.text.TextField;
@@ -70,9 +70,9 @@ class ModsMenuState extends MusicBeatState
 		Paths.clearUnusedMemory();
 		WeekData.setDirectoryFromWeek();
 
-		#if desktop
+		#if DISCORD_FEATURE
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In the Menus", "Mods Menu", null);
 		#end
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));

@@ -1,6 +1,6 @@
 package editors;
 
-#if desktop
+#if DISCORD_FEATURE
 import Discord.DiscordClient;
 #end
 import animateatlas.AtlasFrameMaker;
@@ -1202,7 +1202,7 @@ class CharacterEditorState extends MusicBeatState
 
 	function updatePresence()
 	{
-		#if desktop
+		#if DISCORD_FEATURE
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Character Editor", "Character: " + daAnim, leHealthIcon.getCharacter());
 		#end

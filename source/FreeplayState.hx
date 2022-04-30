@@ -1,6 +1,6 @@
 package;
 
-#if desktop
+#if DISCORD_FEATURE
 import Discord.DiscordClient;
 #end
 import editors.ChartingState;
@@ -59,7 +59,7 @@ class FreeplayState extends MusicBeatState
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
 
-		#if desktop
+		#if DISCORD_FEATURE
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", "Freeplay", null);
 		#end

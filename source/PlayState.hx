@@ -63,7 +63,7 @@ import Shaders;
 
 using StringTools;
 
-#if desktop
+#if DISCORD_FEATURE
 import Discord.DiscordClient;
 #end
 #if sys
@@ -287,7 +287,7 @@ class PlayState extends MusicBeatState
 	public var opponentCameraOffset:Array<Float> = null;
 	public var girlfriendCameraOffset:Array<Float> = null;
 
-	#if desktop
+	#if DISCORD_FEATURE
 	// Discord RPC variables
 	var storyDifficultyText:String = "";
 	var detailsText:String = "";
@@ -393,7 +393,7 @@ class PlayState extends MusicBeatState
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
 
-		#if desktop
+		#if DISCORD_FEATURE
 		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
@@ -1314,7 +1314,7 @@ class PlayState extends MusicBeatState
 			CoolUtil.precacheMusic(Paths.formatToSongPath(ClientPrefs.pauseMusic));
 		}
 
-		#if desktop
+		#if DISCORD_FEATURE
 		// Updating Discord Rich Presence.
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
@@ -2068,7 +2068,7 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		}
 
-		#if desktop
+		#if DISCORD_FEATURE
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
@@ -2630,7 +2630,7 @@ class PlayState extends MusicBeatState
 			paused = false;
 			callOnLuas('onResume', []);
 
-			#if desktop
+			#if DISCORD_FEATURE
 			if (startTimer != null && startTimer.finished)
 			{
 				DiscordClient.changePresence(detailsText, SONG.song
@@ -2653,7 +2653,7 @@ class PlayState extends MusicBeatState
 
 	override public function onFocus():Void
 	{
-		#if desktop
+		#if DISCORD_FEATURE
 		if (health > 0 && !paused && FlxG.autoPause)
 		{
 			if (Conductor.songPosition > 0.0)
@@ -2678,7 +2678,7 @@ class PlayState extends MusicBeatState
 
 	override public function onFocusLost():Void
 	{
-		#if desktop
+		#if DISCORD_FEATURE
 		if (health > 0 && !paused)
 		{
 			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
@@ -2904,7 +2904,7 @@ class PlayState extends MusicBeatState
 			scoreTxt.text = "BOTPLAY";
 		}
 
-		#if desktop
+		#if DISCORD_FEATURE
 		if (isStoryMode)
 		{
 			detailsText = WeekData.getCurrentWeek().weekName + " - " + scoreTxt.text;
@@ -3366,7 +3366,7 @@ class PlayState extends MusicBeatState
 			openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 			// }
 
-			#if desktop
+			#if DISCORD_FEATURE
 			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			#end
 		}
@@ -3380,7 +3380,7 @@ class PlayState extends MusicBeatState
 		MusicBeatState.switchState(new ChartingState());
 		chartingMode = true;
 
-		#if desktop
+		#if DISCORD_FEATURE
 		DiscordClient.changePresence("Chart Editor", null, null, true);
 		#end
 	}
@@ -3417,7 +3417,7 @@ class PlayState extends MusicBeatState
 
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
-				#if desktop
+				#if DISCORD_FEATURE
 				// Game Over doesn't get his own variable because it's only used here
 				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
@@ -5436,7 +5436,7 @@ class PlayState extends MusicBeatState
 
 		// this does update every step, and it's bad
 		// but i'm doing this just so I can update misses, accuracy, etc
-		#if desktop
+		#if DISCORD_FEATURE
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 

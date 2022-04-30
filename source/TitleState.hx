@@ -1,14 +1,5 @@
 package;
 
-#if GAMEJOLT_ALLOWED
-import data.GameJolt.GameJoltAPI;
-import data.GameJolt.GameJoltLogin;
-import data.GameJolt.GJToastManager;
-#end
-#if desktop
-import Discord.DiscordClient;
-import sys.thread.Thread;
-#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -20,10 +11,6 @@ import flixel.addons.transition.TransitionData;
 import haxe.Json;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
-#if MODS_ALLOWED
-import sys.FileSystem;
-import sys.io.File;
-#end
 import options.VisualsUISubState;
 //import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -40,6 +27,25 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
+
+#if GAMEJOLT_ALLOWED
+import data.GameJolt.GameJoltAPI;
+import data.GameJolt.GameJoltLogin;
+import data.GameJolt.GJToastManager;
+#end
+
+#if MODS_ALLOWED
+import sys.FileSystem;
+import sys.io.File;
+#end
+
+#if DISCORD_FEATURE
+import Discord.DiscordClient;
+#end
+
+#if desktop
+import sys.thread.Thread;
+#end
 
 using StringTools;
 
@@ -206,7 +212,7 @@ class TitleState extends MusicBeatState
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingState());
 		} else {
-			#if desktop
+			#if DISCORD_FEATURE
 			if (!DiscordClient.isInitialized)
 			{
 				DiscordClient.initialize();

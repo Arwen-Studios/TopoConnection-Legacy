@@ -1,6 +1,6 @@
 package;
 
-#if desktop
+#if DISCORD_FEATURE
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;
@@ -59,7 +59,7 @@ class MainMenuState extends MusicBeatState
 		WeekData.loadTheFirstEnabledMod();
 		Conductor.changeBPM(TitleState.instance.titleJSON.bpm);
 
-		#if desktop
+		#if DISCORD_FEATURE
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", 'Main Menu', null);
 		#end

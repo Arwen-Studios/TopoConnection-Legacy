@@ -1,6 +1,6 @@
 package;
 
-#if desktop
+#if DISCORD_FEATURE
 import Discord.DiscordClient;
 #end
 import flash.text.TextField;
@@ -45,7 +45,7 @@ class CreditsState extends MusicBeatState
 
 	override function create()
 	{
-		#if desktop
+		#if DISCORD_FEATURE
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", 'Reading the Credits', null);
 		#end

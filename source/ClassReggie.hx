@@ -8,7 +8,7 @@ package;
     - BeastlyGhost
 */
 
-#if desktop
+#if DISCORD_FEATURE
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;
@@ -45,8 +45,7 @@ class ClassReggie extends MusicBeatState
     {
         instance = this;
         Paths.clearStoredMemory();
-        #if desktop
-		// Updating Discord Rich Presence
+        #if DISCORD_FEATURE
 		DiscordClient.changePresence("Uncovering a Secret", 'Reggie Count: ${reggieCounter}', null);
 		#end
 
