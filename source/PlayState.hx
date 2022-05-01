@@ -246,6 +246,8 @@ class PlayState extends MusicBeatState
 	// topoworld BG
 	var vignette:FlxSprite;
 	var bgBlack:FlxSprite;
+	var susChroma:ChromaticAberrationEffect = null;
+	var susChromaIntensity:Float = 0;
 
 	// public var purp:BGSprite;
 	// FOR THE PURP DONT TOUCH IT MF -ANGRY LUIS >:(
@@ -684,6 +686,12 @@ class PlayState extends MusicBeatState
 					upperThingy.setGraphicSize(Std.int(upperThingy.width * 1.1));
 					add(upperThingy);
 				}
+
+				/*if (ClientPrefs.flashing)
+					{
+						susChroma = new ChromaticAberrationEffect(0);
+						addShaderToCamera("hud", susChroma);
+				}*/
 
 				var purpGround:BGSprite = new BGSprite('topoworld/ground', -640, -150, 0.9, 0.9);
 				purpGround.updateHitbox();
@@ -2718,9 +2726,7 @@ class PlayState extends MusicBeatState
 		super.update(elapsed);
 
 		if (FlxG.keys.justPressed.NINE)
-		{
 			iconP1.swapOldIcon();
-		}
 
 		callOnLuas('onUpdate', [elapsed]);
 
@@ -2729,6 +2735,11 @@ class PlayState extends MusicBeatState
 			case 'white-space':
 			/*if (purp != null)
 			purp.x -= 0.45 / (ClientPrefs.framerate / 60); */
+			/*if (susChroma != null && ClientPrefs.flashing)
+			{
+				susChromaIntensity = 0.02;
+				susChroma.setChrome(susChromaIntensity);
+		}*/
 			case 'schoolEvil':
 				if (bgGhouls.animation.curAnim.finished && ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
