@@ -11,6 +11,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 #if MODS_ALLOWED
@@ -49,8 +50,6 @@ class CreditsState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", 'Reading the Credits', null);
 		#end
-
-		FlxG.sound.music.volume = 0.1;
 
 		persistentUpdate = true;
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -491,12 +490,12 @@ class CreditsState extends MusicBeatState
 		descBox.sprTracker = descText;
 		add(descText);
 
-		var blackBox:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 80, FlxColor.BLACK);
+		var blackBox:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 100, FlxColor.BLACK);
 		blackBox.scrollFactor.set();
 		blackBox.alpha = 0.6;
 		add(blackBox);
 
-		var keyText:FlxText = new FlxText(0, 4, FlxG.width, "Press Enter to access this person's social media\nPress Space to play this person's sound", 32);
+		var keyText:FlxText = new FlxText(0, 4, FlxG.width, "SHIFT // PAUSE MENU SONG\nSPACE // PLAY PERSON'S SOUND\nENTER // ACCESS SOCIALS", 32);
 		keyText.setFormat(Paths.font(Std.string(Main.gameFont)), 32, FlxColor.WHITE, CENTER);
 		keyText.scrollFactor.set();
 		add(keyText);
@@ -548,6 +547,19 @@ class CreditsState extends MusicBeatState
 			if(FlxG.keys.justPressed.ENTER) {
 				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
 			}
+			if(FlxG.keys.justPressed.SHIFT && !isPaused) {
+				FlxG.sound.music.fadeOut();
+				new FlxTimer().start(1, function(tmr:FlxTimer)
+				{
+					FlxG.sound.music.pause();
+					isPaused = true;
+				});
+			}
+			else if(FlxG.keys.justPressed.SHIFT && isPaused) {
+				FlxG.sound.music.resume();
+				FlxG.sound.music.fadeIn();
+				isPaused = false;
+			}
 			if(FlxG.keys.justPressed.SPACE) {
 				FlxG.sound.play(Paths.sound('credits/' + creditsStuff[curSelected][5]));
 			}
@@ -558,6 +570,12 @@ class CreditsState extends MusicBeatState
 				}
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
+
+				if (isPaused) {
+					FlxG.sound.music.fadeIn();
+					isPaused = false;
+				}
+
 				quitting = true;
 			}
 		}
