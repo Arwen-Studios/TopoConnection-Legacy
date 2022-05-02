@@ -42,6 +42,8 @@ class CreditsState extends MusicBeatState
 	var colorTween:FlxTween;
 	var descBox:AttachedSprite;
 
+	var isPaused:Bool = false;
+
 	var offsetThing:Float = -75;
 
 	override function create()
