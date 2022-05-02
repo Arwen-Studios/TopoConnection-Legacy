@@ -135,7 +135,7 @@ class MainMenuState extends MusicBeatState
 			blammableOptions.push(menuItem);
 		}
 
-		FlxG.camera.follow(camFollowPos, null, 1);
+		//FlxG.camera.follow(camFollowPos, null, 1);
 
 		var topoVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Topo Connection v" + topoVer, 12);
 		topoVer.scrollFactor.set();
@@ -216,9 +216,9 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.BACK)
 			{
-				selectedSomethin = true;
+				persistentUpdate = false;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new TitleState());
+				openSubState(new ExitSubState());
 			}
 
 			if (controls.ACCEPT)
