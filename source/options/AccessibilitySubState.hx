@@ -34,6 +34,13 @@ class AccessibilitySubState extends BaseOptionsMenu
 		title = 'Accessibility Settings';
 		rpcTitle = 'Accessibility Settings Menu'; //for Discord Rich Presence
 
+		var option:Option = new Option('Allow Shaders in Game',
+			"If unchecked, in-game Shaders will be ignored, making it easier on your eyes.",
+			'shaders',
+			'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Camera Pan on Hit',
 			"If unchecked, the camera will stay still when hitting a note.",
 			'camFollow',

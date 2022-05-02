@@ -44,6 +44,7 @@ class ClientPrefs {
 	public static var showJC:Bool = true;
 	public static var freePlaying:Bool = false;
 	public static var camShake:Bool = true;
+	public static var shaders:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -166,6 +167,7 @@ class ClientPrefs {
 		FlxG.save.data.showJC = showJC;
 		FlxG.save.data.freePlaying = freePlaying;
 		FlxG.save.data.camShake = camShake;
+		FlxG.save.data.shaders = shaders;
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
@@ -319,6 +321,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.camShake != null) {
 			camShake = FlxG.save.data.camShake;
+		}
+		if(FlxG.save.data.shaders != null) {
+			shaders = FlxG.save.data.shaders;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{
