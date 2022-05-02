@@ -694,7 +694,7 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.shaders)
 				{
 					susChroma = new ChromaticAberrationEffect(0);
-					addShaderToCamera("game", susChroma);;
+					addShaderToCamera("game", susChroma);
 				}
 
 				var purpGround:BGSprite = new BGSprite('topoworld/ground', -640, -150, 0.9, 0.9);
@@ -2743,11 +2743,11 @@ class PlayState extends MusicBeatState
 			case 'white-space':
 			/*if (purp != null)
 			purp.x -= 0.45 / (ClientPrefs.framerate / 60); */
-			if (susChroma != null && ClientPrefs.shaders)
-			{
-				susChromaIntensity = 0.004;
-				susChroma.setChrome(susChromaIntensity);
-			}
+				if (susChroma != null && ClientPrefs.shaders)
+				{
+					susChromaIntensity = 0.004;
+					susChroma.setChrome(susChromaIntensity);
+				}
 			case 'schoolEvil':
 				if (bgGhouls.animation.curAnim.finished && ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
