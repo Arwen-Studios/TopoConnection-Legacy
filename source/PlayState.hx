@@ -2913,9 +2913,9 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.accuracyDisplay)
 		{
 			if (ratingFC != '')
-				scoreTxt.text = 'Score: $songScore - Accuracy: $songAccuracy - [$ratingFC] $ratingName';
+				scoreTxt.text = 'Score: $songScore - Accuracy: $songAccuracy% - [$ratingFC] $ratingName';
 			else
-				scoreTxt.text = 'Score: $songScore - Accuracy: $songAccuracy - $ratingName';
+				scoreTxt.text = 'Score: $songScore - Accuracy: $songAccuracy% - $ratingName';
 		}
 
 		if (cpuControlled)
