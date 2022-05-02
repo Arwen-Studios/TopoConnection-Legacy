@@ -103,6 +103,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.onChange = onChangeFramerate;
 		#end
 
+		var option:Option = new Option('Low Quality',
+			'If checked, disables some background details,\ndecreases loading times and improves performance.',
+			'lowQuality',
+			'bool',
+			false);
+		addOption(option);
+
 		var option:Option = new Option('Health Bar Opacity',
 			'How much opaque should the health bar and icons be.',
 			'healthBarAlpha',

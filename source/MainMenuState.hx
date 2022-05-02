@@ -111,10 +111,6 @@ class MainMenuState extends MusicBeatState
 		add(menuItems);
 
 		var scale:Float = 1;
-		/*if(optionShit.length > 6) {
-			scale = 6 / optionShit.length;
-		}*/
-
 		for (i in 0...optionShit.length)
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
@@ -216,12 +212,6 @@ class MainMenuState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
-			}
-
-			if (FlxG.keys.justPressed.CONTROL)
-			{
-				persistentUpdate = false;
-				openSubState(new GameplayChangersSubstate());
 			}
 
 			if (controls.BACK)

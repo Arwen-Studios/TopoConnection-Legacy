@@ -246,8 +246,12 @@ class PlayState extends MusicBeatState
 	// topoworld BG
 	var vignette:FlxSprite;
 	var bgBlack:FlxSprite;
+
 	var susChroma:ChromaticAberrationEffect = null;
 	var susChromaIntensity:Float = 0;
+
+	var hudChroma:ChromaticAberrationEffect = null;
+	var hudChromaIntensity:Float = 0;
 
 	// public var purp:BGSprite;
 	// FOR THE PURP DONT TOUCH IT MF -ANGRY LUIS >:(
@@ -687,11 +691,12 @@ class PlayState extends MusicBeatState
 					add(upperThingy);
 				}
 
-				/*if (ClientPrefs.flashing)
-					{
-						susChroma = new ChromaticAberrationEffect(0);
-						addShaderToCamera("hud", susChroma);
-				}*/
+				if (ClientPrefs.flashing)
+				{
+					susChroma = new ChromaticAberrationEffect(0);
+					addShaderToCamera("game", susChroma);
+					addShaderToCamera("hud", susChroma);
+				}
 
 				var purpGround:BGSprite = new BGSprite('topoworld/ground', -640, -150, 0.9, 0.9);
 				purpGround.updateHitbox();
@@ -918,12 +923,12 @@ class PlayState extends MusicBeatState
 		strumLine.scrollFactor.set();
 
 		laneunderlayOpponent = new FlxSprite(0, 0).makeGraphic(110 * 4 + 50, FlxG.height * 2);
-		laneunderlayOpponent.alpha = ClientPrefs.laneOpacity;
+		laneunderlayOpponent.alpha = 0;
 		laneunderlayOpponent.color = FlxColor.BLACK;
 		laneunderlayOpponent.scrollFactor.set();
 
 		laneunderlay = new FlxSprite(0, 0).makeGraphic(110 * 4 + 50, FlxG.height * 2);
-		laneunderlay.alpha = ClientPrefs.laneOpacity;
+		laneunderlay.alpha = 0;
 		laneunderlay.color = FlxColor.BLACK;
 		laneunderlay.scrollFactor.set();
 
@@ -2076,6 +2081,10 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		}
 
+		// so it will only show up after the countdown 
+		FlxTween.tween(laneunderlayOpponent, {alpha: ClientPrefs.laneOpacity}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(laneunderlay, {alpha: ClientPrefs.laneOpacity}, 0.5, {ease: FlxEase.circOut});
+
 		#if DISCORD_FEATURE
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
@@ -2735,11 +2744,16 @@ class PlayState extends MusicBeatState
 			case 'white-space':
 			/*if (purp != null)
 			purp.x -= 0.45 / (ClientPrefs.framerate / 60); */
-			/*if (susChroma != null && ClientPrefs.flashing)
+			if (susChroma != null && ClientPrefs.flashing)
 			{
-				susChromaIntensity = 0.02;
+				susChromaIntensity = 0.004;
 				susChroma.setChrome(susChromaIntensity);
-		}*/
+			}
+			if (hudChroma != null && ClientPrefs.flashing)
+			{
+				hudChromaIntensity = ratingPercent / 1;
+				hudChroma.setChrome(hudChromaIntensity);
+			}
 			case 'schoolEvil':
 				if (bgGhouls.animation.curAnim.finished && ClientPrefs.stageQuality != 'Low' || ClientPrefs.stageQuality != 'Shit')
 				{
