@@ -5618,9 +5618,11 @@ class PlayState extends MusicBeatState
 			switch (curBeat)
 			{
 				case 192:
+					FlxG.camera.flash(FlxColor.WHITE, 1.5);
 					bgBlack.visible = true;
 
 				case 292:
+					FlxG.camera.flash(FlxColor.WHITE, 1.5);
 					bgBlack.visible = false;
 			}
 		}
@@ -5633,7 +5635,7 @@ class PlayState extends MusicBeatState
 			/*switch (curBeat)
 			{
 				
-		}*/
+			}*/
 		}
 
 		setOnLuas('curBeat', curBeat); // DAWGG?????
