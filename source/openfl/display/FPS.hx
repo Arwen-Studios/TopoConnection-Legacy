@@ -31,30 +31,32 @@ class FPS extends TextField
 		The current frame rate, expressed using frames-per-second
 	**/
 	public var currentFPS(default, null):Int;
-	var specifiedColor:Int;
+	public var memoryMegas:Float;
+	public var memoryTotal:Float;
 
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
 	@:noCompletion private var times:Array<Float>;
 
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
+	public function new(x:Float = 18, y:Float = 10, color:Int = 0x000000)
 	{
 		super();
 
 		this.x = x;
 		this.y = y;
 
-		specifiedColor = color;
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("ModeSeven", 16, color);
+		defaultTextFormat = new TextFormat("_sans", 13, color);
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
 
 		cacheCount = 0;
 		currentTime = 0;
+		memoryMegas = 0;
+		memoryTotal = 0;
 		times = [];
 
 		#if flash
@@ -85,14 +87,16 @@ class FPS extends TextField
 		if (currentCount != cacheCount /*&& visible*/)
 		{
 			text = "FPS: " + currentFPS;
-			var memoryMegas:Float = 0;
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			text += "\nMemory: " + memoryMegas + " mb";
+			//memoryMegas = Math.round(System.totalMemory / 1024 / 1024 * 100)/100;
+			if(memoryMegas>memoryTotal)
+				memoryTotal=memoryMegas;
+			text += "\nRAM: " + memoryMegas + "mb" + " / " + memoryTotal + 'mb';
 			#end
 
-			textColor = specifiedColor;
+			textColor = 0xFFFFFFFF;
 			if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2)
 			{
 				textColor = 0xFFFF0000;
