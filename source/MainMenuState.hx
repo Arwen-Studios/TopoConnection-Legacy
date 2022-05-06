@@ -46,7 +46,7 @@ class MainMenuState extends MusicBeatState
 		'options'
 	];
 
-	var magenta:FlxSprite;
+	var bg:BGSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
@@ -80,33 +80,19 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('mainmenu/bg/topo_lighter'));
+		bg = new BGSprite('menuBGCool', 0, 0, ['loop'], true);
 		bg.scrollFactor.set(0);
-		bg.setGraphicSize(Std.int(bg.width * 1.175));
+		bg.setGraphicSize(Std.int(bg.width * 5));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		bg.color = TitleState.blammedLightsColors[0];
-		bg.alpha = 0.6;
 		add(bg);
-		blammableObjects.push(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
-
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('mainmenu/bg/topo_lighter'));
-		magenta.scrollFactor.set(0);
-		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.visible = false;
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
-		add(magenta);
-
-		// magenta.scrollFactor.set();
-
+		
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
@@ -231,9 +217,6 @@ class MainMenuState extends MusicBeatState
 				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-
-					if (ClientPrefs.flashing)
-						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{

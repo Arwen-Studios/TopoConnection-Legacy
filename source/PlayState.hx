@@ -1163,7 +1163,7 @@ class PlayState extends MusicBeatState
 
 		//
 		ratingTxtGroup = new FlxTypedGroup<FlxText>();
-		ratingTxtGroup.visible = !ClientPrefs.hideHud && ClientPrefs.showJC;
+		ratingTxtGroup.visible = !ClientPrefs.hideHud && !cpuControlled && ClientPrefs.showJC;
 		for (i in 0...8)
 		{
 			var ratingTxt = new FlxText(20, FlxG.height * 0.5 - 8 + (16 * (i - 2)), FlxG.width, "", 16);
@@ -4425,7 +4425,7 @@ class PlayState extends MusicBeatState
 		rating.acceleration.y = 550;
 		rating.velocity.y -= FlxG.random.int(140, 175);
 		rating.velocity.x -= FlxG.random.int(0, 10);
-		rating.visible = (!ClientPrefs.hideHud && showRating);
+		rating.visible = (!ClientPrefs.hideHud && !cpuControlled && showRating);
 		if (ClientPrefs.ratingPos == "Fixed")
 		{
 			rating.cameras = [camHUD];
@@ -4441,7 +4441,7 @@ class PlayState extends MusicBeatState
 		comboSpr.acceleration.y = 550;
 		comboSpr.velocity.y -= FlxG.random.int(140, 175);
 		comboSpr.velocity.x -= FlxG.random.int(0, 10);
-		comboSpr.visible = (!ClientPrefs.hideHud && showCombo);
+		comboSpr.visible = (!ClientPrefs.hideHud && !cpuControlled && showCombo);
 		if (ClientPrefs.ratingPos == "Fixed")
 		{
 			comboSpr.cameras = [camHUD];
@@ -4455,7 +4455,7 @@ class PlayState extends MusicBeatState
 		msText.acceleration.y = 600;
 		msText.velocity.y -= 150;
 		msText.size = 20;
-		msText.visible = (ClientPrefs.accuracyDisplay && !ClientPrefs.hideHud && showMilliseconds);
+		msText.visible = (ClientPrefs.accuracyDisplay && !ClientPrefs.hideHud && !cpuControlled && showMilliseconds);
 
 		lastCombo.push(comboSpr);
 		lastCombo.push(msText);
@@ -4517,7 +4517,7 @@ class PlayState extends MusicBeatState
 			numScore.acceleration.y = FlxG.random.int(200, 300);
 			numScore.velocity.y -= FlxG.random.int(140, 160);
 			numScore.velocity.x = FlxG.random.float(-5, 5);
-			numScore.visible = !ClientPrefs.hideHud;
+			numScore.visible = (!ClientPrefs.hideHud && !cpuControlled);
 
 			if (combo >= 10 || combo == 0)
 			{
