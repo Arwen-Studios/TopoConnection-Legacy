@@ -308,6 +308,15 @@ class CreditsState extends MusicBeatState
 				'special-thx/B3'
 			],
 			[
+				'Hotline 024',
+				'special-thx/hotline024',
+				"Huge Inspiration for the Game HUD and overhaul it's a incredible mod.",
+				'https://gamejolt.com/games/arrowfunk/646058',
+				'cc0053',
+				'Hotline024_Sound',
+				'special-thx/ports/hotline024'
+			],
+			[
 				'Arrow Funk',
 				'special-thx/arrowfunk',
 				'Overhaul, a great mod made by some pretty awesome people, I recommend it.',
