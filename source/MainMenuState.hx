@@ -29,6 +29,7 @@ class MainMenuState extends MusicBeatState
 	public static var topoVer:String = '1.0p';
 	public static var psychEngineVersion:String = '0.5.2h'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
+	var thex:Int = 100;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
@@ -98,9 +99,18 @@ class MainMenuState extends MusicBeatState
 
 		var scale:Float = 1;
 		for (i in 0...optionShit.length)
-		{
+		{		
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140) + offset);
+			var menuItem:FlxSprite = new FlxSprite(270, 80 + (i * 80) );
+			if (i % 2 == 0) //story mode and credits x and y
+			{
+				menuItem.x = 170;
+				menuItem.y += 80; 
+			}
+			else //awards and options x and y
+			{
+				menuItem.x = 700;
+			}
 			menuItem.scale.x = scale;
 			menuItem.scale.y = scale;
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
@@ -108,7 +118,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			//menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if (optionShit.length < 6)
@@ -185,16 +195,28 @@ class MainMenuState extends MusicBeatState
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
-
+		//the controls are diferent bc of the fact that the menu is sideways, you get it
+		//é isso aqui tá ghost
 		if (!selectedSomethin)
 		{
-			if (controls.UI_UP_P)
+			if (controls.UI_UP_P)//
+			{
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+				changeItem(-2);
+			}
+
+			if (controls.UI_DOWN_P)
+			{
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+				changeItem(2);
+			}
+			if (controls.UI_LEFT_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (controls.UI_DOWN_P)
+			if (controls.UI_RIGHT_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
@@ -275,7 +297,7 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.screenCenter(X);
+			//spr.screenCenter(X);
 		});
 	}
 
