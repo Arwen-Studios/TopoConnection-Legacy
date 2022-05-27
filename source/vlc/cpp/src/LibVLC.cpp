@@ -2,18 +2,30 @@
 #include <iostream>
 #include <string>
 #include <stdint.h>
-//#include <windows.h>
+#include <sstream>
 
 using std::string;
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////////////
 
+// https://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-g-mingw
+#ifdef ANDROID
+namespace patch
+{
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str() ;
+    }
+}
+#endif
+
 LibVLC::LibVLC(void)
 {
 	char const *Args[] =
 	{
-		//"--aout", "amem",
 		"--drop-late-frames",
 		"--ignore-config",
 		"--intf", "dummy",
@@ -24,23 +36,15 @@ LibVLC::LibVLC(void)
 		"--text-renderer", "dummy",
 		"--quiet",
 		#if PLATFORM_LINUX
-"--no-xlib",
-#endif
-
-#if DEBUG
-"--verbose=2"
-#else
-#endif
-		//"--no-xlib", //no xlib if linux
-		//"--vout", "vmem"
-		//"--avcodec-hw=dxva2",
-		//"--verbose=2"
+		"--no-xlib",
+		#endif
+		#if DEBUG
+		"--verbose=2"
+		#endif
 	};	
 	
 	int Argc = sizeof(Args) / sizeof(*Args);
-	// libVlcInstance = libvlc_new(Argc, Args);
 	libVlcInstance = libvlc_new(0, NULL);
-	
 }
 
 LibVLC::~LibVLC(void)
@@ -88,16 +92,10 @@ static void unlock(void *data, void *id, void *const *p_pixels)
 	ctx->imagemutex.unlock();
 }
 
-static void display(void *opaque, void *picture)
-{
-	//t_ctx *ctx = (t_ctx *)data;
-	//self->flags[15]=1;
-	//std::cout << "display " << self << std::endl;
-}
+static void display(void *opaque, void *picture) {}
 
 static unsigned format_setup(void** opaque, char* chroma, unsigned* width, unsigned* height, unsigned* pitches, unsigned* lines)
 {
-    //LibVLC* self = reinterpret_cast<LibVLC*>( opaque );
 	struct ctx *callback = reinterpret_cast<struct ctx *>(*opaque);	
 	
 	unsigned _w = (*width);
@@ -138,9 +136,7 @@ void LibVLC::setPath(const char* path)
 {
 	std::cout << "settin' path: " << path << std::endl;
 
-	//libVlcMediaItem = libvlc_media_new_path(libVlcInstance, path);
 	libVlcMediaItem = libvlc_media_new_location(libVlcInstance, path);
-	//libVlcMediaItem = libvlc_media_new_location(libVlcInstance, "file:///C:\\Program Files (x86)\\Xms Client 3\\resources\\downloaded\\files\\ac079337-dbd1-11e6-a59e-f681aa9a2e27.mp4");
 	libVlcMediaPlayer = libvlc_media_player_new_from_media(libVlcMediaItem);
 	libvlc_media_parse(libVlcMediaItem);
 	libvlc_media_release(libVlcMediaItem);
@@ -149,13 +145,12 @@ void LibVLC::setPath(const char* path)
 	if (libVlcMediaItem!=nullptr)
 	{
 		std::string sa = "input-repeat=";
+		#ifdef ANDROID
+		sa += patch::to_string(repeat);
+		#else
 		sa += std::to_string(repeat);
+		#endif
 		libvlc_media_add_option(libVlcMediaItem, sa.c_str() );	
-		//if (repeat==-1)
-			//libvlc_media_add_option(libVlcMediaItem, "input-repeat=-1" );	
-		//else if (repeat==0)
-			//libvlc_media_add_option(libVlcMediaItem, "input-repeat=0" );	
-		//std::cout << "Num repeats: " << sa << std::endl;
 	}
 }
 
@@ -180,13 +175,11 @@ void LibVLC::play(const char* path)
 
 void LibVLC::playInWindow()
 {
-	//libvlc_video_set_format_callbacks(libVlcMediaPlayer, format_setup, format_cleanup);
 	ctx.pixeldata = 0;
 	ctx.pixeldata2 = 0;
 	eventManager = libvlc_media_player_event_manager( libVlcMediaPlayer );
 	registerEvents();
 	libvlc_media_player_play(libVlcMediaPlayer);
-	//libvlc_audio_set_volume(libVlcMediaPlayer, 0);
 }
 
 void LibVLC::playInWindow(const char* path)
@@ -194,11 +187,9 @@ void LibVLC::playInWindow(const char* path)
 	setPath(path);
 	ctx.pixeldata = 0;
 	ctx.pixeldata2 = 0;
-	//libvlc_video_set_format_callbacks(libVlcMediaPlayer, format_setup, format_cleanup);
 	eventManager = libvlc_media_player_event_manager( libVlcMediaPlayer );
 	registerEvents();
 	libvlc_media_player_play(libVlcMediaPlayer);
-	//libvlc_audio_set_volume(libVlcMediaPlayer, 0);
 }
 
 void LibVLC::setInitProps()
@@ -254,18 +245,6 @@ int LibVLC::isPlaying()
 void LibVLC::setRepeat(int numRepeats)
 {
 	repeat = numRepeats;
-/*	if (libVlcMediaItem!=nullptr)
-	{
-		std::string sa = "input-repeat=";
-		sa += std::to_string(repeat);
-		//libvlc_media_add_option(libVlcMediaItem, sa.c_str() );	
-		if (repeat==-1)
-			libvlc_media_add_option(libVlcMediaItem, "input-repeat=-1" );	
-		else if (repeat==0)
-			libvlc_media_add_option(libVlcMediaItem, "input-repeat=0" );	
-		//std::cout << "Num repeats: " << sa << std::endl;
-	}
-	*/
 }
 
 int LibVLC::getRepeat()
@@ -282,8 +261,6 @@ void LibVLC::setVolume(float volume)
 {
 	if (volume > 100)
 		volume = 100.0;
-
-	// vol = volume;
 
 	if (libVlcMediaPlayer != NULL && libVlcMediaPlayer != nullptr)
 	{
@@ -345,20 +322,8 @@ bool LibVLC::isSeekable()
 void LibVLC::openMedia(const char* mediaPathName)
 {
 	libVlcMediaItem = libvlc_media_new_location(libVlcInstance, mediaPathName);
-	//libVlcMediaItem = libvlc_media_new_path(libVlcInstance, mediaPathName);
     libvlc_media_player_set_media(libVlcMediaPlayer, libVlcMediaItem);    
 }
-
-//void MediaPlayer::setMedia( Media* media )
-//{
-    //libvlc_media_player_set_media( m_internalPtr, media->getInternalPtr() );
-//}
-
-//void
-//MediaPlayer::getSize( quint32 *outWidth, quint32 *outHeight )
-//{
-    //libvlc_video_get_size( m_internalPtr, 0, outWidth, outHeight );
-//}
 
 float LibVLC::getFPS()
 {
@@ -374,26 +339,6 @@ bool LibVLC::hasVout()
 {
     return libvlc_media_player_has_vout( libVlcMediaPlayer );
 }
-/*
-void LibVLC::setXwindow(uint32_t drawable)
-{
-	libvlc_media_player_set_xwindow(*this, drawable);
-}
-
-uint32_t LibVLC::xwindow()
-{
-	return libvlc_media_player_get_xwindow(*this);
-}
-
-void LibVLC::setHwnd(void * drawable)
-{
-	libvlc_media_player_set_hwnd(*this, drawable);
-}
-
-void* LibVLC::hwnd()
-{
-	return libvlc_media_player_get_hwnd(*this);
-}*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 
