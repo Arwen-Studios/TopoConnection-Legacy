@@ -1,5 +1,5 @@
 # NOTICE
-for compiling this mod on Linux, you require these packages
+for compiling this mod on Linux, you **need** to install these packages
 `libvlc-dev`
 `libvlccore-dev`
 
