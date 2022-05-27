@@ -25,6 +25,7 @@ import Achievements;
 class ClassReggie extends MusicBeatState
 {
     public static var instance:ClassReggie;
+    
     // song loading
     public static var SONG:SwagSong = null;
 
@@ -33,7 +34,6 @@ class ClassReggie extends MusicBeatState
 
     // texts
     var daText:FlxText;
-    var engineWatermark:FlxText;
 
     // this god damn rat
     var reggie:FlxSprite;

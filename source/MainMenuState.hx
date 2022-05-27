@@ -133,7 +133,7 @@ class MainMenuState extends MusicBeatState
 
 		//FlxG.camera.follow(camFollowPos, null, 1);
 
-		var topoVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Topo Connection v" + topoVer, 12);
+		var topoVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Topo Connection LEGACY v" + topoVer, 12);
 		topoVer.scrollFactor.set();
 		topoVer.setFormat(Paths.font(Std.string(Main.gameFont)), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(topoVer);
