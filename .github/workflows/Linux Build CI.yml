@@ -61,4 +61,4 @@ jobs:
         uses: actions/upload-artifact@v2.2.4
         with:
           name: Linux Build CI
-          path: 'export/release/linux/TopoConnection-Linux'
+          path: 'export/release/linux/bin'

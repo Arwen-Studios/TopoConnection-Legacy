@@ -62,4 +62,4 @@ jobs:
         uses: actions/upload-artifact@v2.2.4
         with:
           name: Windows Build CI
-          path: export/release/windows/TopoConnection-Windows
+          path: export/release/windows/bin

@@ -61,4 +61,4 @@ jobs:
         uses: actions/upload-artifact@v2.2.4
         with:
           name: Mac Build CI
-          path: export/release/macos/TopoConnection-Mac
+          path: export/release/macos/bin
