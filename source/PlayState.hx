@@ -1600,70 +1600,63 @@ class PlayState extends MusicBeatState
 			startCountdown();
 	}
 
-	public function startVideo(name:String, ?attend:Bool):Void
-	{	
-			#if VIDEOS_ALLOWED
-			var foundFile:Bool = false;
-			var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
-			#if sys
-			if(FileSystem.exists(fileName)) {
+	public function startVideo(name:String, ?atend:Bool)
+	{
+		#if VIDEOS_ALLOWED
+		inCutscene = true;
+
+		var foundFile:Bool = false;
+		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
+		#if sys
+		if(FileSystem.exists(fileName)) {
+			foundFile = true;
+		}
+		#end
+
+		if(!foundFile) {
+			fileName = Paths.video(name);
+			if(#if sys FileSystem.exists(fileName) #else OpenFlAssets.exists(fileName) #end) {
 				foundFile = true;
 			}
-			#end
+		}
+		
+		var video:VideoHandler = new VideoHandler();
 
-			if(!foundFile) {
-				fileName = Paths.video(name);
-				#if sys
-				if(FileSystem.exists(fileName)) {
-					foundFile = true;
-				}
-				#else
-				if(OpenFlAssets.exists(fileName)) {
-					foundFile = true;
-				}
-				#end
-			}
-				
-			if (foundFile)
+		if (foundFile) {
+			FlxG.sound.music.stop();
+			video.finishCallback = function()
 			{
-				inCutscene = true;
-				var video:VideoHandler = new VideoHandler();
-				FlxG.sound.music.stop();
-				video.finishCallback = function()
+				if (atend == true)
 				{
-					if (atend == true)
+					if ((storyPlaylist.length <= 0))
 					{
-						if ((storyPlaylist.length <= 0))
-						{
-							// play menu music
-							FlxG.sound.playMusic(Paths.music(Main.menuSong));
+						// play menu music
+						FlxG.sound.playMusic(Paths.music(Main.menuSong));
 
-							// set up transitions
-							cancelMusicFadeTween();
-							if (FlxTransitionableState.skipNextTransIn)
-							{
-								CustomFadeTransition.nextCamera = null;
-							}
-
-							// change to the menu state
-							MusicBeatState.switchState(new StoryMenuState());
-						}
-						else
+						// set up transitions
+						cancelMusicFadeTween();
+						if (FlxTransitionableState.skipNextTransIn)
 						{
-							SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-							MusicBeatState.switchState(new PlayState());
+							CustomFadeTransition.nextCamera = null;
 						}
+
+						// change to the menu state
+						MusicBeatState.switchState(new StoryMenuState());
 					}
 					else
-						startAndEnd();
+					{
+						SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+						MusicBeatState.switchState(new PlayState());
+					}
 				}
-				if (foundFile) video.playVideo(Paths.video(name));
+				else
+					startAndEnd();
 			}
-			else
-			{
-				FlxG.log.warn('Couldnt find video file: ' + fileName);
-				startAndEnd();
-			}
+			video.playVideo(Paths.video(name));
+		}
+		else
+		{
+			FlxG.log.warn('Couldnt find video file: ' + fileName);
 			startAndEnd();
 		}
 		#else
