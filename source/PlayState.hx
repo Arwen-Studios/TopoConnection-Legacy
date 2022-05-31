@@ -1471,90 +1471,6 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public function startVideo(name:String, ?attend:Bool):Void
-	{
-		#if VIDEOS_ALLOWED
-		var foundFile:Bool = false;
-		var fileName:String = '';
-
-		#if sys
-		if (FileSystem.exists(fileName)) {
-			foundFile = true;
-		}
-		#end
-
-		#if MODS_ALLOWED
-		foundFile = Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT);
-		#end
-
-		if (!foundFile)
-		{
-			fileName = Paths.video(name);
-			#if sys
-			if (FileSystem.exists(fileName)) {
-			#else
-			if (OpenFlAssets.exists(fileName)) {
-			#end
-				foundFile = true;
-			}
-			}
-			
-			if (foundFile)
-			{
-				inCutscene = true;
-				var video:VideoHandler = new VideoHandler();
-				FlxG.sound.music.stop();
-				video.finishCallback = function()
-				{
-					if (atend == true)
-					{
-						if ((storyPlaylist.length <= 0))
-						{
-							// play menu music
-							FlxG.sound.playMusic(Paths.music(Main.menuSong));
-
-							// set up transitions
-							cancelMusicFadeTween();
-							if (FlxTransitionableState.skipNextTransIn)
-							{
-								CustomFadeTransition.nextCamera = null;
-							}
-
-							// change to the menu state
-							MusicBeatState.switchState(new StoryMenuState());
-						}
-						else
-						{
-							SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-							MusicBeatState.switchState(new PlayState());
-						}
-					}
-					else
-						startAndEnd();
-				}
-				if (foundFile) video.playVideo(Paths.video(name));
-			}
-			else
-			{
-				FlxG.log.warn('Couldnt find video file: ' + fileName);
-				startAndEnd();
-			}
-			startAndEnd();
-		}
-		#else
-		FlxG.log.warn('Platform not supported!');
-		startAndEnd();
-		#end
-	}
-
-	function startAndEnd()
-	{
-		if (endingSong)
-			endSong();
-		else
-			startCountdown();
-	}
-
 	public function addShaderToCamera(cam:String, effect:ShaderEffect)
 	{ // STOLE FROM ANDROMEDA
 		switch (cam.toLowerCase())
@@ -1674,6 +1590,84 @@ class PlayState extends MusicBeatState
 		}
 		char.x += char.positionArray[0];
 		char.y += char.positionArray[1];
+	}
+
+	function startAndEnd()
+	{
+		if (endingSong)
+			endSong();
+		else
+			startCountdown();
+	}
+
+	public function startVideo(name:String, ?attend:Bool):Void
+	{	
+			#if VIDEOS_ALLOWED
+			var foundFile:Bool = false;
+			var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
+			#if sys
+			if(FileSystem.exists(fileName)) {
+				foundFile = true;
+			}
+			#end
+
+			if(!foundFile) {
+				fileName = Paths.video(name);
+				#if sys
+				if(FileSystem.exists(fileName)) {
+				#else
+				if(OpenFlAssets.exists(fileName)) {
+				#end
+					foundFile = true;
+				}
+			}
+				
+			if (foundFile)
+			{
+				inCutscene = true;
+				var video:VideoHandler = new VideoHandler();
+				FlxG.sound.music.stop();
+				video.finishCallback = function()
+				{
+					if (atend == true)
+					{
+						if ((storyPlaylist.length <= 0))
+						{
+							// play menu music
+							FlxG.sound.playMusic(Paths.music(Main.menuSong));
+
+							// set up transitions
+							cancelMusicFadeTween();
+							if (FlxTransitionableState.skipNextTransIn)
+							{
+								CustomFadeTransition.nextCamera = null;
+							}
+
+							// change to the menu state
+							MusicBeatState.switchState(new StoryMenuState());
+						}
+						else
+						{
+							SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+							MusicBeatState.switchState(new PlayState());
+						}
+					}
+					else
+						startAndEnd();
+				}
+				if (foundFile) video.playVideo(Paths.video(name));
+			}
+			else
+			{
+				FlxG.log.warn('Couldnt find video file: ' + fileName);
+				startAndEnd();
+			}
+			startAndEnd();
+		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		startAndEnd();
+		#end
 	}
 
 	var dialogueCount:Int = 0;
