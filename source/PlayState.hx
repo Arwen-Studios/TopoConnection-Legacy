@@ -59,7 +59,7 @@ import openfl.events.KeyboardEvent;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
 
-#if windows
+#if VIDEOS_ALLOWED
 import vlc.VideoHandler;
 #end
 
@@ -1022,15 +1022,6 @@ class PlayState extends MusicBeatState
 			case 'bimbo' | 'deez-nuts': // Secret Song
 				timeBar.createFilledBar(FlxColor.BLACK, FlxColor.YELLOW);
 
-			case 'extrasong':
-				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.RED);
-
-			case 'suok':
-				timeBar.createFilledBar(0xFFFF0062, 0xFF000000);
-
-			case 'ghost-tap':
-				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.CYAN);
-
 			case 'cocoa': // Secret Song
 				timeBar.createFilledBar(0xFFE78EE6, 0xFF353535);
 
@@ -1609,65 +1600,63 @@ class PlayState extends MusicBeatState
 			startCountdown();
 	}
 
-	public function startVideo(name:String, ?attend:Bool):Void
+	public function startVideo(name:String, ?atend:Bool)
 	{
 		#if VIDEOS_ALLOWED
+		inCutscene = true;
+
 		var foundFile:Bool = false;
 		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
-		#if sys if (FileSystem.exists(fileName)) { foundFile = true; } #end
+		#if sys
+		if(FileSystem.exists(fileName)) {
+			foundFile = true;
+		}
+		#end
 
-		if (!foundFile)
-		{
+		if(!foundFile) {
 			fileName = Paths.video(name);
-			#if sys
-			if (FileSystem.exists(fileName))
-			{ #else
-			if (OpenFlAssets.exists(fileName))
-			{ #end
+			if(#if sys FileSystem.exists(fileName) #else OpenFlAssets.exists(fileName) #end) {
 				foundFile = true;
 			}
-			}
-			
-			if (foundFile)
+		}
+		
+		var video:VideoHandler = new VideoHandler();
+
+		if (foundFile) {
+			FlxG.sound.music.stop();
+			video.finishCallback = function()
 			{
-				inCutscene = true;
-				var video:VideoHandler = new VideoHandler();
-				FlxG.sound.music.stop();
-				video.finishCallback = function()
+				if (atend == true)
 				{
-					if (atend == true)
+					if ((storyPlaylist.length <= 0))
 					{
-						if ((storyPlaylist.length <= 0))
-						{
-							// play menu music
-							FlxG.sound.playMusic(Paths.music(Main.menuSong));
+						// play menu music
+						FlxG.sound.playMusic(Paths.music(Main.menuSong));
 
-							// set up transitions
-							cancelMusicFadeTween();
-							if (FlxTransitionableState.skipNextTransIn)
-							{
-								CustomFadeTransition.nextCamera = null;
-							}
-
-							// change to the menu state
-							MusicBeatState.switchState(new StoryMenuState());
-						}
-						else
+						// set up transitions
+						cancelMusicFadeTween();
+						if (FlxTransitionableState.skipNextTransIn)
 						{
-							SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-							MusicBeatState.switchState(new PlayState());
+							CustomFadeTransition.nextCamera = null;
 						}
+
+						// change to the menu state
+						MusicBeatState.switchState(new StoryMenuState());
 					}
 					else
-						startAndEnd();
+					{
+						SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+						MusicBeatState.switchState(new PlayState());
+					}
 				}
-				if (foundFile) video.playVideo(Paths.video(name));
+				else
+					startAndEnd();
 			}
-			else
-			{
-				FlxG.log.warn('Couldnt find video file: ' + fileName);
-				startAndEnd();
-			}
+			video.playVideo(Paths.video(name));
+		}
+		else
+		{
+			FlxG.log.warn('Couldnt find video file: ' + fileName);
 			startAndEnd();
 		}
 		#else
@@ -1677,6 +1666,7 @@ class PlayState extends MusicBeatState
 	}
 
 	var dialogueCount:Int = 0;
+
 	// You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
 	{
@@ -5752,10 +5742,6 @@ class PlayState extends MusicBeatState
 						ratings = Ratings.topoRatings;
 					case "bimbo" | "deez-nuts":
 						ratings = Ratings.bimboRatings;
-					case "nuzlocke":
-						ratings = Ratings.nuzlockeRatings;
-					case "ghost":
-						ratings = Ratings.ghostRatings;
 				}
 				// Rating Name
 				if (ratingPercent >= 1)
