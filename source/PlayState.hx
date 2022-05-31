@@ -1624,6 +1624,8 @@ class PlayState extends MusicBeatState
 
 		if (foundFile) {
 			FlxG.sound.music.stop();
+			video.playVideo(fileName);
+
 			video.finishCallback = function()
 			{
 				if (atend == true)
@@ -1648,11 +1650,11 @@ class PlayState extends MusicBeatState
 						SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
 						MusicBeatState.switchState(new PlayState());
 					}
+					return;
 				}
 				else
 					startAndEnd();
 			}
-			video.playVideo(Paths.video(name));
 		}
 		else
 		{
