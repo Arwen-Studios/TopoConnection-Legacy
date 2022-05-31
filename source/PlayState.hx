@@ -331,6 +331,9 @@ class PlayState extends MusicBeatState
 	// floating
 	private var floating:Float = 0;
 
+	// dialogue box
+	public var psychDialogue:DialogueBoxPsych;
+
 	override public function create()
 	{
 		/*
@@ -1019,15 +1022,6 @@ class PlayState extends MusicBeatState
 			case 'bimbo' | 'deez-nuts': // Secret Song
 				timeBar.createFilledBar(FlxColor.BLACK, FlxColor.YELLOW);
 
-			case 'extrasong':
-				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.RED);
-
-			case 'suok':
-				timeBar.createFilledBar(0xFFFF0062, 0xFF000000);
-
-			case 'ghost-tap':
-				timeBar.createFilledBar(FlxColor.WHITE, FlxColor.CYAN);
-
 			case 'cocoa': // Secret Song
 				timeBar.createFilledBar(0xFFE78EE6, 0xFF353535);
 
@@ -1685,7 +1679,6 @@ class PlayState extends MusicBeatState
 	var dialogueCount:Int = 0;
 
 	// You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
-	public var psychDialogue:DialogueBoxPsych;
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
 	{
 		// TO DO: Make this more flexible, maybe?
@@ -5760,10 +5753,6 @@ class PlayState extends MusicBeatState
 						ratings = Ratings.topoRatings;
 					case "bimbo" | "deez-nuts":
 						ratings = Ratings.bimboRatings;
-					case "nuzlocke":
-						ratings = Ratings.nuzlockeRatings;
-					case "ghost":
-						ratings = Ratings.ghostRatings;
 				}
 				// Rating Name
 				if (ratingPercent >= 1)
