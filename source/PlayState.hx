@@ -1673,7 +1673,7 @@ class PlayState extends MusicBeatState
 	var dialogueCount:Int = 0;
 
 	// You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
-	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
+	function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
 	{
 		// TO DO: Make this more flexible, maybe?
 		if (psychDialogue != null)
