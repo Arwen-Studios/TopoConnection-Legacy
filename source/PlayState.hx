@@ -1615,11 +1615,13 @@ class PlayState extends MusicBeatState
 				fileName = Paths.video(name);
 				#if sys
 				if(FileSystem.exists(fileName)) {
-				#else
-				if(OpenFlAssets.exists(fileName)) {
-				#end
 					foundFile = true;
 				}
+				#else
+				if(OpenFlAssets.exists(fileName)) {
+					foundFile = true;
+				}
+				#end
 			}
 				
 			if (foundFile)
@@ -1673,7 +1675,7 @@ class PlayState extends MusicBeatState
 	var dialogueCount:Int = 0;
 
 	// You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
-	function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
+	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
 	{
 		// TO DO: Make this more flexible, maybe?
 		if (psychDialogue != null)
