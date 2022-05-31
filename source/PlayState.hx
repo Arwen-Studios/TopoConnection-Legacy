@@ -331,9 +331,6 @@ class PlayState extends MusicBeatState
 	// floating
 	private var floating:Float = 0;
 
-	// dialogue box
-	public var psychDialogue:DialogueBoxPsych;
-
 	override public function create()
 	{
 		/*
@@ -1601,29 +1598,30 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	function startAndEnd()
-	{
-		if (endingSong)
-			endSong();
-		else
-			startCountdown();
-	}
-
 	public function startVideo(name:String, ?attend:Bool):Void
 	{
 		#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
-		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
-		#if sys if (FileSystem.exists(fileName)) { foundFile = true; } #end
+		var fileName:String = '';
+
+		#if sys
+		if (FileSystem.exists(fileName)) {
+			foundFile = true;
+		}
+		#end
+
+		#if MODS_ALLOWED
+		foundFile = Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT);
+		#end
 
 		if (!foundFile)
 		{
 			fileName = Paths.video(name);
 			#if sys
-			if (FileSystem.exists(fileName))
-			{ #else
-			if (OpenFlAssets.exists(fileName))
-			{ #end
+			if (FileSystem.exists(fileName)) {
+			#else
+			if (OpenFlAssets.exists(fileName)) {
+			#end
 				foundFile = true;
 			}
 			}
@@ -1676,8 +1674,18 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
+	function startAndEnd()
+	{
+		if (endingSong)
+			endSong();
+		else
+			startCountdown();
+	}
+
 	var dialogueCount:Int = 0;
+
 	// You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
+	public var psychDialogue:DialogueBoxPsych;
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
 	{
 		// TO DO: Make this more flexible, maybe?
