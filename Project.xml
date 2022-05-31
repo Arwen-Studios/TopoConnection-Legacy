@@ -120,10 +120,10 @@
 	<haxelib name="flixel" />
 	<haxedev set='webgl' />
 
-	<!--haxelib name="hxCodec" if="windows" /-->
+	<haxelib name="hxCodec" if="windows" />
 
 	<!-- Show debug traces for hxCodec -->
-	<!--haxedef name="HXC_DEBUG_TRACE" if="windows debug" /-->
+	<haxedef name="HXC_DEBUG_TRACE" if="windows debug" />
 
 	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
