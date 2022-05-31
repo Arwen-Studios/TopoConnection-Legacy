@@ -331,6 +331,9 @@ class PlayState extends MusicBeatState
 	// floating
 	private var floating:Float = 0;
 
+	// dialogue box
+	public var psychDialogue:DialogueBoxPsych;
+
 	override public function create()
 	{
 		/*
@@ -1598,6 +1601,14 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
+	function startAndEnd()
+	{
+		if (endingSong)
+			endSong();
+		else
+			startCountdown();
+	}
+
 	public function startVideo(name:String, ?attend:Bool):Void
 	{
 		#if VIDEOS_ALLOWED
@@ -1665,18 +1676,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	function startAndEnd()
-	{
-		if (endingSong)
-			endSong();
-		else
-			startCountdown();
-	}
-
 	var dialogueCount:Int = 0;
-
-	public var psychDialogue:DialogueBoxPsych;
-
 	// You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
 	{
