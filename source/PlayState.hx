@@ -1301,11 +1301,7 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 
 				case 'purple-red':
-					#if VIDEOS_ALLOWED
 					startVideo('cutscene1');
-					#else
-					startCountdown();
-					#end
 
 				default:
 					startCountdown();
@@ -1663,6 +1659,9 @@ class PlayState extends MusicBeatState
 			}
 			startAndEnd();
 		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		startAndEnd();
 		#end
 	}
 
