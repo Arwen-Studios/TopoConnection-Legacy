@@ -59,10 +59,6 @@ import openfl.events.KeyboardEvent;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
 
-#if VIDEOS_ALLOWED
-import vlc.VideoHandler;
-#end
-
 import Shaders;
 
 using StringTools;
@@ -1600,11 +1596,8 @@ class PlayState extends MusicBeatState
 			startCountdown();
 	}
 
-	public function startVideo(name:String, ?atend:Bool)
-	{
+	public function startVideo(name:String):Void {
 		#if VIDEOS_ALLOWED
-		inCutscene = true;
-
 		var foundFile:Bool = false;
 		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
 		#if sys
@@ -1615,56 +1608,35 @@ class PlayState extends MusicBeatState
 
 		if(!foundFile) {
 			fileName = Paths.video(name);
-			if(#if sys FileSystem.exists(fileName) #else OpenFlAssets.exists(fileName) #end) {
+			#if sys
+			if(FileSystem.exists(fileName)) {
+			#else
+			if(OpenFlAssets.exists(fileName)) {
+			#end
 				foundFile = true;
 			}
 		}
-		
-		var video:VideoHandler = new VideoHandler();
 
-		if (foundFile) {
-			FlxG.sound.music.stop();
-			video.playVideo(fileName);
+		if(foundFile) {
+			inCutscene = true;
+			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+			bg.scrollFactor.set();
+			bg.cameras = [camHUD];
+			add(bg);
 
-			video.finishCallback = function()
-			{
-				if (atend == true)
-				{
-					if ((storyPlaylist.length <= 0))
-					{
-						// play menu music
-						FlxG.sound.playMusic(Paths.music(Main.menuSong));
-
-						// set up transitions
-						cancelMusicFadeTween();
-						if (FlxTransitionableState.skipNextTransIn)
-						{
-							CustomFadeTransition.nextCamera = null;
-						}
-
-						// change to the menu state
-						MusicBeatState.switchState(new StoryMenuState());
-					}
-					else
-					{
-						SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-						MusicBeatState.switchState(new PlayState());
-					}
-					return;
-				}
-				else
-					startAndEnd();
+			(new FlxVideo(fileName)).finishCallback = function() {
+				remove(bg);
+				startAndEnd();
 			}
+			return;
 		}
 		else
 		{
 			FlxG.log.warn('Couldnt find video file: ' + fileName);
 			startAndEnd();
 		}
-		#else
-		FlxG.log.warn('Platform not supported!');
-		startAndEnd();
 		#end
+		startAndEnd();
 	}
 
 	var dialogueCount:Int = 0;
